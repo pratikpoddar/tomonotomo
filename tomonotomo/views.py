@@ -31,12 +31,4 @@ def about(request):
 def join(request):
     return render(request, 'tomonotomo/join.html')
 
-# def facebook_user_update(sender, user, response, details, **kwargs):
-# 	profile_instance, created = Profile.objects.get_or_create(user=user)
-# 	profile_instance.save()
-# 	return True
-
-# pre_update.connect(facebook_user_update, sender=FacebookBackend)
-
-
 

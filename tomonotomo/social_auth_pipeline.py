@@ -5,17 +5,38 @@ from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
 from django.contrib.auth import get_user_model
 
-import pprint
+from tomonotomo.models import UserTomonotomo
 
+def create_custom_user(backend, details, user=None, 
+                        user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
-def populate_user_info(backend, details, response, social_user, uid, user, *args, **kwargs):
-
-        pprint("ddfdf")
-
+        ## TODO: Sometimes user comes as none. Why?
         if user is None:
                 return
         if backend.__class__ != FacebookBackend:
                 return
+
+        res = kwargs['response']
+        
+        profile = UserTomonotomo() 
+        profile.accesstoken = res['access_token']
+        profile.expiresin = res['expires']
+        profile.education = res['education']
+        profile.work = res['work']
+        profile.email = res['email']
+        profile.first_name = res['first_name']
+        profile.last_name = res['last_name']
+        profile.gender = res['gender']
+        profile.hometown = res['hometown']
+        profile.location = res['location']
+        profile.username = res['username']
+        profile.userid = res['id']
+
+        profile.save()
+
+        return
+
+def populate_user_info(backend, details, response, social_user, uid, user, *args, **kwargs):
 
         profile = user.get_profile()
         profile.uid = response['id']

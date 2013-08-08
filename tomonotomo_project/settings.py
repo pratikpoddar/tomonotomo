@@ -170,8 +170,10 @@ FACEBOOK_EXTENDED_PERMISSIONS= ['email']
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
     'social_auth.backends.pipeline.associate.associate_by_email',
+
+    'tomonotomo.social_auth_pipeline.create_custom_user',
+
     'social_auth.backends.pipeline.user.get_username',
-    'tomonotomo.social_auth_pipeline.populate_user_info',
     'social_auth.backends.pipeline.user.create_user',    
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.user.update_user_details',
@@ -182,11 +184,10 @@ SOCIAL_AUTH_FORCE_RANDOM_USERNAME = False
 SOCIAL_AUTH_DEFAULT_USERNAME = 'socialauth_user'
 SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook',)
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
-SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'associate_complete'
+SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 SOCIAL_AUTH_ASSOCIATE_BY_EMAIL = True
 SOCIAL_AUTH_ERROR_KEY = 'socialauth_error'
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = False    # force https in dev and production
-SOCIAL_AUTH_USER_MODEL = 'tomonotomo.UserTomonotomo'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
 
 LOGIN_URL = '/tomonotomo/login/' 
