@@ -1,0 +1,93 @@
+{% extends "tomonotomo/base.html" %}
+{% load staticfiles %}
+
+{% block bodycontent %}
+
+<div class="page1_block">
+	<div class="container_12">
+		<div class="grid_8">
+			<div class="page_block">
+				<img src="{% static 'tomonotomo/img/page1_img2.jpg' %}" alt="">
+				<div class="extra_wrapper">
+					safe
+					friendly
+					trust
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="grid_4">
+			<h2>Connect with Friends of Friends only</h2>
+			<a href="{% url "socialauth_begin" "facebook" %}" class="btn"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
+			<h3>We hate spammers!<br/>We do not post anything on your wall</h3>
+		</div>
+	</div>
+</div>
+ 
+<div class="content page1">
+	<div class="container_12">
+
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>ask mutual friend to connect</h2>If you find someone cute, you can request one of your mutual friends to connect with him/her. Since the relationship is originated by a trusted mediator, it forces both parties to be disciplined, honest and gentle.<br>
+			</div>
+		</div>
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>connect & message directly</h2>If you do not want a mutual friend to know about your potential relationship, you can connect to him/her directly, but here again, because both the parties have explicit information regarding common friends, both the parties are disciplined due to social pressure<br>
+			</div>
+		</div>
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>looks cute, but don't connect</h2>You find someone cute, and you do not want to initiate the conversation and be more passive. Just indicate that you find him/her cute and we will connect you two only if he/she also finds you cute<br>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="grid_12">
+			<div class="hor_separator"></div>
+		</div>
+		<div class="clear"></div>
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>categories</h2>
+				<ul class="list">
+					<li><a href="http://livedemo00.template-help.com/wt_43688/#">Quetsit amet euis inuctor ut liguliqu</a></li>
+					<li><a href="http://livedemo00.template-help.com/wt_43688/#">Justo dolor loboeittis euisatis und</a></li>
+					<li><a href="http://livedemo00.template-help.com/wt_43688/#">Omnis iste natus errorptate</a></li>
+					<li><a href="http://livedemo00.template-help.com/wt_43688/#">Accum dolor emque lauda</a></li>
+					<li><a href="http://livedemo00.template-help.com/wt_43688/#">Tomea ae ab illiarchitec</a></li>
+					<li class="mb0 "><a href="http://livedemo00.template-help.com/wt_43688/#">Beatanatu t odit aut </a></li>
+				</ul>
+				<a href="http://livedemo00.template-help.com/wt_43688/#" class="btn m1">More</a>
+			</div>
+		</div>
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>why us?</h2>
+				<p>Ut odit aut fugit sed quia coequunagni dolores eos qui ratione vluptatem sequi nesciunuem ipsumdolor sit amet consectetuer adipis
+				cing eliaest vestibulum mole.</p>Phasellus portusce suscipit varius mi. Cum sociis natoque penatibus et magnirturientontes nascetur ridiculus mus. Nulla dui. <br>
+				<a href="http://livedemo00.template-help.com/wt_43688/#" class="btn m1">More</a>
+			</div>
+		</div>
+		<div class="grid_4">
+			<div class="pad1">
+				<h2>love stories</h2>
+				<ul class="list1">
+					<li>
+						<a href="http://livedemo00.template-help.com/wt_43688/#">Squunagni dolores eos qui ratione vluptatem sequi nesciunt. </a>
+					</li>
+					<li>
+						<a href="http://livedemo00.template-help.com/wt_43688/#">Nequem ipsumdolor sit amet couer adipiscing eliant vestib.</a>
+					</li>
+					<li>
+						<a href="http://livedemo00.template-help.com/wt_43688/#">Aenean nonummndrerit maurisellus posuscipit varius mi.</a>
+					</li>
+				</ul>
+				<a href="http://livedemo00.template-help.com/wt_43688/#" class="btn m1">More</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+{% endblock %}

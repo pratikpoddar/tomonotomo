@@ -1,0 +1,91 @@
+{% extends "tomonotomo/base.html" %}
+{% load staticfiles %}
+
+{% block bodycontent %}
+
+<div class="content">
+  <div class="container_12">
+    <div class="grid_6">
+      <h2>join in seconds...</h2>
+      <div class="registry">
+      <div class="text1">Start by adding a few details:</div>
+      <form id="form1" class="form-style" method="post">
+        <label class="text">Choose username:</label>
+        <label class="inp"><input type="text"></label>
+        <div class="clear"></div>
+        <label class="text">Choose password:</label>
+        <label class="inp"><input type="text"></label>
+        <div class="clear"></div>
+        <label class="text">Email address:</label>
+        <label class="inp"><input type="text"></label>
+        <div class="clear"></div>
+        <label class="text">Your sex &amp; sexuality:</label>
+        <label class="sel">
+          <select name="select">
+            <option>Please state your sex and sexuality</option>
+            <option>Male interested in Female</option>
+            <option>Female interested in Male</option>
+            <option>Male interested in Male</option>
+            <option>Female interested in Female</option>
+            <option>Male interested in Both</option>
+            <option>Female interested in Both</option>
+          </select>
+        </label>
+        <div class="clear"></div>
+        <label class="text"> Country/region:</label>
+        <label class="sel">
+          <select name="select">
+            <option>Country/region:</option>
+            <option>...</option>
+            <option>...</option>
+          </select>
+        </label>
+        <div class="clear"></div>
+        <label class="text dr">Date of birth:
+          <span>Over 18's only</span>
+        </label>
+        <label class="sel1">
+          <select name="select">
+            <option>Year </option>
+            <option>...</option>
+            <option>...</option>
+          </select>
+        </label>
+        <label class="sel1">
+          <select name="select">
+            <option>Month</option>
+            <option>...</option>
+            <option>...</option>
+          </select>
+        </label>
+        <label class="sel1">
+          <select name="select">
+            <option>Date </option>
+            <option>...</option>
+            <option>...</option>
+          </select>
+        </label>
+        <div class="clear"></div>
+        <a onClick="document.getElementById('form1').submit()" href="#" class="btn">Start Your Search</a>
+      </form>
+      </div>
+    </div>
+    <div class="grid_6">
+      <h2>find a friend of friend or get found</h2>
+      <img src="{% static 'tomonotomo/img/page1_img1.jpg' %}" alt="" class="img_inner">
+      <p>Cras dignissim, erat in adipiscing semper, erat elit fermentum dolor, quis rhoncus ultrices. Cras sem nunc, facilisis non lobortis quis, condimentum vel lacus. Pellentesque faucibus semper nulla non euismod. Quisque placerat ornare neque, sed laoreet elit aliquet vitae. </p>Nunc vel eros feugiat risus ornare tempus id lobortis libero? Donec sit amet nis
+      lenim, eu rutrum metus. Morbi ac lorem odio, id imperdiet libero.Quisque nec. turpis semper semper. Sed a tristique dui.<br>
+    </div>
+    <div class="clear"></div>
+    <div class="grid_12">
+      <div class="hor_separator"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+ 
+
