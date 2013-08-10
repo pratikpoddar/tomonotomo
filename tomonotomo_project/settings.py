@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/pupun/Desktop/pratik/databasefile',                      # Or path to database file if using sqlite3.
+        'NAME': '/tmp/guest-onyOH9/pratik/databasefile',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -170,11 +170,11 @@ FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday']
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
     'social_auth.backends.pipeline.associate.associate_by_email',
-
-    'tomonotomo.social_auth_pipeline.create_custom_user',
-
     'social_auth.backends.pipeline.user.get_username',
     'social_auth.backends.pipeline.user.create_user',    
+
+    'tomonotomo.social_auth_pipeline.create_custom_user',
+   
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.user.update_user_details',
 )
@@ -189,11 +189,9 @@ SOCIAL_AUTH_ASSOCIATE_BY_EMAIL = True
 SOCIAL_AUTH_ERROR_KEY = 'socialauth_error'
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
-
 LOGIN_URL = '/tomonotomo/login/' 
 LOGIN_REDIRECT_URL = '/tomonotomo/' 
 LOGIN_ERROR_URL = '/tomonotomo/login-error/'
-
 
 
 

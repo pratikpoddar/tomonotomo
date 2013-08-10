@@ -13,6 +13,9 @@ from django.db import transaction
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
+        print "Creating Custom User"
+        print str(user)
+        
         ## TODO: Sometimes user comes as none. Why?
         if user is None:
                 return
@@ -31,7 +34,7 @@ def create_custom_user(backend, details, user=None,
         profile.email = res.get('email')
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
-        profile.gender = res.get('gender')
+        profile.gender = res.get('gender') or "not specified"
 
         ##TODO: interested_in does not work
         
@@ -49,9 +52,11 @@ def create_custom_user(backend, details, user=None,
 
         graph = GraphAPI(res.get('access_token'))
 
-        responsegraph = graph.get(str(res['id'])+'?fields=friends, birthday')
-        profile.friends = responsegraph.get('friends').get('data')
+        responsegraph = graph.get(str(res['id'])+'?fields=birthday')
         profile.birthday = str(responsegraph.get('birthday'))
+
+        responsegraph = graph.get(str(res['id'])+'/friends?fields=id,name,gender')
+        profile.friends = str(responsegraph.get('data'))
 
         print "----"
 
@@ -59,15 +64,19 @@ def create_custom_user(backend, details, user=None,
 
         print "----"
 
-        for friend in profile.friends:
+        for friend in responsegraph.get('data'):
+                print "|||"
                 print "Saving information for friendid - " + friend.get('id')
                 profilefriends = UserFriends(userid = res['id'], 
                         friendid = friend.get('id'), 
-                        friendname = friend.get('name'))
+                        friendname = friend.get('name'),
+                        friendgender = friend.get('gender') or "not specified")
+
                 profilefriends.save()
 
-        transaction.commit()
+        print "----"
 
+        transaction.commit()
         return
 
 def getSanitizedEducation (educationProfile):

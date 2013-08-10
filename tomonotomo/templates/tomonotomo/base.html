@@ -54,7 +54,11 @@
 			<div class="grid_12">
 				<div style="font-size:80px;color:black;float:left;vertical-align:bottom"><a href="index.html">tomonotomo</a></div>
 				<div class="links">
-					Have an account? <a href="#">Sign in</a> or <a href="#">Sign up</a>
+					{% if user.userid %}
+						<a href="#">{{ user.first_name }}</a> - <a href="{% url "socialauth_disconnect" "facebook" %}">Logout</a>
+					{% else %}
+						Have an account? <a href="#">Sign in</a> or <a href="#">Sign up</a>
+					{% endif %}
 				</div>
 				<div class="clear"></div>
 			</div>
