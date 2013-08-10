@@ -5,7 +5,8 @@ from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
 from django.contrib.auth import get_user_model
 
-from tomonotomo.models import UserTomonotomo
+from tomonotomo.models import UserTomonotomo, UserFriends
+
 
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
@@ -17,50 +18,52 @@ def create_custom_user(backend, details, user=None,
                 return
 
         res = kwargs['response']
-        
+
         profile = UserTomonotomo() 
-        profile.accesstoken = res['access_token']
-        profile.expiresin = res['expires']
-        profile.education = res['education']
-        profile.work = res['work']
-        profile.email = res['email']
-        profile.first_name = res['first_name']
-        profile.last_name = res['last_name']
-        profile.gender = res['gender']
-        profile.hometown = res['hometown']
-        profile.location = res['location']
-        profile.username = res['username']
-        profile.userid = res['id']
-
-        profile.save()
-
-        return
-
-def populate_user_info(backend, details, response, social_user, uid, user, *args, **kwargs):
-
-        profile = user.get_profile()
-        profile.uid = response['id']
-        access_token = UserSocialAuth.objects.filter(provider='facebook').get(uid=response['id']).tokens['access_token']
-        graph = GraphAPI(access_token)
-        res = graph.get(str(uid)+'?fields='+reduce(lambda x,y: x+','+y,DATA_FIELDS))
-        profile.accesstoken = access_token
-        profile.first_name = res.get('first_name')
-        profile.last_name = res.get('last_name')
-        profile.birthday = res.get('birthday')
-        profile.fullname = res.get('name')
-        profile.gender = res.get('gender')
-        if res.get('location'):
-                profile.location = res.get('location').get('name','')
-        if res.get('hometown'):
-                profile.hometown = res.get('hometown').get('name','')
+        profile.accesstoken = res.get('access_token')
+        profile.expiresin = res.get('expires')
         if res.get('work'):
                 profile.work= getSanitizedWork(res['work'])
         if res.get('education'):
-                profile.education= getSanitizedWork(res['education'])
+                profile.education= getSanitizedEducation(res['education'])
+        profile.email = res.get('email')
+        profile.first_name = res.get('first_name')
+        profile.last_name = res.get('last_name')
+        profile.gender = res.get('gender')
+        if res.get('hometown'):
+                profile.hometown = res.get('hometown').get('name')
+        if res.get('location'):
+                profile.location = res.get('location').get('name')
+        profile.username = res.get('username')
+        profile.userid = res.get('id')
 
-        utnt = UserTomonotomo(profile)
-        utnt.save()
-        return 
+        print "Getting data for userid " + profile.userid
+
+        print "----"
+
+        graph = GraphAPI(res.get('access_token'))
+
+        responsegraph = graph.get(str(res['id'])+'?fields=friends, birthday')
+        profile.friends = responsegraph.get('friends').get('data')
+        profile.birthday = str(responsegraph.get('birthday'))
+
+        print "----"
+
+        profile.save()
+
+        print "----"
+
+        ## TODO: Make it faster - Optimize it
+        ## TODO: Prevent Database locking
+
+        for friend in profile.friends:
+                print "Saving information for friendid - " + friend.get('id')
+                profilefriends = UserFriends(userid = res['id'], 
+                        friendid = friend.get('id'), 
+                        friendname = friend.get('name'))
+                profilefriends.save()
+
+        return
 
 def getSanitizedEducation (educationProfile):
         """ Helper function to get education profile as a structured string """

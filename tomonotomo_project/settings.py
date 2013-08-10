@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/tmp/guest-onyOH9/pratik/databasefile',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/pupun/Desktop/pratik/databasefile',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -165,7 +165,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_EXTENDED_PERMISSIONS= ['email']
+FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday']
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
