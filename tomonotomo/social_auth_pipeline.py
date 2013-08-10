@@ -7,7 +7,9 @@ from django.contrib.auth import get_user_model
 
 from tomonotomo.models import UserTomonotomo, UserFriends
 
+from django.db import transaction
 
+@transaction.commit_manually
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
@@ -30,6 +32,10 @@ def create_custom_user(backend, details, user=None,
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
         profile.gender = res.get('gender')
+
+        ##TODO: interested_in does not work
+        
+        profile.interestedin = res.get('interested_in')
         if res.get('hometown'):
                 profile.hometown = res.get('hometown').get('name')
         if res.get('location'):
@@ -53,15 +59,14 @@ def create_custom_user(backend, details, user=None,
 
         print "----"
 
-        ## TODO: Make it faster - Optimize it
-        ## TODO: Prevent Database locking
-
         for friend in profile.friends:
                 print "Saving information for friendid - " + friend.get('id')
                 profilefriends = UserFriends(userid = res['id'], 
                         friendid = friend.get('id'), 
                         friendname = friend.get('name'))
                 profilefriends.save()
+
+        transaction.commit()
 
         return
 

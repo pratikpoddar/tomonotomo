@@ -10,6 +10,14 @@ class UserFriends(models.Model):
     friendgender = models.CharField(max_length=100L, null=True)
 
 class UserTomonotomo(models.Model):
+
+    ##TODO: Check what happens when gender not specified
+    GENDER_CHOICES = (
+        ('male', 'male'),
+        ('female', 'female'),
+        (None, None)
+        )
+
     userid= models.IntegerField(null=False, unique=True, db_index=True)
     email= models.CharField(max_length=100L)
     accesstoken= models.CharField(max_length=500L)
@@ -19,8 +27,8 @@ class UserTomonotomo(models.Model):
     birthday= models.CharField(max_length=100L,null=True)
     hometown= models.CharField(max_length=100L)
     location= models.CharField(max_length=100L)
-    gender= models.CharField(max_length=100L)
-    interestedin= models.CharField(max_length=30)
+    gender= models.CharField(max_length=100L, choices=GENDER_CHOICES)
+    interestedin= models.CharField(max_length=100L, null=True)
     education= models.CharField(max_length=500L)
     work= models.CharField(max_length=500L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
@@ -34,3 +42,5 @@ class UserTomonotomo(models.Model):
             return self.first_name + " " + self.last_name
     def get_short_name(self):
             return self.first_name
+
+
