@@ -1,7 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
 from tomonotomo.models import UserTomonotomo, UserFeedback
@@ -13,7 +13,7 @@ import urllib
 def index(request):
     return render(request, 'tomonotomo/index.html')
 
-@login_required(login_url='/tomonotono/login/')
+@login_required(login_url='index')
 def friendrandom(request):
     loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
     fbid = dbutils.getRandFoF(loggedid)
@@ -21,9 +21,18 @@ def friendrandom(request):
 
 def friend(request, fbid):
     #fbid = 717323242
-    loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
+    if request.user.id:
+        loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
+        mutualfriends = map(dbutils.getFriendName, dbutils.getMutualFriends(loggedid, fbid))
+    else:
+        mutualfriends = []
+
     template = loader.get_template('tomonotomo/friend.html')
-    profile = UserTomonotomo.objects.get(userid=fbid)
+    try:
+        profile = UserTomonotomo.objects.get(userid=fbid)
+    except ObjectDoesNotExist:
+        raise Http404
+
     context = RequestContext(request, {
 		'fbid': fbid,
 		'fullname': profile.get_full_name,
@@ -31,7 +40,7 @@ def friend(request, fbid):
 		'location': profile.location,
 		'worklist': profile.work.split('---'),
 		'educationlist': profile.education.split('---'),
-		'mutualfriends': map(dbutils.getFriendName, dbutils.getMutualFriends(loggedid, fbid)),
+		'mutualfriends': mutualfriends
 		})
     return HttpResponse(template.render(context))
 
@@ -41,10 +50,9 @@ def about(request):
 def join(request):
     return render(request, 'tomonotomo/join.html')
 
-@login_required(login_url='/tomonotomo/login/')
+@login_required(login_url='index')
 def loggedin(request):
-    #fbid = UserTomonotomo.objects.get(username=request.user.username).userid
-    fbid = 717323242
+    fbid = UserTomonotomo.objects.get(username=request.user.username).userid
     template = loader.get_template('tomonotomo/loggedin.html')
     context = RequestContext(request, {
 		'degree1': len(dbutils.getFriendsonTnT(fbid)),
@@ -52,7 +60,7 @@ def loggedin(request):
 		})
     return HttpResponse(template.render(context))
 
-@login_required(login_url='/tomonotono/login/')
+@login_required(login_url='index')
 def tntAction(request, fbid, action):
     ##fbid = 717323242
     ##action = 1
