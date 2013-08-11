@@ -4,8 +4,11 @@
     <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html" afterPath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/dbutils.py" afterPath="$PROJECT_DIR$/tomonotomo/dbutils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" afterPath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html" afterPath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html" afterPath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/models.py" afterPath="$PROJECT_DIR$/tomonotomo/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" afterPath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/urls.py" afterPath="$PROJECT_DIR$/tomonotomo/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/views.py" afterPath="$PROJECT_DIR$/tomonotomo/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -13,15 +16,17 @@
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376188957452" ignored="false" />
-    <file path="/fragment.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376194443963" ignored="false" />
-    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376189920504" ignored="false" />
+    <file path="/fragment.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376235423102" ignored="false" />
+    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376235522734" ignored="false" />
     <file path="/models.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376192613062" ignored="false" />
-    <file path="/base.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376206421857" ignored="false" />
-    <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376192715853" ignored="false" />
-    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376194714296" ignored="false" />
-    <file path="/loggedin.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376196006007" ignored="false" />
-    <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376193559851" ignored="false" />
-    <file path="/urls.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376206021857" ignored="false" />
+    <file path="/base.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376232129023" ignored="false" />
+    <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376212562589" ignored="false" />
+    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376232884865" ignored="false" />
+    <file path="/loggedin.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376226378221" ignored="false" />
+    <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376232861512" ignored="false" />
+    <file path="/urls.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376232503728" ignored="false" />
+    <file path="/a.dummy" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376214155402" ignored="false" />
+    <file path="/friend.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376234489473" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,25 +46,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="social_auth_pipeline.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="0" selection-start="550" selection-end="550" vertical-scroll-proportion="0.33333334">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="loggedin.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="26" selection-start="884" selection-end="884" vertical-scroll-proportion="-11.875">
+            <state line="20" column="32" selection-start="710" selection-end="710" vertical-scroll-proportion="-7.8333335">
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#2;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#2;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#a#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="93" selection-start="3244" selection-end="3244" vertical-scroll-proportion="0.7125">
+            <state line="4" column="12" selection-start="153" selection-end="153" vertical-scroll-proportion="-0.625">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -70,8 +85,11 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="61" selection-start="514" selection-end="543" vertical-scroll-proportion="-6.625">
-              <folding />
+            <state line="21" column="65" selection-start="501" selection-end="547" vertical-scroll-proportion="-11.458333">
+              <folding>
+                <element signature="n#style#0;n#h3#0;n#a#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#a#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,7 +97,7 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="47" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0">
+            <state line="8" column="47" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -90,7 +108,25 @@
       <file leaf-file-name="dbutils.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="30" selection-start="981" selection-end="981" vertical-scroll-proportion="0.0">
+            <state line="27" column="0" selection-start="1104" selection-end="1104" vertical-scroll-proportion="-6.16129">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="159" column="33" selection-start="5482" selection-end="5498" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friend.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -99,7 +135,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="10" selection-start="1438" selection-end="1438" vertical-scroll-proportion="0.0">
+            <state line="9" column="0" selection-start="275" selection-end="275" vertical-scroll-proportion="-4.354839">
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -110,7 +146,7 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="13" selection-start="1962" selection-end="1962" vertical-scroll-proportion="0.0">
+            <state line="57" column="0" selection-start="2156" selection-end="2156" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -135,14 +171,15 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/tomonotomo_project/settings.py" />
-        <option value="$PROJECT_DIR$/tomonotomo/models.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html" />
-        <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
-        <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
-        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html" />
+        <option value="$PROJECT_DIR$/tomonotomo/models.py" />
         <option value="$PROJECT_DIR$/tomonotomo/urls.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" />
+        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html" />
+        <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
       </list>
     </option>
   </component>
@@ -379,6 +416,13 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
       <JSDebuggerConfigurationSettings>
         <option name="engineId" />
@@ -452,14 +496,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1346" height="728" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16537867" sideWeight="0.81643355" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18356644" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16537867" sideWeight="0.44755244" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.55244756" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -467,7 +512,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5944056" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -594,74 +638,14 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>21</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>26</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>28</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>55</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py</url>
-          <line>59</line>
-          <option name="timeStamp" value="38" />
+          <line>15</line>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="59" />
+      <option name="time" value="60" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -703,53 +687,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
+    <entry file="file://$PROJECT_DIR$/tomonotomo/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="935" selection-end="935" vertical-scroll-proportion="0.9287411">
+        <state line="57" column="0" selection-start="2156" selection-end="2156" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="0" selection-start="6606" selection-end="6606" vertical-scroll-proportion="0.6966292">
+        <state line="159" column="33" selection-start="5482" selection-end="5498" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="30" selection-start="981" selection-end="981" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="13" selection-start="1962" selection-end="1962" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="10" selection-start="1438" selection-end="1438" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="47" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0">
+        <state line="8" column="47" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
@@ -758,30 +712,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="26" selection-start="884" selection-end="884" vertical-scroll-proportion="-11.875">
+        <state line="20" column="32" selection-start="710" selection-end="710" vertical-scroll-proportion="-7.8333335">
           <folding>
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#2;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#2;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#a#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="1104" selection-end="1104" vertical-scroll-proportion="-6.16129">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="275" selection-end="275" vertical-scroll-proportion="-4.354839">
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="61" selection-start="514" selection-end="543" vertical-scroll-proportion="-6.625">
-          <folding />
+        <state line="21" column="65" selection-start="501" selection-end="547" vertical-scroll-proportion="-11.458333">
+          <folding>
+            <element signature="n#style#0;n#h3#0;n#a#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#a#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="93" selection-start="3244" selection-end="3244" vertical-scroll-proportion="0.7125">
+        <state line="4" column="12" selection-start="153" selection-end="153" vertical-scroll-proportion="-0.625">
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="550" selection-end="550" vertical-scroll-proportion="0.33333334">
+          <folding />
         </state>
       </provider>
     </entry>

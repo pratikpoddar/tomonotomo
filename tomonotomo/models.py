@@ -51,8 +51,7 @@ class UserTomonotomo(models.Model):
 
 class UserFeedback(models.Model):
     userid= models.IntegerField(null=False)
-    fbidid = models.IntegerField(null=False)
+    fbid = models.IntegerField(null=False)
     action = models.IntegerField(null=False)
-    actionText = models.CharField(max_length=1000L, null=True)
 
 

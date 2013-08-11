@@ -14,17 +14,25 @@ def create_custom_user(backend, details, user=None,
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
         print "Creating Custom User"
-        print str(user)
-        
+
+        if kwargs['is_new'] == False:
+            print "Returning user " +  str(user)
+            transaction.commit()
+            return
+
+        print "Getting data for first time user " +  str(user)
+
         ## TODO: Sometimes user comes as none. Why?
         if user is None:
+                transaction.commit()
                 return
         if backend.__class__ != FacebookBackend:
+                transaction.commit()
                 return
 
         res = kwargs['response']
 
-        profile = UserTomonotomo() 
+        profile = UserTomonotomo()
         profile.accesstoken = res.get('access_token')
         profile.expiresin = res.get('expires')
         if res.get('work'):

@@ -13,8 +13,7 @@ def getFriendsofFriends (fbid):
         fofs = set()
         fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
         for friendid in fblist:
-                fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid'))) 
-        
+                fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
         return list(fofs)
 
 def getFullName (fbid):
@@ -23,5 +22,11 @@ def getFullName (fbid):
 def getFriendName (fbid):
         return UserFriends.objects.get(friendid=fbid).friendname
 
-def getNumberofFriends (fbid):
-        return UserFriends.objects.filter(userid=fbid).count()
+def getFriendsonTnT (fbid):
+        fblist1 = UserFriends.objects.filter(userid=fbid).values('friendid')
+        fblist2 = UserTomonotomo.objects.values('userid')
+
+        return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
+
+def getRandFoF (fbid):
+        return 717323242

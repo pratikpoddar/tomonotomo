@@ -8,21 +8,23 @@
         <div class="grid_6">
             <img src="http://www.gamedesignideas.com/wp-content/uploads/subsys-design-002.png" style="width:80%"/>
         </div>
-		<div class="grid_6" style="font-size: 120%">
+		<div class="grid_6">
 
 			<h2> Building your Social Graph...</h2>
 			<br/><br/>
 
-            <h3>
+            <div>
             <span style="font-size: 150%">"{{ degree1 }}"</span> friends in your network are on tomonotomo<br/><br/>
 
             {% if degree1 >= 5 %}
-                You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends in degree 2 network
+                You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends in degree 2 network.<br/><br/>
+                <a href="{% url "friendrandom" %}" class="btn"><h3 style="color:white">Start</h3></a>
             {%  else %}
                 You need to have at least <span style="font-size: 150%">"5"</span> friends on tomonotono to help us build a dense social graph.
-                <br/><br/>Please get your friends to be a part of tomonotomo.
+                <br/><br/>Please get your friends to be a part of tomonotomo.<br/><br/>
+                <a href="{% url "friendrandom" %}" class="btn"><h3 style="color:white">Invite Friends</h3></a>
             {% endif %}
-			</h3>
+			</div>
 
             <br/>
 

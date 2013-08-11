@@ -56,9 +56,9 @@
 				<div style="font-size:80px;color:black;float:left;vertical-align:bottom"><a href="index.html">tomonotomo</a></div>
 				<div class="links">
 					{% if user.id %}
-						{{ user.first_name }} - <a href="{% url "socialauth_disconnect" "facebook" %}">Logout</a>
+						{{ user.first_name }} - <a href="logout">Logout</a>
 					{% else %}
-						Have an account? <a href="#">Sign in</a> or <a href="#">Sign up</a>
+						Have an account? <a href="{% url "socialauth_begin" "facebook" %}">Sign in</a> or <a href="{% url "socialauth_begin" "facebook" %}">Sign up</a>
 					{% endif %}
 				</div>
 				<div class="clear"></div>
