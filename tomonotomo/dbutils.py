@@ -28,5 +28,6 @@ def getFriendsonTnT (fbid):
 
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
+## TODO: Change the function to give good suggestions
 def getRandFoF (fbid):
         return 717323242

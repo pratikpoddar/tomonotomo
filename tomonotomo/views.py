@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 
@@ -8,6 +8,7 @@ from tomonotomo.models import UserTomonotomo, UserFeedback
 
 from tomonotomo import dbutils
 
+import urllib
 
 def index(request):
     return render(request, 'tomonotomo/index.html')
@@ -53,11 +54,16 @@ def loggedin(request):
 
 @login_required(login_url='/tomonotono/login/')
 def tntAction(request, fbid, action):
-    #fbid = 717323242
-    #action = 1
-    #userid = 717323242
+    ##fbid = 717323242
+    ##action = 1
+    ##userid = 717323242
 
-    userid = UserTomonotomo.objects.get(username=request.user.username).userid
+    ## TODO: Change redirect uri in all the places
+
+    fbid = int(fbid)
+    action = int(action)
+    userinfo = UserTomonotomo.objects.get(username=request.user.username)
+    userid = userinfo.userid
 
     feedback = UserFeedback(
         userid = userid,
@@ -67,23 +73,24 @@ def tntAction(request, fbid, action):
     feedback.save()
 
     if action == 1:
-        tolist = ','.join(dbutils.getMutualFriends(userid, fbid))
-        link = 'http://www.tomonotomo.com/friend/' + str(fbid)
-        redirect_uri = 'http://localhost:8080/tomonotomo/friend'
+        tolist = urllib.quote_plus(','.join(map(str,dbutils.getMutualFriends(userid, fbid))))
+        tolist = urllib.quote_plus("")
+        link = urllib.quote_plus('http://www.tomonotomo.com/friend/' + str(fbid))
+        redirect_uri = urllib.quote_plus('http://localhost:8080/tomonotomo/friend')
         finallink = 'https://www.facebook.com/dialog/send?app_id=1398031667088132&link=' + link + '&redirect_uri=' + redirect_uri + '&to=' + tolist
         return redirect(finallink)
 
     if action == 2:
-        tolist = fbid
-        link = 'http://www.tomonotomo.com/friend/' + str(userid)
-        redirect_uri = 'http://localhost:8080/tomonotomo/friend'
+        tolist = urllib.quote_plus(str(fbid))
+        link = urllib.quote_plus('http://www.tomonotomo.com/friend/' + str(userid))
+        redirect_uri = urllib.quote_plus('http://localhost:8080/tomonotomo/friend')
         finallink = 'https://www.facebook.com/dialog/send?app_id=1398031667088132&link=' + link + '&redirect_uri=' + redirect_uri + '&to=' + tolist
         return redirect(finallink)
 
     if action == 3:
-        return redirect('http://localhost:8080/tomonotomo/friend')
+        return redirect('http://localhost:8000/tomonotomo/friend')
 
     if action == 4:
-        return redirect('http://localhost:8080/tomonotomo/friend')
+        return redirect('http://localhost:8000/tomonotomo/friend')
 
     return
