@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^friend/(\d+)$', views.friend, name='friend'),
     url(r'^about$', views.about, name='about'),
     url(r'^join$', views.join, name='join'),
-    url(r'^auth/', include('social_auth.urls'))    
+    url(r'^loggedin$', views.loggedin, name='loggedin'),
+    url(r'^auth/', include('social_auth.urls'))
 )
 

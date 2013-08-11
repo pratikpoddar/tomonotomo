@@ -23,3 +23,5 @@ def getFullName (fbid):
 def getFriendName (fbid):
         return UserFriends.objects.get(friendid=fbid).friendname
 
+def getNumberofFriends (fbid):
+        return UserFriends.objects.filter(userid=fbid).count()

@@ -2,18 +2,17 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
 
-from tomonotomo.models import UserTomonotomo
+from django.contrib.auth.decorators import login_required
 
-from social_auth.signals import pre_update
-from social_auth.backends.facebook import FacebookBackend
+from tomonotomo.models import UserTomonotomo
 
 from tomonotomo import dbutils
 
-# from profile.models import Profile
 
 def index(request):
     return render(request, 'tomonotomo/index.html')
 
+@login_required(login_url='/tomonotono/login/')
 def friend(request, fbid):
 	#fbid = 717323242
 	template = loader.get_template('tomonotomo/friend.html')
@@ -35,4 +34,13 @@ def about(request):
 def join(request):
     return render(request, 'tomonotomo/join.html')
 
-
+@login_required(login_url='/tomonotomo/login/')
+def loggedin(request):
+    #fbid = UserTomonotomo.objects.get(username=request.user.username).userid
+    fbid = 717323242
+    template = loader.get_template('tomonotomo/loggedin.html')
+    context = RequestContext(request, {
+		'degree1': dbutils.getNumberofFriends(fbid),
+		'degree2': len(dbutils.getFriendsofFriends(fbid)),
+		})
+    return HttpResponse(template.render(context))

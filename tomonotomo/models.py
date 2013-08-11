@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 
 ##TODO: Include foreign key to userid in the two tables
+## TODO: If you are logging in for the second time, update and not add
 
 GENDER_CHOICES = (
     ('male', 'male'),
