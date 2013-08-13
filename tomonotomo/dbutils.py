@@ -1,4 +1,4 @@
-from tomonotomo.models import UserTomonotomo, UserFriends
+from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
 
 def getMutualFriends (fbid1, fbid2):
         
@@ -43,3 +43,50 @@ def sendemailFriend (userid, fofid, friendid):
 
 def sendemailFoF (userid, fofid, mutualfriendlist):
         return
+
+# def historyFeedback (userid1, userid2):
+#         result1 = UserFeedback.objects.filter(userid=userid1, fbid=userid2)
+#         result2 = UserFeedback.objects.filter(userid=userid2, fbid=userid1)
+#
+#         if len(result1) >= 0 and len(result2) == 0:
+#
+#             if (result1[0].get('action') == 1) or (result1[0].get('action') == 2):
+#                 return "waiting for the other party to reply"
+#
+#             if result1[0].get('action') == 3:
+#                 return "cute"
+#
+#             if result1[0].get('action') == 4:
+#                 return "pass"
+#
+#         if len(result1) == 0 and len(result2) >= 0:
+#
+#             if result2[0].get('action') == 2:
+#                 return "waiting for your reply"
+#
+#         if len(result1) >= 0 and len(result2) >= 0:
+#
+#             if (result1[0].get('action') == 4) and (result2[0].get('action') == 2):
+#                 return "pass but the other party connected"
+#
+#             if (result1[0].get('action') == 4) and (result2[0].get('action') != 2):
+#                 return "pass"
+#
+#             if (result1[0].get('action') == 3) and (result2[0].get('action') == 2):
+#                 return "cute and waiting for reply"
+#
+#             if (result1[0].get('action') == 3) and (result2[0].get('action') == 3):
+#                 return "both of you find each other cute and are connected"
+#
+#             if result1[0].get('action') == 3:
+#                 return "cute"
+#
+#             if (result1[0].get('action') == 2) and (result2[0].get('action') == 2):
+#                 return "both connected email"
+#
+#             if (result1[0].get('action') == 2) and (result2[0].get('action') == 3):
+#                 return "both connected"
+
+
+
+
