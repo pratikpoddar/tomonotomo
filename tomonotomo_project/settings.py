@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'meta',
     'tomonotomo',
     'social_auth'
 )
@@ -193,5 +194,5 @@ LOGIN_URL = '/tomonotomo/login/'
 LOGIN_REDIRECT_URL = '/tomonotomo/' 
 LOGIN_ERROR_URL = '/tomonotomo/login-error/'
 
-
+META_SITE_PROTOCOL = 'http'
 

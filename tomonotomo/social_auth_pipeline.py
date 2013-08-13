@@ -22,8 +22,8 @@ def create_custom_user(backend, details, user=None,
 
         print "Getting data for first time user " +  str(user)
 
-        ## TODO: Sometimes user comes as none. Why?
         if user is None:
+                print "User came as None in the function create_custom_user"
                 transaction.commit()
                 return
         if backend.__class__ != FacebookBackend:

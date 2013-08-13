@@ -1,9 +1,12 @@
 {% load url from future %}
 {% load staticfiles %}
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>tomonotomo - meet friends of friends</title>
 <meta charset="utf-8">
+
+{% include 'meta.html' %}
+
 
 <link rel="stylesheet" type="text/css" media="screen" href="{% static 'tomonotomo/css/style.css' %}">
 <link media="screen" type="text/css" href="{% static 'tomonotomo/css/kwicks-slider.css' %}" rel="stylesheet">
