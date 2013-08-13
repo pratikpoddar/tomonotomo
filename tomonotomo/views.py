@@ -84,4 +84,4 @@ def tntAction(request, fbid, action, fbfriend):
         mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid, mutualfriendlist)
     
-    return redirect("tomonotomo/friend")
+    return redirect('tomonotomo/friend')

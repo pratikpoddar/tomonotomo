@@ -1,6 +1,5 @@
 from tomonotomo.models import UserTomonotomo, UserFriends
 
-## TODO: Where should a file like this be placed?
 def getMutualFriends (fbid1, fbid2):
         
         fblist1 = UserFriends.objects.filter(userid=fbid1).values('friendid')
@@ -20,8 +19,11 @@ def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
 
 def getFriendName (fbid):
-        ## TODO: Assuming first name has the correct name - which is Ok
-        return UserFriends.objects.filter(friendid=fbid)[0].friendname
+        try:
+                ## Assuming that names of all entries of friendid are same - which should be the case
+                return UserFriends.objects.filter(friendid=fbid).distinct()[0].friendname
+        except:
+                return ""
 
 def getFriendsonTnT (fbid):
         fblist1 = UserFriends.objects.filter(userid=fbid).values('friendid')
