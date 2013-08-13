@@ -14,9 +14,6 @@
 </style>
 
 <!-- TODO: Facebook open graph tags for sharing
-TODO: Connect directly link does not work always
-TODO: DO server logging and analytics
-TODO: Set up www.tomonotomo.com
 -->
 
 <div class="page1_block">
@@ -63,10 +60,10 @@ TODO: Set up www.tomonotomo.com
 				<div class="grid_4">
 					<div>
                         {% if user.id %}
-						<a href="tntAction/{{ fbid }}/1" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
-						<a href="tntAction/{{ fbid }}/2" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
-						<a href="tntAction/{{ fbid }}/3" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
-						<a href="tntAction/{{ fbid }}/4" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
+						<a href="tntAction/{{ fbid }}/1/0" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
+						<a href="tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
+						<a href="tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
+						<a href="tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
 					    {% endif %}
                     </div>
 				</div>

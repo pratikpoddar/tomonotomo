@@ -61,12 +61,10 @@ def loggedin(request):
     return HttpResponse(template.render(context))
 
 @login_required(login_url='index')
-def tntAction(request, fbid, action):
+def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
     ##action = 1
     ##userid = 717323242
-
-    ## TODO: Change redirect uri in all the places
 
     fbid = int(fbid)
     action = int(action)
@@ -81,24 +79,9 @@ def tntAction(request, fbid, action):
     feedback.save()
 
     if action == 1:
-        tolist = urllib.quote_plus(','.join(map(str,dbutils.getMutualFriends(userid, fbid))))
-        tolist = urllib.quote_plus("")
-        link = urllib.quote_plus('http://www.tomonotomo.com/friend/' + str(fbid))
-        redirect_uri = urllib.quote_plus('http://localhost:8080/tomonotomo/friend')
-        finallink = 'https://www.facebook.com/dialog/send?app_id=1398031667088132&link=' + link + '&redirect_uri=' + redirect_uri + '&to=' + tolist
-        return redirect(finallink)
-
+        dbutils.sendemailFriend(userid, fbid, friendid)
     if action == 2:
-        tolist = urllib.quote_plus(str(fbid))
-        link = urllib.quote_plus('http://www.tomonotomo.com/friend/' + str(userid))
-        redirect_uri = urllib.quote_plus('http://localhost:8080/tomonotomo/friend')
-        finallink = 'https://www.facebook.com/dialog/send?app_id=1398031667088132&link=' + link + '&redirect_uri=' + redirect_uri + '&to=' + tolist
-        return redirect(finallink)
-
-    if action == 3:
-        return redirect('http://localhost:8000/tomonotomo/friend')
-
-    if action == 4:
-        return redirect('http://localhost:8000/tomonotomo/friend')
-
-    return
+        mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
+        dbutils.sendemailFoF(userid, fbid, mutualfriendlist)
+    
+    return redirect("tomonotomo/friend")

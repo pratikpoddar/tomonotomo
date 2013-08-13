@@ -44,9 +44,6 @@ def create_custom_user(backend, details, user=None,
         profile.last_name = res.get('last_name')
         profile.gender = res.get('gender') or "not specified"
 
-        ##TODO: interested_in does not work
-        
-        profile.interestedin = res.get('interested_in')
         if res.get('hometown'):
                 profile.hometown = res.get('hometown').get('name')
         if res.get('location'):

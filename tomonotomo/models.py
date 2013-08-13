@@ -2,7 +2,6 @@ from django.db import models
 from datetime import datetime
 
 ##TODO: Include foreign key to userid in the two tables
-## TODO: If you are logging in for the second time, update and not add
 
 GENDER_CHOICES = (
     ('male', 'male'),
@@ -28,7 +27,6 @@ class UserTomonotomo(models.Model):
     hometown= models.CharField(max_length=100L)
     location= models.CharField(max_length=100L)
     gender= models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
-    interestedin= models.CharField(max_length=100L, null=True)
     education= models.CharField(max_length=500L)
     work= models.CharField(max_length=500L)
     time= models.DateTimeField(auto_now_add=True, blank=True)

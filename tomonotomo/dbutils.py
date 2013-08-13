@@ -32,3 +32,12 @@ def getFriendsonTnT (fbid):
 ## TODO: Change the function to give good suggestions
 def getRandFoF (fbid):
         return 717323242
+
+## TODO Email
+
+## Change friendid from 0 to something and make UI for it
+def sendemailFriend (userid, fofid, friendid):
+        return
+
+def sendemailFoF (userid, fofid, mutualfriendlist):
+        return
