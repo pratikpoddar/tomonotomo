@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/dbutils.py" afterPath="$PROJECT_DIR$/tomonotomo/dbutils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" afterPath="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/models.py" afterPath="$PROJECT_DIR$/tomonotomo/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" afterPath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/views.py" afterPath="$PROJECT_DIR$/tomonotomo/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,7 +41,7 @@
       <file leaf-file-name="friend.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="0" selection-start="2856" selection-end="2856" vertical-scroll-proportion="0.81632656">
+            <state line="76" column="0" selection-start="2188" selection-end="2188" vertical-scroll-proportion="0.6020408">
               <folding />
             </state>
           </provider>
@@ -703,7 +696,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="2856" selection-end="2856" vertical-scroll-proportion="0.81632656">
+        <state line="76" column="0" selection-start="2188" selection-end="2188" vertical-scroll-proportion="0.6020408">
           <folding />
         </state>
       </provider>
