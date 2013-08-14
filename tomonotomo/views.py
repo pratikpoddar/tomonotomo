@@ -46,7 +46,7 @@ def friend(request, fbid):
         infoList = historyFeedback['info']
     else:
         mutualfriends = []
-        deactivateList = [1,2,3,4]
+        deactivateList = [1, 2, 3, 4]
         infoList = []
 
     template = loader.get_template('tomonotomo/friend.html')

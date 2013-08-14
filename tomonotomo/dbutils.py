@@ -54,10 +54,7 @@ def historyFeedback (userid1, userid2):
         deactivate = []
         info = []
 
-        print result1
-        print result2
-        print len(result1)
-        print len(result2)
+    
 
         if (len(result1) > 0) and (len(result2) == 0):
 
