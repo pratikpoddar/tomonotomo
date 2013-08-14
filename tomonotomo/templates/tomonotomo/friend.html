@@ -101,8 +101,10 @@
 					<div>
                         {% if user.id %}
 						<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
-						<a id="feedback2" href="tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
-						<a id="feedback3" href="tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
+						    {% if email_exists %}
+                                <a id="feedback2" href="tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
+						    {% endif %}
+                        <a id="feedback3" href="tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
 						<a id="feedback4" href="tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
 					    {% endif %}
                     </div>
@@ -141,6 +143,7 @@
 			</div>
 		</div>
 
+    </div>
     <div id="lean_overlay">
 
 			<div id="lean_overlay-ct">
@@ -152,7 +155,7 @@
                 <div id="lean_overlay-body">
                         {% if mutualfriends %}
                             {% for mutualfriend in mutualfriends %}
-                                <div class="reqfriend"><a href="tntAction/{{ fbid }}/1/{{ mutualfriend.id }}"><img class="reqfriend" src="{% static 'tomonotomo/img/facebook-blank.png' %}"></a><h4>{{ mutualfriend.name }}</h4></div>
+                                <a href="tntAction/{{ fbid }}/1/{{ mutualfriend.id }}"><div class="reqfriend"><img class="reqfriend" src="{% static 'tomonotomo/img/facebook-blank.png' %}"><h4>{{ mutualfriend.name }}</h4></div></a>
                             {% endfor %}
                         {% endif %}
                 </div>

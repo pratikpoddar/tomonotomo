@@ -55,6 +55,11 @@ def friend(request, fbid):
     except ObjectDoesNotExist:
         raise Http404
 
+    if UserTomonotomo.objects.get(userid=fbid).email == None:
+        email_exists = 0
+    else:
+        email_exists = 1
+
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -75,8 +80,10 @@ def friend(request, fbid):
 		'mutualfriends': mutualfriends,
 		'meta': meta,
         'deactivateList': deactivateList,
-        'infoList': infoList
+        'infoList': infoList,
+        'email_exists': email_exists
         })
+
     return HttpResponse(template.render(context))
 
 def about(request):
@@ -150,7 +157,7 @@ def tntAction(request, fbid, action, fbfriend):
         feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
 
     feedback.save()
-    print "Feedback: " + str(userid) + " " + str(fbid) + " " + str(action)
+    print "Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action)
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)

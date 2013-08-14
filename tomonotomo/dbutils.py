@@ -62,6 +62,7 @@ def historyFeedback (userid1, userid2):
                 info.append("Sent Introduction Request to Friends")
 
             if result1.values()[0]['action'] == 2:
+                deactivate.append(1)
                 deactivate.append(2)
                 deactivate.append(3)
                 deactivate.append(4)
@@ -90,6 +91,7 @@ def historyFeedback (userid1, userid2):
                     info.append("Sent Introduction Request to Friends")
 
                 if result1.values()[0]['action'] == 2:
+                    deactivate.append(1)
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
@@ -142,6 +144,7 @@ def historyFeedback (userid1, userid2):
                     info.append("Sent Introduction Request to Friends")
 
                 if result1.values()[0]['action'] == 2:
+                    deactivate.append(1)
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
@@ -151,7 +154,7 @@ def historyFeedback (userid1, userid2):
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Both of you find each other cute. Please connect")
+                    info.append("Both of you find each other cute. Tomonotomo sent an email to both of you.")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(3)

@@ -24,7 +24,8 @@ class UserTomonotomo(models.Model):
     time= models.DateTimeField(auto_now_add=True, blank=True)
     username= models.CharField(max_length=200L, unique=True)
     friends = models.CharField(max_length=1000L)
-    
+
+    ## TODO: Collect friends data as well
     ## TODO: update data if required
 
     def get_full_name(self):
