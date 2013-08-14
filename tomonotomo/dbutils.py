@@ -35,9 +35,9 @@ def getFriendsonTnT (fbid):
 def getRandFoF (fbid):
         return 717323242
 
-## TODO Email
+## TODO: Email
 
-## Change friendid from 0 to something and make UI for it
+## TODO: Change friendid from 0 to something and make UI for it
 def sendemailFriend (userid, fofid, friendid):
         return
 

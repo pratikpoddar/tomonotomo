@@ -25,7 +25,7 @@ class UserTomonotomo(models.Model):
     username= models.CharField(max_length=200L, unique=True)
     friends = models.CharField(max_length=1000L)
     
-    ## TODO: Enter update data if required
+    ## TODO: update data if required
 
     def get_full_name(self):
             return self.first_name + " " + self.last_name

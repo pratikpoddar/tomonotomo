@@ -151,7 +151,7 @@ def tntAction(request, fbid, action, fbfriend):
 
     feedback.save()
 
-    # TODO: If both of them find each other cute, send email that yo yo!
+    ## TODO: If both of them find each other cute, send email that yo yo!
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)

@@ -15,7 +15,7 @@
 
             <div>
             <span style="font-size: 150%">"{{ degree1 }}"</span> friends in your network are on tomonotomo<br/><br/>
-
+            <!-- TODO: Check if invite friends work -->
             {% if degree1 >= 3 %}
                 You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends in degree 2 network.<br/><br/>
                 <a href="{% url "friendrandom" %}" class="btn"><h3 style="color:white">Start</h3></a>
