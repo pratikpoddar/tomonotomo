@@ -11,10 +11,15 @@
 		text-align: center;
 	}
 
+    .friendbtn.inactivebtn {
+		background:	#eb7e8d;
+        cursor: default;
+	}
+
 </style>
 
 <!-- TODO: Facebook open graph tags for sharing
-TODO: Change deending on the feedback by him or her
+TODO: Change depending on the feedback by him or her
 -->
 
 <div class="page1_block">
@@ -61,10 +66,10 @@ TODO: Change deending on the feedback by him or her
 				<div class="grid_4">
 					<div>
                         {% if user.id %}
-						<a id="feedback1" href="../tntAction/{{ fbid }}/1/0" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
-						<a id="feedback2" href="../tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
-						<a id="feedback3" href="../tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
-						<a id="feedback4" href="../tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
+						<a id="feedback1" href="tntAction/{{ fbid }}/1/0" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
+						<a id="feedback2" href="tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
+						<a id="feedback3" href="tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
+						<a id="feedback4" href="tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
 					    {% endif %}
                     </div>
 
@@ -72,11 +77,14 @@ TODO: Change deending on the feedback by him or her
                         // TODO: Check on why its not working
                         // TODO: Check og tag title in friend page
 
-                        $(document).ready(function() {
+                        $(window).load(function() {
                             {% for deactivate in deactivateList %}
-                                $("#feedback".concat(({{ deactivate }}).toString())).addClass("disabled");
+                                $("#feedback".concat(({{ deactivate }}).toString())).addClass("inactivebtn");
+                                $("#feedback".concat(({{ deactivate }}).toString())).unbind("click");
+                                $("#feedback".concat(({{ deactivate }}).toString())).unbind("hover");
+                                $("#feedback".concat(({{ deactivate }}).toString())).removeAttr("href");
                             {% endfor %}
-                        }
+                        })
                     </script>
                     <div>
                             {% for info in infoList %}

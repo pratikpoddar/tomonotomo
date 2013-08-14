@@ -67,12 +67,16 @@ def create_custom_user(backend, details, user=None,
 
         profile.save()
 
+        transaction.commit()
+
         print "----"
+
+        userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
         for friend in responsegraph.get('data'):
                 print "|||"
                 print "Saving information for friendid - " + friend.get('id')
-                profilefriends = UserFriends(userid = res['id'], 
+                profilefriends = UserFriends(userid = userloggedin,
                         friendid = friend.get('id'), 
                         friendname = friend.get('name'),
                         friendgender = friend.get('gender') or "not specified")

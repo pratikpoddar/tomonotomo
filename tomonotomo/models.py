@@ -39,17 +39,16 @@ class UserTomonotomo(models.Model):
         else:
             return None
 
-    # def __unicode__(self):
-    #     return self.userid
 
+## TODO: Userfriends name and gender should be updated with time
 class UserFriends(models.Model):
-    userid= models.IntegerField(null=False)
+    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
     friendid = models.IntegerField(null=False)
     friendname = models.CharField(max_length=100L, null=True)
     friendgender = models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
 
 class UserFeedback(models.Model):
-    userid= models.IntegerField(null=False)
+    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
     fbid = models.IntegerField(null=False)
     action = models.IntegerField(null=False)
 
