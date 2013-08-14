@@ -100,7 +100,7 @@
 				<div class="grid_4">
 					<div>
                         {% if user.id %}
-						<a id="feedback1" href="tntAction/{{ fbid }}/1/0" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
+						<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3></a><br/><br/>
 						<a id="feedback2" href="tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
 						<a id="feedback3" href="tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Cute, but don't connect</h3></a><br/><br/>
 						<a id="feedback4" href="tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
@@ -141,15 +141,12 @@
 			</div>
 		</div>
 
-    <a rel="leanModal" name="lean_overlay" href="#lean_overlay">
-        ddfdffdf
-    </a>
     <div id="lean_overlay">
 
 			<div id="lean_overlay-ct">
 				<div id="lean_overlay-header">
-					<h2>Ask friend for introduction</h2>
-					<a class="modal_close" href="#"></a>
+					<h2>Ask friend for introduction
+					<a class="modal_close" href="#" style="float:right;font-size:70%">x</a></h2>
 				</div>
 
                 <div id="lean_overlay-body">

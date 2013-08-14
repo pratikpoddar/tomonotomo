@@ -150,13 +150,21 @@ def tntAction(request, fbid, action, fbfriend):
         feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
 
     feedback.save()
-
-    ## TODO: If both of them find each other cute, send email that yo yo!
+    print "Feedback: " + str(userid) + " " + str(fbid) + " " + str(action)
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)
+
     if action == 2:
         mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid, mutualfriendlist)
-    
+
+    if action == 3:
+        try:
+            if UserFeedback.objects.filter(userid=fbid, fbid=userid).values()[0]['action'] == 3:
+                mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
+                dbutils.sendemailCute(userid, fbid, mutualfriendlist)
+        except:
+            return redirect('/tomonotomo/friend')
+
     return redirect('/tomonotomo/friend')

@@ -37,7 +37,9 @@ def getRandFoF (fbid):
 
 ## TODO: Email
 
-## TODO: Change friendid from 0 to something and make UI for it
+def sendemailCute (userid, fofid, mutualfriendlist):
+        return
+
 def sendemailFriend (userid, fofid, friendid):
         return
 
@@ -53,8 +55,6 @@ def historyFeedback (userid1, userid2):
 
         deactivate = []
         info = []
-
-    
 
         if (len(result1) > 0) and (len(result2) == 0):
 
