@@ -40,7 +40,7 @@ def friend(request, fbid):
     #fbid = 717323242
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
-        mutualfriends = map(dbutils.getFriendName, dbutils.getMutualFriends(loggedid, fbid))
+        mutualfriends = map(lambda x: {'name': dbutils.getFriendName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
         infoList = historyFeedback['info']
