@@ -41,8 +41,13 @@ def friend(request, fbid):
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
         mutualfriends = map(dbutils.getFriendName, dbutils.getMutualFriends(loggedid, fbid))
+        historyFeedback = dbutils.historyFeedback(loggedid, fbid)
+        deactivateList = historyFeedback['deactivate']
+        infoList = historyFeedback['info']
     else:
         mutualfriends = []
+        deactivateList = [1,2,3,4]
+        infoList = []
 
     template = loader.get_template('tomonotomo/friend.html')
     try:
@@ -57,7 +62,7 @@ def friend(request, fbid):
         description='Tomonotomo - We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.facebook.com/'+fbid+'/picture?type=square',
-        title= str(profile.get_full_name) + ' - tomonotomo - meet friends of friends'
+        title= str(profile.get_full_name) + ' - tomonotomo - meet friends of friends',
     )        
 
     context = RequestContext(request, {
@@ -68,7 +73,9 @@ def friend(request, fbid):
 		'worklist': profile.work.split('---'),
 		'educationlist': profile.education.split('---'),
 		'mutualfriends': mutualfriends,
-		'meta': meta
+		'meta': meta,
+        'deactivateList': deactivateList,
+        'infoList': infoList
         })
     return HttpResponse(template.render(context))
 
@@ -141,6 +148,9 @@ def tntAction(request, fbid, action, fbfriend):
         action = action
     )
     feedback.save()
+
+    # TODO: When a guy gives some feedback, update and not add an entry
+    # TODO: If both of them find each other cute, send email that yo yo!
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, friendid)

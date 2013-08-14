@@ -44,48 +44,119 @@ def sendemailFriend (userid, fofid, friendid):
 def sendemailFoF (userid, fofid, mutualfriendlist):
         return
 
-# def historyFeedback (userid1, userid2):
-#         result1 = UserFeedback.objects.filter(userid=userid1, fbid=userid2)
-#         result2 = UserFeedback.objects.filter(userid=userid2, fbid=userid1)
-#
-#         if len(result1) >= 0 and len(result2) == 0:
-#
-#             if (result1[0].get('action') == 1) or (result1[0].get('action') == 2):
-#                 return "waiting for the other party to reply"
-#
-#             if result1[0].get('action') == 3:
-#                 return "cute"
-#
-#             if result1[0].get('action') == 4:
-#                 return "pass"
-#
-#         if len(result1) == 0 and len(result2) >= 0:
-#
-#             if result2[0].get('action') == 2:
-#                 return "waiting for your reply"
-#
-#         if len(result1) >= 0 and len(result2) >= 0:
-#
-#             if (result1[0].get('action') == 4) and (result2[0].get('action') == 2):
-#                 return "pass but the other party connected"
-#
-#             if (result1[0].get('action') == 4) and (result2[0].get('action') != 2):
-#                 return "pass"
-#
-#             if (result1[0].get('action') == 3) and (result2[0].get('action') == 2):
-#                 return "cute and waiting for reply"
-#
-#             if (result1[0].get('action') == 3) and (result2[0].get('action') == 3):
-#                 return "both of you find each other cute and are connected"
-#
-#             if result1[0].get('action') == 3:
-#                 return "cute"
-#
-#             if (result1[0].get('action') == 2) and (result2[0].get('action') == 2):
-#                 return "both connected email"
-#
-#             if (result1[0].get('action') == 2) and (result2[0].get('action') == 3):
-#                 return "both connected"
+def historyFeedback (userid1, userid2):
+
+        # return {'deactivate': [1, 2, 4], 'info': ["checking 1", "checking 2", "checking 3"]}
+
+        result1 = UserFeedback.objects.filter(userid=userid1, fbid=userid2)
+        result2 = UserFeedback.objects.filter(userid=userid2, fbid=userid1)
+
+        deactivate = []
+        info = []
+
+        if len(result1) > 0 and len(result2) == 0:
+
+            if result1[0].get('action') == 1:
+                info.append("Sent Introduction Request to Friends")
+
+            if result1[0].get('action') == 2:
+                deactivate.append(2)
+                deactivate.append(3)
+                deactivate.append(4)
+                info.append("Sent Direct Connection Request")
+
+            if result1[0].get('action') == 3:
+                deactivate.append(3)
+                deactivate.append(4)
+                info.append("Cute, but don't connect")
+
+            if result1[0].get('action') == 4:
+                deactivate.append(3)
+                deactivate.append(4)
+                info.append("Pass, and never show")
+
+        if len(result1) == 0 and len(result2) > 0:
+
+            if result2[0].get('action') == 2:
+                info.append("You would have received a Direct Connection Request over email")
+
+        if len(result1) > 0 and len(result2) > 0:
+
+            if (result2[0].get('action') == 1) or (result2[0].get('action') == 4):
+
+                if result1[0].get('action') == 1:
+                    info.append("Sent Introduction Request to Friends")
+
+                if result1[0].get('action') == 2:
+                    deactivate.append(2)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Sent Direct Connection Request")
+
+                if result1[0].get('action') == 3:
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Cute, but don't connect")
+
+                if result1[0].get('action') == 4:
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Pass, and never show")
+
+            if result2[0].get('action') == 2:
+
+                if result1[0].get('action') == 1:
+                    deactivate.append(2)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Sent Introduction Request to Friends")
+                    info.append("You would have received a Direct Connection Request over email")
+
+                if result1[0].get('action') == 2:
+                    deactivate.append(1)
+                    deactivate.append(2)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Sent Direct Connection Request")
+                    info.append("You would have received a Direct Connection Request over email")
+
+                if result1[0].get('action') == 3:
+                    deactivate.append(1)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Cute, but don't connect")
+                    info.append("You would have received a Direct Connection Request over email")
+
+                if result1[0].get('action') == 4:
+                    deactivate.append(1)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Pass, and never show")
+                    info.append("You would have received a Direct Connection Request over email")
+
+            if result2[0].get('action') == 3:
+
+                if result1[0].get('action') == 1:
+                    info.append("Sent Introduction Request to Friends")
+
+                if result1[0].get('action') == 2:
+                    deactivate.append(2)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Sent Direct Connection Request")
+
+                if result1[0].get('action') == 3:
+                    deactivate.append(1)
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Both of you find each other cute. Please connect")
+
+                if result1[0].get('action') == 4:
+                    deactivate.append(3)
+                    deactivate.append(4)
+                    info.append("Pass, and never show")
+
+        return {'deactivate': deactivate, 'info': info}
 
 
 

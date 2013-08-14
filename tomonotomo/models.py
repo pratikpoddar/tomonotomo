@@ -1,19 +1,11 @@
 from django.db import models
 from datetime import datetime
 
-##TODO: Include foreign key to userid in the two tables
-
 GENDER_CHOICES = (
     ('male', 'male'),
     ('female', 'female'),
     ('not specified', 'not specified')
     )
-
-class UserFriends(models.Model):
-    userid= models.IntegerField(null=False)
-    friendid = models.IntegerField(null=False)
-    friendname = models.CharField(max_length=100L, null=True)
-    friendgender = models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
 
 class UserTomonotomo(models.Model):
 
@@ -46,6 +38,15 @@ class UserTomonotomo(models.Model):
             return (d1-d2).days/365
         else:
             return None
+
+    # def __unicode__(self):
+    #     return self.userid
+
+class UserFriends(models.Model):
+    userid= models.IntegerField(null=False)
+    friendid = models.IntegerField(null=False)
+    friendname = models.CharField(max_length=100L, null=True)
+    friendgender = models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
 
 class UserFeedback(models.Model):
     userid= models.IntegerField(null=False)
