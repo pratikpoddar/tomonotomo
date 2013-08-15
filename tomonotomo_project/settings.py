@@ -22,6 +22,18 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tomonotomo_db',
+        'USER': 'tomonotomo_user',
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
+        'PORT': '', # Set to empty string for default.
+    }
+}
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
