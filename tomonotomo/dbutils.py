@@ -1,4 +1,5 @@
 from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
+import sendgrid
 
 def getMutualFriends (fbid1, fbid2):
         
@@ -35,15 +36,73 @@ def getFriendsonTnT (fbid):
 def getRandFoF (fbid):
         return 717323242
 
-## TODO: Email
+## TODO: Improve Email
 
 def sendemailCute (userid, fofid, mutualfriendlist):
+
+        s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
+
+        userinfo = UserTomonotomo.objects.get(userid=userid)
+        fofinfo = UserTomonotomo.objects.get(userid=fofid)
+
+        # make a message object
+        subject = "Tomonotomo - Connecting " + userinfo.first_name + " and " + fofinfo.first_name
+        plaintext_message = "Both of you indicated that you find each other cute. Please take it forward from here. Both of you can see each other email addresses. You have following common friends."
+        html_message = "Both of you indicated that you find each other cute. Please take it forward from here. Both of you can see each other email addresses. You have following common friends."
+        message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
+
+        # add a recipient
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(fofinfo.email, fofinfo.get_full_name())
+
+        # use the SMTP API to send your message
+        #s.smtp.send(message)
+
         return
 
 def sendemailFriend (userid, fofid, friendid):
+
+        s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
+
+        userinfo = UserTomonotomo.objects.get(userid=userid)
+        fofinfo = UserTomonotomo.objects.get(userid=fofid)
+        friendinfo = UserTomonotomo.objects.get(userid=friendid)
+
+        # make a message object
+        subject = "Tomonotomo - Requesting to connect to " + fofinfo.first_name
+        plaintext_message = "Please connect me to this friend of yours. His name is .... and his profile is ..."
+        html_message = "Please connect me to this friend of yours. His name is .... and his profile is ..."
+        message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
+
+        # add a recipient
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(friendinfo.email, friendinfo.get_full_name())
+
+        # use the SMTP API to send your message
+        #s.smtp.send(message)
+
         return
 
 def sendemailFoF (userid, fofid, mutualfriendlist):
+
+        s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
+
+        userinfo = UserTomonotomo.objects.get(userid=userid)
+        fofinfo = UserTomonotomo.objects.get(userid=fofid)
+
+        # make a message object
+        subject = "Tomonotomo - Request to connect from " + userinfo.first_name
+        plaintext_message = "I find you cute. I will like to take this forward. We have these common friends. What say?"
+        html_message = "I find you cute. I will like to take this forward. We have these common friends. What say?"
+        message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
+
+        # add a recipient
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(fofinfo.email, fofinfo.get_full_name())
+
+        # use the SMTP API to send your message
+        #s.smtp.send(message)
+
         return
 
 def historyFeedback (userid1, userid2):
