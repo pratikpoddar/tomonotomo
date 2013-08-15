@@ -81,7 +81,7 @@ def friend(request, fbid):
     context = RequestContext(request, {
 		'fbid': fbid,
 		'fullname': profile.get_full_name(),
-		'age': profile.get_age,
+		'age': profile.get_age(),
 		'location': profile.location,
 		'worklist': profile.work.split('---'),
 		'educationlist': profile.education.split('---'),

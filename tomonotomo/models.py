@@ -31,11 +31,15 @@ class UserTomonotomo(models.Model):
             return self.first_name
     def get_age(self):
         if self.birthday:
-            d2 = datetime.strptime(self.birthday, '%m/%d/%Y').date()
-            d1 = datetime.now().date()
-            return (d1-d2).days/365
+            try:
+                d2 = datetime.strptime(self.birthday, '%m/%d/%Y').date()
+                d1 = datetime.now().date()
+
+                return (d1-d2).days/365
+            except:
+                return "[Age N.A.]"
         else:
-            return None
+            return "[Age N.A.]"
 
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)

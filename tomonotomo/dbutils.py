@@ -14,7 +14,7 @@ def getFriendsofFriends (fbid):
         fofs = set()
         fblist = getFriendsonTnT (fbid)
         for friendid in fblist:
-                fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid).values('friendid')))
+                fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
         return list(fofs)
 
 def getFullName (fbid):
@@ -22,7 +22,8 @@ def getFullName (fbid):
 
 def getFriendsonTnT (fbid):
         fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
-        return filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
+        fblist2 = filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
+        return fblist2
 
 #TODO: Remove people with whom you have already had a conversation
 def getRandFoF (fbid, reqgender):
