@@ -83,7 +83,37 @@ def create_custom_user(backend, details, user=None,
 
                 profilefriends.save()
 
+        transaction.commit()
+
         print "----"
+
+        for friend in responsegraph.get('data'):
+                print "|||"
+                print "Saving detailed information for friendid - " + friend.get('id')
+                frienddata = graph.get(str(friend.get('id'))+'?fields=id,first_name,last_name,hometown,location,username,name,gender,birthday,education,work')
+                userfriend = UserTomonotomo()
+
+                if frienddata.get('work'):
+                    userfriend.work= getSanitizedWork(frienddata['work'])
+                if frienddata.get('education'):
+                    userfriend.education= getSanitizedEducation(frienddata['education'])
+                if frienddata.get('first_name'):
+                    userfriend.first_name = frienddata.get('first_name')
+                if frienddata.get('last_name'):
+                    userfriend.last_name = frienddata.get('last_name')
+                if frienddata.get('gender'):
+                    userfriend.gender = frienddata.get('gender') or "not specified"
+
+                if frienddata.get('hometown'):
+                    userfriend.hometown = frienddata.get('hometown').get('name')
+                if frienddata.get('location'):
+                    userfriend.location = frienddata.get('location').get('name')
+                if frienddata.get('username'):
+                    userfriend.username = frienddata.get('username')
+                if frienddata.get('id'):
+                    userfriend.userid = frienddata.get('id')
+
+                userfriend.save()
 
         transaction.commit()
         return

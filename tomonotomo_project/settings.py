@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/ubuntu/databasefile',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/himangshu/pratik/databasefile',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -22,16 +22,16 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tomonotomo_db',
-        'USER': 'tomonotomo_user',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '', # Set to empty string for default.
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'tomonotomo_db',
+#        'USER': 'tomonotomo_user',
+#        'PASSWORD': '12345678',
+#        'HOST': 'localhost',
+#        'PORT': '', # Set to empty string for default.
+#    }
+#}
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -179,7 +179,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday']
+FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday', 'friends_birthday', 'friends_education_history', 'friends_work_history', 'friends_hometown', 'friends_location' ]
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',

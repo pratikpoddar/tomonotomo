@@ -10,8 +10,8 @@ GENDER_CHOICES = (
 class UserTomonotomo(models.Model):
 
     userid= models.IntegerField(null=False, unique=True, db_index=True)
-    email= models.CharField(max_length=100L)
-    accesstoken= models.CharField(max_length=500L)
+    email= models.CharField(max_length=100L, null=True)
+    accesstoken= models.CharField(max_length=500L, null=True)
     expiresin= models.IntegerField(null=True)
     first_name= models.CharField(max_length=100L,null=True)
     last_name= models.CharField(max_length=100L,null=True)
@@ -22,7 +22,7 @@ class UserTomonotomo(models.Model):
     education= models.CharField(max_length=500L)
     work= models.CharField(max_length=500L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
-    username= models.CharField(max_length=200L, unique=True)
+    username= models.CharField(max_length=200L)
     friends = models.CharField(max_length=1000L)
 
     ## TODO: Collect friends data as well
