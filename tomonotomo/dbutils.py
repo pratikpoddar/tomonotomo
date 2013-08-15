@@ -1,12 +1,13 @@
 from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
+from random import choice
 import sendgrid
 
 def getMutualFriends (fbid1, fbid2):
         
         fblist1 = UserFriends.objects.filter(userid=fbid1).values('friendid')
-        fblist2 = UserFriends.objects.filter(userid=fbid2).values('friendid')
+        fblist2 = UserFriends.objects.filter(friendid=fbid2).values('userid')
 
-        return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['friendid'], fblist2)))
+        return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
 def getFriendsofFriends (fbid):
         
@@ -19,22 +20,21 @@ def getFriendsofFriends (fbid):
 def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
 
-def getFriendName (fbid):
-        try:
-                ## Assuming that names of all entries of friendid are same - which should be the case
-                return UserFriends.objects.filter(friendid=fbid).distinct()[0].friendname
-        except:
-                return ""
-
 def getFriendsonTnT (fbid):
-        fblist1 = UserFriends.objects.filter(userid=fbid).values('friendid')
-        fblist2 = UserTomonotomo.objects.values('userid')
+        fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
+        return filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
 
-        return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
+#TODO: Remove people with whom you have already had a conversation
+def getRandFoF (fbid, reqgender):
+        listofFoFs = getFriendsofFriends(fbid)
 
-## TODO: Change the function to give good suggestions
-def getRandFoF (fbid):
-        return 717323242
+        if not reqgender == "indifferent":
+            listofFoFs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender == reqgender, listofFoFs)
+
+        if len(listofFoFs):
+            return choice(listofFoFs)
+        else:
+            return 0
 
 ## TODO: Improve Email
 
@@ -221,3 +221,4 @@ def historyFeedback (userid1, userid2):
                     info.append("Pass, and never show")
 
         return {'deactivate': deactivate, 'info': info}
+

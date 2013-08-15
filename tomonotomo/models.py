@@ -25,9 +25,6 @@ class UserTomonotomo(models.Model):
     username= models.CharField(max_length=200L)
     friends = models.CharField(max_length=1000L)
 
-    ## TODO: Collect friends data as well
-    ## TODO: update data if required
-
     def get_full_name(self):
             return self.first_name + " " + self.last_name
     def get_short_name(self):
@@ -40,13 +37,9 @@ class UserTomonotomo(models.Model):
         else:
             return None
 
-
-## TODO: Userfriends name and gender should be updated with time
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
     friendid = models.IntegerField(null=False)
-    friendname = models.CharField(max_length=100L, null=True)
-    friendgender = models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
 
 class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)

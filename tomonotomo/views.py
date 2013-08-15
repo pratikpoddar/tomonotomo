@@ -33,14 +33,22 @@ def index(request):
 @login_required(login_url='index')
 def friendrandom(request):
     loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
-    fbid = dbutils.getRandFoF(loggedid)
+    gender = UserTomonotomo.objects.get(username=request.user.username).gender
+    reqgender = "indifferent"
+    if gender=="male":
+        reqgender = "female"
+    if gender=="female":
+        reqgender = "male"
+    fbid = dbutils.getRandFoF(loggedid, reqgender)
+    if fbid == 0:
+        raise Http404
     return friend(request, fbid)
 
 def friend(request, fbid):
     #fbid = 717323242
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
-        mutualfriends = map(lambda x: {'name': dbutils.getFriendName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
+        mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
         infoList = historyFeedback['info']
@@ -131,11 +139,13 @@ def loggedin(request):
         image='tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )
-    context = RequestContext(request, {
+    dictin = {
 		'degree1': len(dbutils.getFriendsonTnT(fbid)),
 		'degree2': len(dbutils.getFriendsofFriends(fbid)),
         'meta': meta
-		})
+		}
+
+    context = RequestContext(request, dictin)
     return HttpResponse(template.render(context))
 
 @login_required(login_url='index')
