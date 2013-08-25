@@ -4,6 +4,7 @@ from social_auth.models import UserSocialAuth
 from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
 from django.contrib.auth import get_user_model
+import time
 
 from tomonotomo.models import UserTomonotomo, UserFriends
 
@@ -111,7 +112,13 @@ def create_custom_user(backend, details, user=None,
                 userfriend.username = frienddata.get('username')
                 userfriend.userid = frienddata.get('uid')
                 if frienddata.get('birthday'):
-                    userfriend.birthday = frienddata.get('birthday')
+                    try:
+                        userfriend.birthday = time.strftime("%m/%d", time.strptime(frienddata.get('birthday'), "%B %d"))
+                    except:
+                        try:
+                            userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
+                        except:
+                            userfriend.birthday = ""
 
                 userfriend.save()
 
