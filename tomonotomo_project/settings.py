@@ -206,11 +206,11 @@ SOCIAL_AUTH_ASSOCIATE_BY_EMAIL = True
 SOCIAL_AUTH_ERROR_KEY = 'socialauth_error'
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
-LOGIN_URL = '/tomonotomo/login/' 
+LOGIN_URL = '/login/'
 # TODO: BETA LAUNCH
-# LOGIN_REDIRECT_URL = '/tomonotomo/loggedin'
-LOGIN_REDIRECT_URL = '/tomonotomo/betathanks'
-LOGIN_ERROR_URL = '/tomonotomo/login-error/'
+# LOGIN_REDIRECT_URL = '/loggedin'
+LOGIN_REDIRECT_URL = '/betathanks'
+LOGIN_ERROR_URL = '/login-error/'
 
 META_SITE_PROTOCOL = 'http'
 

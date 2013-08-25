@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'tomonotomo_project.views.home', name='home'),
     # url(r'^tomonotomo_project/', include('tomonotomo_project.foo.urls')),
 
-    url(r'^tomonotomo/', include('tomonotomo.urls')),
+    url('', include('tomonotomo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
