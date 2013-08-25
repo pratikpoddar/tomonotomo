@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" afterPath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo_project/settings.py" afterPath="$PROJECT_DIR$/tomonotomo_project/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,7 +45,7 @@
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="190" column="32" selection-start="6499" selection-end="6499" vertical-scroll-proportion="-7.064516">
+            <state line="4" column="0" selection-start="91" selection-end="91" vertical-scroll-proportion="-1.9354838">
               <folding />
             </state>
           </provider>
@@ -63,7 +64,13 @@
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/about.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
-              <folding />
+              <folding>
+                <marker date="1377444548134" expanded="true" signature="110:1534" placeholder="..." />
+                <marker date="1377444548134" expanded="true" signature="138:1527" placeholder="..." />
+                <marker date="1377444548134" expanded="true" signature="165:1518" placeholder="..." />
+                <marker date="1377444548134" expanded="true" signature="327:747" placeholder="..." />
+                <marker date="1377444548134" expanded="true" signature="818:1435" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,7 +110,23 @@
         <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="167" column="14" selection-start="5933" selection-end="5933" vertical-scroll-proportion="-10.708333">
-              <folding />
+              <folding>
+                <marker date="1377444582930" expanded="true" signature="124:164" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="193:245" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="265:698" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="725:990" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1020:1141" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1170:1283" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1307:1527" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1547:1723" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1743:1815" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="1841:1883" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="5720:5915" placeholder="..." />
+                <marker date="1377444582930" expanded="true" signature="3940:4598" placeholder="{...}" />
+                <marker date="1377444582930" expanded="true" signature="5720:5908" placeholder="..." />
+                <marker date="1377444582930" expanded="true" signature="5720:5899" placeholder="..." />
+                <marker date="1377444582930" expanded="true" signature="5720:5889" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,7 +143,7 @@
       <file leaf-file-name="social_auth_pipeline.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="28" selection-start="2528" selection-end="2528" vertical-scroll-proportion="0.28169015">
+            <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.4084507">
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -133,9 +156,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
               <folding>
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h3#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1377444579034" expanded="true" signature="110:1163" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="138:1156" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="167:297" placeholder="..." />
+                <marker date="1377444579034" expanded="false" signature="271:280" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="320:1147" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="416:1119" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="503:518" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="633:648" placeholder="..." />
+                <marker date="1377444579034" expanded="true" signature="1074:1085" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -761,7 +790,13 @@
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/about.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
-          <folding />
+          <folding>
+            <marker date="1377444548134" expanded="true" signature="110:1534" placeholder="..." />
+            <marker date="1377444548134" expanded="true" signature="138:1527" placeholder="..." />
+            <marker date="1377444548134" expanded="true" signature="165:1518" placeholder="..." />
+            <marker date="1377444548134" expanded="true" signature="327:747" placeholder="..." />
+            <marker date="1377444548134" expanded="true" signature="818:1435" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -776,9 +811,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
           <folding>
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1377444579034" expanded="true" signature="110:1163" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="138:1156" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="167:297" placeholder="..." />
+            <marker date="1377444579034" expanded="false" signature="271:280" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="320:1147" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="416:1119" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="503:518" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="633:648" placeholder="..." />
+            <marker date="1377444579034" expanded="true" signature="1074:1085" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -786,7 +827,23 @@
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="167" column="14" selection-start="5933" selection-end="5933" vertical-scroll-proportion="-10.708333">
-          <folding />
+          <folding>
+            <marker date="1377444582930" expanded="true" signature="124:164" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="193:245" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="265:698" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="725:990" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1020:1141" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1170:1283" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1307:1527" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1547:1723" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1743:1815" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="1841:1883" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="5720:5915" placeholder="..." />
+            <marker date="1377444582930" expanded="true" signature="3940:4598" placeholder="{...}" />
+            <marker date="1377444582930" expanded="true" signature="5720:5908" placeholder="..." />
+            <marker date="1377444582930" expanded="true" signature="5720:5899" placeholder="..." />
+            <marker date="1377444582930" expanded="true" signature="5720:5889" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -824,14 +881,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="32" selection-start="6499" selection-end="6499" vertical-scroll-proportion="-7.064516">
+        <state line="4" column="0" selection-start="91" selection-end="91" vertical-scroll-proportion="-1.9354838">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="28" selection-start="2528" selection-end="2528" vertical-scroll-proportion="0.28169015">
+        <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.4084507">
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
