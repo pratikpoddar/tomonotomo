@@ -9,9 +9,9 @@ GENDER_CHOICES = (
 
 class UserTomonotomo(models.Model):
 
-    userid= models.IntegerField(null=False, unique=True, db_index=True)
+    userid= models.BigIntegerField(null=False, unique=True, db_index=True)
     email= models.CharField(max_length=100L, null=True)
-    accesstoken= models.CharField(max_length=500L, null=True)
+    accesstoken= models.TextField( null=True)
     expiresin= models.IntegerField(null=True)
     first_name= models.CharField(max_length=100L,null=True)
     last_name= models.CharField(max_length=100L,null=True)
@@ -23,7 +23,7 @@ class UserTomonotomo(models.Model):
     work= models.CharField(max_length=500L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
     username= models.CharField(max_length=200L)
-    friends = models.CharField(max_length=1000L)
+    friends = models.TextField()
 
     def get_full_name(self):
             return self.first_name + " " + self.last_name
@@ -43,11 +43,11 @@ class UserTomonotomo(models.Model):
 
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
-    friendid = models.IntegerField(null=False)
+    friendid = models.BigIntegerField(null=False)
 
 class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
-    fbid = models.IntegerField(null=False)
+    fbid = models.BigIntegerField(null=False)
     action = models.IntegerField(null=False)
 
 

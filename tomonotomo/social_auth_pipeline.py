@@ -17,11 +17,11 @@ def create_custom_user(backend, details, user=None,
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
         if kwargs['is_new'] == False:
-            print "Returning user " +  str(user)
+            print "Returning user " + str(user)
             transaction.commit()
             return
 
-        print "Getting data for first time user " +  str(user)
+        print "Getting data for first time user " + str(user)
 
         if user is None:
                 print "User came as None in the function create_custom_user"
@@ -77,31 +77,24 @@ def create_custom_user(backend, details, user=None,
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
-        for friend in responsegraph.get('data'):
+        friendgraphdata = graph.fql('SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me())')
+
+        for frienddata in friendgraphdata.get('data'):
+
                 print "|||"
-                print "Saving information for friendid - " + friend.get('id')
+                print "Saving detailed information for friendid - " + str(frienddata.get('uid'))
 
                 try:
-                    profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=friend.get('id'))
+                    profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
                 except UserFriends.DoesNotExist:
                     profilefriends = UserFriends()
 
                 profilefriends.userid = userloggedin
-                profilefriends.friendid = friend.get('id')
-
+                profilefriends.friendid = frienddata.get('uid')
                 profilefriends.save()
 
-        transaction.commit()
-
-        print "----"
-
-        for friend in responsegraph.get('data'):
-                print "|||"
-                print "Saving detailed information for friendid - " + friend.get('id')
-                frienddata = graph.get(str(friend.get('id'))+'?fields=id,first_name,last_name,hometown,location,username,name,gender,birthday,education,work')
-
                 try:
-                    userfriend = UserTomonotomo.objects.get(userid=frienddata.get('id'))
+                    userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
                 except UserTomonotomo.DoesNotExist:
                     userfriend = UserTomonotomo()
 
@@ -113,16 +106,16 @@ def create_custom_user(backend, details, user=None,
                     userfriend.first_name = frienddata.get('first_name')
                 if frienddata.get('last_name'):
                     userfriend.last_name = frienddata.get('last_name')
-                if frienddata.get('gender'):
-                    userfriend.gender = frienddata.get('gender') or "not specified"
-                if frienddata.get('hometown'):
-                    userfriend.hometown = frienddata.get('hometown').get('name')
-                if frienddata.get('location'):
-                    userfriend.location = frienddata.get('location').get('name')
+                if frienddata.get('sex'):
+                    userfriend.gender = frienddata.get('sex') or "not specified"
+                if frienddata.get('hometown_location'):
+                    userfriend.hometown = frienddata.get('hometown_location').get('name')
+                if frienddata.get('current_location'):
+                    userfriend.location = frienddata.get('current_location').get('name')
                 if frienddata.get('username'):
                     userfriend.username = frienddata.get('username')
-                if frienddata.get('id'):
-                    userfriend.userid = frienddata.get('id')
+                if frienddata.get('uid'):
+                    userfriend.userid = frienddata.get('uid')
                 if frienddata.get('birthday'):
                     userfriend.birthday = frienddata.get('birthday')
 

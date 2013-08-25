@@ -149,6 +149,26 @@ def loggedin(request):
     return HttpResponse(template.render(context))
 
 @login_required(login_url='index')
+def betathanks(request):
+    fbid = UserTomonotomo.objects.get(username=request.user.username).userid
+    template = loader.get_template('tomonotomo/betathanks.html')
+    meta = Meta(
+        use_og=1,
+        url=request.build_absolute_uri(),
+        use_sites=True,
+        description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
+        keywords=['dating', 'tomonotomo', 'friend'],
+        image='tomonotomo/img/logo.jpg',
+        title='tomonotomo - meet friends of friends'
+    )
+    dictin = {
+        'meta': meta
+		}
+
+    context = RequestContext(request, dictin)
+    return HttpResponse(template.render(context))
+
+@login_required(login_url='index')
 def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
     ##action = 1

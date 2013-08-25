@@ -10,23 +10,14 @@
         </div>
 		<div class="grid_6">
 
-			<h2> Building your Social Graph...</h2>
+			<h2> Thanks for signing up.. Please invite friends.. </h2>
 			<br/><br/>
 
             <div>
-            <span style="font-size: 150%">"{{ degree1 }}"</span> friends in your network are on tomonotomo<br/><br/>
-            <!-- TODO: Check if invite friends work -->
-            {% if degree1 >= 3 %}
-                You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends in degree 2 network.<br/><br/>
-                <a href="{% url "friendrandom" %}" class="btn btn-large"><h3 style="color:white">Start</h3></a>
-            {%  else %}
+                Thanks for signing up as a beta user. We will launch on <span style="font-size: 150%">September 5th</span>. Please check us out then.<br/><br/>
                 You need to have at least <span style="font-size: 150%">"3"</span> friends on tomonotono so that we can build a dense social graph.
                 <br/><br/>Please get your friends to be a part of tomonotomo.<br/><br/>
                 <a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
-                {% if degree1 >= 1 %}
-                    <br/><br/><a href="{% url "friendrandom" %}" class="btn"><h3 style="color:white">Start Anyways</h3></a>
-                {% endif %}    
-            {% endif %}
 			</div>
             <br/>
 

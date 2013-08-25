@@ -92,7 +92,7 @@
 			<div class="container_12">
 			<div class="grid_12">
 			<h2>{{ fullname }}<br/>
-			<span style="font-size:60%">{{ age }}, {{ location }}</span></h2>
+			<span style="font-size:60%">{{ age|default:"[Age N.A.]" }}, {{ location|default:"[Location N.A.]"}}</span></h2>
 			</div>
 			</div>
 
