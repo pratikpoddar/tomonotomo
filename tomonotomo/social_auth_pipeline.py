@@ -16,10 +16,10 @@ def create_custom_user(backend, details, user=None,
         print "Creating Custom User"
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
-        if kwargs['is_new'] == False:
-            print "Returning user " + str(user)
-            transaction.commit()
-            return
+        # if kwargs['is_new'] == False:
+        #     print "Returning user " + str(user)
+        #     transaction.commit()
+        #     return
 
         print "Getting data for first time user " + str(user)
 

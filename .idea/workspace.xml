@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo_project/settings.py" afterPath="$PROJECT_DIR$/tomonotomo_project/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" afterPath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
     </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -143,7 +142,7 @@
       <file leaf-file-name="social_auth_pipeline.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.4084507">
+            <state line="21" column="20" selection-start="706" selection-end="841" vertical-scroll-proportion="0.87323946">
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -888,7 +887,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.4084507">
+        <state line="21" column="20" selection-start="706" selection-end="841" vertical-scroll-proportion="0.87323946">
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
