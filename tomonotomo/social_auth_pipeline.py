@@ -88,10 +88,9 @@ def create_custom_user(backend, details, user=None,
                     profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
                 except UserFriends.DoesNotExist:
                     profilefriends = UserFriends()
-
-                profilefriends.userid = userloggedin
-                profilefriends.friendid = frienddata.get('uid')
-                profilefriends.save()
+                    profilefriends.userid = userloggedin
+                    profilefriends.friendid = frienddata.get('uid')
+                    profilefriends.save()
 
                 try:
                     userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
@@ -102,20 +101,15 @@ def create_custom_user(backend, details, user=None,
                     userfriend.work= getSanitizedWork(frienddata['work'])
                 if frienddata.get('education'):
                     userfriend.education= getSanitizedEducation(frienddata['education'])
-                if frienddata.get('first_name'):
-                    userfriend.first_name = frienddata.get('first_name')
-                if frienddata.get('last_name'):
-                    userfriend.last_name = frienddata.get('last_name')
-                if frienddata.get('sex'):
-                    userfriend.gender = frienddata.get('sex') or "not specified"
+                userfriend.first_name = frienddata.get('first_name')
+                userfriend.last_name = frienddata.get('last_name')
+                userfriend.gender = frienddata.get('sex') or "not specified"
                 if frienddata.get('hometown_location'):
                     userfriend.hometown = frienddata.get('hometown_location').get('name')
                 if frienddata.get('current_location'):
                     userfriend.location = frienddata.get('current_location').get('name')
-                if frienddata.get('username'):
-                    userfriend.username = frienddata.get('username')
-                if frienddata.get('uid'):
-                    userfriend.userid = frienddata.get('uid')
+                userfriend.username = frienddata.get('username')
+                userfriend.userid = frienddata.get('uid')
                 if frienddata.get('birthday'):
                     userfriend.birthday = frienddata.get('birthday')
 
