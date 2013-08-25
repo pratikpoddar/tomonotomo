@@ -65,7 +65,7 @@ def create_custom_user(backend, details, user=None,
         profile.birthday = str(responsegraph.get('birthday'))
 
         responsegraph = graph.get(str(res['id'])+'/friends?fields=id')
-        profile.friends = str(responsegraph.get('data'))
+        profile.friends = "-"
 
         print "----"
 
