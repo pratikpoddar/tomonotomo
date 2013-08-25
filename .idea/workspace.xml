@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo_project/settings.py" afterPath="$PROJECT_DIR$/tomonotomo_project/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/dbutils.py" afterPath="$PROJECT_DIR$/tomonotomo/dbutils.py" />
     </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -14,7 +14,7 @@
     <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444501735" ignored="false" />
     <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377438147838" ignored="false" />
     <file path="/loggedin.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377441870178" ignored="false" />
-    <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376602956401" ignored="false" />
+    <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377460241065" ignored="false" />
     <file path="/urls.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377438617867" ignored="false" />
     <file path="/a.dummy" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444729205" ignored="false" />
     <file path="/friend.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377436119805" ignored="false" />
@@ -53,7 +53,7 @@
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="1" selection-start="66" selection-end="66" vertical-scroll-proportion="-1.451613">
+            <state line="3" column="1" selection-start="65" selection-end="65" vertical-scroll-proportion="-1.451613">
               <folding />
             </state>
           </provider>
@@ -82,7 +82,7 @@
       <file leaf-file-name="dbutils.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="0" selection-start="4462" selection-end="4462" vertical-scroll-proportion="0.04225352">
+            <state line="225" column="0" selection-start="9494" selection-end="9494" vertical-scroll-proportion="0.91549295">
               <folding>
                 <element signature="e#0#71#0" expanded="true" />
               </folding>
@@ -183,7 +183,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
         <option value="$PROJECT_DIR$/../ENV/lib/python2.7/site-packages/django/utils/importlib.py" />
         <option value="$PROJECT_DIR$/tomonotomo/static/tomonotomo/css/style.css" />
         <option value="$PROJECT_DIR$/tomonotomo/models.py" />
@@ -198,6 +197,7 @@
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html" />
         <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
         <option value="$PROJECT_DIR$/tomonotomo_project/settings.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
       </list>
     </option>
   </component>
@@ -869,7 +869,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo_project/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="1" selection-start="66" selection-end="66" vertical-scroll-proportion="-1.451613">
+        <state line="3" column="1" selection-start="65" selection-end="65" vertical-scroll-proportion="-1.451613">
           <folding />
         </state>
       </provider>
@@ -885,7 +885,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="0" selection-start="4462" selection-end="4462" vertical-scroll-proportion="0.04225352">
+        <state line="225" column="0" selection-start="9494" selection-end="9494" vertical-scroll-proportion="0.91549295">
           <folding>
             <element signature="e#0#71#0" expanded="true" />
           </folding>

@@ -119,53 +119,53 @@ def historyFeedback (userid1, userid2):
         if (len(result1) > 0) and (len(result2) == 0):
 
             if result1.values()[0]['action'] == 1:
-                info.append("Sent Introduction Request to Friends")
+                info.append("You have sent Introduction Request to Friends")
 
             if result1.values()[0]['action'] == 2:
                 deactivate.append(1)
                 deactivate.append(2)
                 deactivate.append(3)
                 deactivate.append(4)
-                info.append("Sent Direct Connection Request")
+                info.append("You have sent Direct Connection Request")
 
             if result1.values()[0]['action'] == 3:
                 deactivate.append(3)
                 deactivate.append(4)
-                info.append("Cute, but don't connect")
+                info.append("You marked - Cute, but don't connect")
 
             if result1.values()[0]['action'] == 4:
                 deactivate.append(3)
                 deactivate.append(4)
-                info.append("Pass, and never show")
+                info.append("You marked - Pass, and never show")
 
         if (len(result1) == 0) and (len(result2) > 0):
 
             if result2.values()[0]['action'] == 2:
-                info.append("You would have received a Direct Connection Request over email")
+                info.append("You would have received a Direct Connection Request over email. Best of Luck")
 
         if (len(result1) > 0) and (len(result2) > 0):
 
             if (result2.values()[0]['action'] == 1) or (result2.values()[0]['action'] == 4):
 
                 if result1.values()[0]['action'] == 1:
-                    info.append("Sent Introduction Request to Friends")
+                    info.append("You have sent Introduction Request to Friends")
 
                 if result1.values()[0]['action'] == 2:
                     deactivate.append(1)
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Sent Direct Connection Request")
+                    info.append("You have sent Direct Connection Request")
 
                 if result1.values()[0]['action'] == 3:
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Cute, but don't connect")
+                    info.append("You marked - Cute, but don't connect")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Pass, and never show")
+                    info.append("You marked - Pass, and never show")
 
             if result2.values()[0]['action'] == 2:
 
@@ -173,7 +173,7 @@ def historyFeedback (userid1, userid2):
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Sent Introduction Request to Friends")
+                    info.append("You have sent Introduction Request to Friends")
                     info.append("You would have received a Direct Connection Request over email")
 
                 if result1.values()[0]['action'] == 2:
@@ -181,45 +181,45 @@ def historyFeedback (userid1, userid2):
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Sent Direct Connection Request")
+                    info.append("You have sent Direct Connection Request")
                     info.append("You would have received a Direct Connection Request over email")
 
                 if result1.values()[0]['action'] == 3:
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Cute, but don't connect")
+                    info.append("You marked - Cute, but don't connect")
                     info.append("You would have received a Direct Connection Request over email")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Pass, and never show")
+                    info.append("You marked - Pass, and never show")
                     info.append("You would have received a Direct Connection Request over email")
 
             if result2.values()[0]['action'] == 3:
 
                 if result1.values()[0]['action'] == 1:
-                    info.append("Sent Introduction Request to Friends")
+                    info.append("You have sent Introduction Request to Friends")
 
                 if result1.values()[0]['action'] == 2:
                     deactivate.append(1)
                     deactivate.append(2)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Sent Direct Connection Request")
+                    info.append("You have sent Direct Connection Request")
 
                 if result1.values()[0]['action'] == 3:
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Both of you find each other cute. Tomonotomo sent an email to both of you.")
+                    info.append("Both of you find each other cute. Tomonotomo sent an email to both of you. Best of Luck")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Pass, and never show")
+                    info.append("You marked - Pass, and never show")
 
         return {'deactivate': deactivate, 'info': info}
 
