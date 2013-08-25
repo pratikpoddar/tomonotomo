@@ -1,9 +1,6 @@
-from django.utils import simplejson
-from django.http import Http404, HttpResponse, HttpResponseRedirect
 from social_auth.models import UserSocialAuth
 from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
-from django.contrib.auth import get_user_model
 import time
 
 from tomonotomo.models import UserTomonotomo, UserFriends
@@ -57,16 +54,13 @@ def create_custom_user(backend, details, user=None,
                 profile.location = res.get('location').get('name')
         profile.username = res.get('username')
         profile.userid = res.get('id')
+        profile.friends = "-" # Deprecated entry in table
 
         print "----"
 
         graph = GraphAPI(res.get('access_token'))
-
         responsegraph = graph.get(str(res['id'])+'?fields=birthday')
         profile.birthday = str(responsegraph.get('birthday'))
-
-        responsegraph = graph.get(str(res['id'])+'/friends?fields=id')
-        profile.friends = "-"
 
         print "----"
 

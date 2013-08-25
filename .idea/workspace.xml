@@ -8,7 +8,7 @@
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377427508291" ignored="false" />
     <file path="/fragment.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377435688434" ignored="false" />
-    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377457687669" ignored="false" />
+    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377457813245" ignored="false" />
     <file path="/models.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377427759324" ignored="false" />
     <file path="/base.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376510563953" ignored="false" />
     <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444501735" ignored="false" />
@@ -136,9 +136,9 @@
       <file leaf-file-name="social_auth_pipeline.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="20" selection-start="2647" selection-end="2647" vertical-scroll-proportion="0.04225352">
+            <state line="131" column="0" selection-start="5526" selection-end="5526" vertical-scroll-proportion="0.91549295">
               <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#0#45#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -881,9 +881,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="20" selection-start="2647" selection-end="2647" vertical-scroll-proportion="0.04225352">
+        <state line="131" column="0" selection-start="5526" selection-end="5526" vertical-scroll-proportion="0.91549295">
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
