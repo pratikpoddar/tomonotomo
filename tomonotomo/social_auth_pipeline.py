@@ -7,7 +7,7 @@ from tomonotomo.models import UserTomonotomo, UserFriends
 
 from django.db import transaction
 
-#@transaction.commit_manually
+@transaction.commit_manually
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
@@ -23,10 +23,10 @@ def create_custom_user(backend, details, user=None,
 
         if user is None:
                 print "User came as None in the function create_custom_user"
- #               transaction.commit()
+                transaction.commit()
                 return
         if backend.__class__ != FacebookBackend:
-  #              transaction.commit()
+                transaction.commit()
                 return
 
         res = kwargs['response']
@@ -66,13 +66,13 @@ def create_custom_user(backend, details, user=None,
 
         profile.save()
 
-   #     transaction.commit()
+        transaction.commit()
 
         print "----"
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
-        friendgraphdata = graph.fql('SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me())')
+        friendgraphdata = graph.fql('SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit 20)')
 
         for frienddata in friendgraphdata.get('data'):
 
@@ -116,7 +116,7 @@ def create_custom_user(backend, details, user=None,
 
                 userfriend.save()
 
-    #    transaction.commit()
+        transaction.commit()
         return
 
 def getSanitizedEducation (educationProfile):
