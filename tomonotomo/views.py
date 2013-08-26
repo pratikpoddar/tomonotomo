@@ -89,11 +89,18 @@ def friend(request, fbid):
     else:
 	educationlist = profile.education.split('---')
 
+    if profile.get_age() != "[Age N.A.]":
+	if profile.location != "":
+		agelocation = profile.get_age() + ", " + profile.location
+	else:
+		agelocation = profile.get_age()
+    else:
+	agelocation = profile.location
+
     context = RequestContext(request, {
 		'fbid': fbid,
 		'fullname': profile.get_full_name(),
-		'age': profile.get_age(),
-		'location': profile.location,
+		'agelocation': agelocation,
 		'worklist': worklist,
 		'educationlist': educationlist,
 		'mutualfriends': mutualfriends,
