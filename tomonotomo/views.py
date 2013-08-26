@@ -91,7 +91,7 @@ def friend(request, fbid):
 
     if profile.get_age() != "[Age N.A.]":
 	if profile.location != "":
-		agelocation = profile.get_age() + ", " + profile.location
+		agelocation = str(profile.get_age()) + ", " + profile.location
 	else:
 		agelocation = profile.get_age()
     else:
