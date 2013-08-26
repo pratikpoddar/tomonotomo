@@ -78,13 +78,24 @@ def friend(request, fbid):
         title= str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
     )        
 
+    
+    if profile.work == "":
+    	worklist = []
+    else:
+	worklist = profile.work.split('---')
+
+    if profile.education == "":
+	educationlist = []
+    else:
+	educationlist = profile.education.split('---')
+
     context = RequestContext(request, {
 		'fbid': fbid,
 		'fullname': profile.get_full_name(),
 		'age': profile.get_age(),
 		'location': profile.location,
-		'worklist': profile.work.split('---'),
-		'educationlist': profile.education.split('---'),
+		'worklist': worklist,
+		'educationlist': educationlist,
 		'mutualfriends': mutualfriends,
 		'meta': meta,
         'deactivateList': deactivateList,

@@ -72,22 +72,18 @@
 			<br/>
 			<div style="padding-right:0px;text-align:right">
 				{% if worklist %}
-					{% if len(worklist)>1 or worklist[0]!="" %} 
 					<div class="block"><span> Work </span>
 						{% for work in worklist %}
 							{{ work }}<br/>
 						{% endfor %}
 					</div>
-					{% endif %}
 				{% endif %}
 				{% if educationlist %}
-					{% if len(educationlist)>1 or educationlist[0]!="" %}
 					<div class="block"><span> Education </span>
 						{% for education in educationlist %}
 							{{ education }}<br/>
 						{% endfor %}
 					</div>
-					{% endif %}
 				{% endif %}
 			</div>
 		</div>
