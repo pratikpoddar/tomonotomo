@@ -117,12 +117,9 @@ def create_custom_user(backend, details, user=None,
                 userfriend.userid = frienddata.get('uid')
                 if frienddata.get('birthday'):
                     try:
-                        userfriend.birthday = time.strftime("%m/%d", time.strptime(frienddata.get('birthday'), "%B %d"))
-                    except:
-                        try:
-                            userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
-                        except:
-                            userfriend.birthday = ""
+                        userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
+		    except:
+                        print "could not parse birthday for " + str(frienddata.get('uid'))
 
                 userfriend.save()
 		
@@ -139,9 +136,9 @@ def getSanitizedEducation (educationProfile):
         for value in educationProfile:
                 if value.get('school') and value['school'].get('name'):
                         education = education + value['school']['name']+'---'
-                if value.get('concentration'):
-                        for concentration in value['concentration']:
-                                education = education + concentration['name']+'---'
+                #if value.get('concentration'):
+                #        for concentration in value['concentration']:
+                #                education = education + concentration['name']+'---'
         return education
 
 def getSanitizedWork (workProfile):
