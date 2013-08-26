@@ -72,12 +72,13 @@ def create_custom_user(backend, details, user=None,
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
-        friendgraphdata = graph.fql('SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit 20)')
+        friendgraphdata = graph.fql('SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() LIMIT 20)')
 
+	print len(friendgraphdata.get('data'))
         for frienddata in friendgraphdata.get('data'):
 
-                print "|||"
-                print "Saving detailed information for friendid - " + str(frienddata.get('uid'))
+#                print "|||"
+#                print "Saving detailed information for friendid - " + str(frienddata.get('uid'))
 
                 try:
                     profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
