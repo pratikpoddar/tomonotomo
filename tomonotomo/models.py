@@ -19,11 +19,10 @@ class UserTomonotomo(models.Model):
     hometown= models.CharField(max_length=100L)
     location= models.CharField(max_length=100L)
     gender= models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
-    education= models.CharField(max_length=500L)
-    work= models.CharField(max_length=500L)
+    education= models.CharField(max_length=2000L)
+    work= models.CharField(max_length=2000L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
     username= models.CharField(max_length=200L)
-    friends = models.TextField()
 
     def get_full_name(self):
             return self.first_name + " " + self.last_name

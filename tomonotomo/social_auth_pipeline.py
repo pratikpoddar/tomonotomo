@@ -54,15 +54,12 @@ def create_custom_user(backend, details, user=None,
                 profile.location = res.get('location').get('name')
         profile.username = res.get('username')
         profile.userid = res.get('id')
-        profile.friends = "-" # Deprecated entry in table
 
         print "----"
 
         graph = GraphAPI(res.get('access_token'))
         responsegraph = graph.get(str(res['id'])+'?fields=birthday')
         profile.birthday = str(responsegraph.get('birthday'))
-
-        print "----"
 
         profile.save()
 
@@ -72,17 +69,25 @@ def create_custom_user(backend, details, user=None,
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
-        friendgraphmulti = graph.fql({
-		'query1': 'SELECT uid2 FROM friend where uid1=me()',
-		'query2': 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM #query1)'})
+	friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
+	numberfriends = friendnumber.get('data')[0].get('friend_count')
+	print "number of friends " + str(numberfriends)
+	
+	friendgraphdata= []
+	friendgraph= []
+	for i in range(0,10):
+		query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
+		friendgraphdata.append(graph.fql(query))
+		friendgraph.extend(friendgraphdata[i].get('data'))
+		print "recieved data for " + str(len(friendgraph)) + " friends - some are duplicate"
+	
+	print "list of friends data "+str(len(friendgraph))+" - some are duplicate"
+		
+	count = 0
+	for frienddata in friendgraph:
 
-	friendgraphdata = friendgraphmulti[1].get('fql_result_set')
-
-	print len(friendgraphdata)
-        for frienddata in friendgraphdata:
-
-#                print "|||"
-#                print "Saving detailed information for friendid - " + str(frienddata.get('uid'))
+		count = count + 1
+		print "Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count)
 
                 try:
                     profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
@@ -91,16 +96,16 @@ def create_custom_user(backend, details, user=None,
                     profilefriends.userid = userloggedin
                     profilefriends.friendid = frienddata.get('uid')
                     profilefriends.save()
-
+		
                 try:
                     userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
                 except UserTomonotomo.DoesNotExist:
                     userfriend = UserTomonotomo()
 
                 if frienddata.get('work'):
-                    userfriend.work= getSanitizedWork(frienddata['work'])
+			userfriend.work= getSanitizedWork(frienddata['work'])
                 if frienddata.get('education'):
-                    userfriend.education= getSanitizedEducation(frienddata['education'])
+			userfriend.education= getSanitizedEducation(frienddata['education'])
                 userfriend.first_name = frienddata.get('first_name')
                 userfriend.last_name = frienddata.get('last_name')
                 userfriend.gender = frienddata.get('sex') or "not specified"
@@ -120,8 +125,12 @@ def create_custom_user(backend, details, user=None,
                             userfriend.birthday = ""
 
                 userfriend.save()
+		
+		if count % 50 == 0:
+			transaction.commit()
 
         transaction.commit()
+	print "completed for " + str(userloggedin)
         return
 
 def getSanitizedEducation (educationProfile):
