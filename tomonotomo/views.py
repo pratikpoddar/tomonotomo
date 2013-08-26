@@ -202,6 +202,6 @@ def tntAction(request, fbid, action, fbfriend):
                 mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
                 dbutils.sendemailCute(userid, fbid, mutualfriendlist)
         except:
-            return redirect('/tomonotomo/friend')
+            return redirect('/friend')
 
-    return redirect('/tomonotomo/friend')
+    return redirect('/friend')
