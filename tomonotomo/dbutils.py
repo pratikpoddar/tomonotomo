@@ -131,7 +131,7 @@ def historyFeedback (userid1, userid2):
             if result1.values()[0]['action'] == 3:
                 deactivate.append(3)
                 deactivate.append(4)
-                info.append("You marked - Cute, but don't connect")
+                info.append("You marked - Looks Cute/Handsome")
 
             if result1.values()[0]['action'] == 4:
                 deactivate.append(3)
@@ -160,7 +160,7 @@ def historyFeedback (userid1, userid2):
                 if result1.values()[0]['action'] == 3:
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("You marked - Cute, but don't connect")
+                    info.append("You marked - Looks Cute/Handsome")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(3)
@@ -188,7 +188,7 @@ def historyFeedback (userid1, userid2):
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("You marked - Cute, but don't connect")
+                    info.append("You marked - Looks Cute/Handsome")
                     info.append("You would have received a Direct Connection Request over email")
 
                 if result1.values()[0]['action'] == 4:
@@ -214,7 +214,7 @@ def historyFeedback (userid1, userid2):
                     deactivate.append(1)
                     deactivate.append(3)
                     deactivate.append(4)
-                    info.append("Both of you find each other cute. Tomonotomo sent an email to both of you. Best of Luck")
+                    info.append("Both of you find each other cute/handsome. Tomonotomo sent an email to both of you. Best of Luck")
 
                 if result1.values()[0]['action'] == 4:
                     deactivate.append(3)
