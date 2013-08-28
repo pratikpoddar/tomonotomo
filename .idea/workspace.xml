@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="" />
+    <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" afterPath="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/views.py" afterPath="$PROJECT_DIR$/tomonotomo/views.py" />
+    </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377427508291" ignored="false" />
-    <file path="/fragment.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377435688434" ignored="false" />
-    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377457813245" ignored="false" />
+    <file path="/Dummy.txt" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377700293767" ignored="false" />
+    <file path="/fragment.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377701102422" ignored="false" />
+    <file path="/social_auth_pipeline.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377700801125" ignored="false" />
     <file path="/models.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377427759324" ignored="false" />
     <file path="/base.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376510563953" ignored="false" />
     <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444501735" ignored="false" />
-    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377438147838" ignored="false" />
+    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377701256334" ignored="false" />
     <file path="/loggedin.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377441870178" ignored="false" />
     <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377460241065" ignored="false" />
     <file path="/urls.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377438617867" ignored="false" />
-    <file path="/a.dummy" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444729205" ignored="false" />
+    <file path="/a.dummy" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377701309695" ignored="false" />
     <file path="/friend.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377436119805" ignored="false" />
     <file path="/about.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376243024991" ignored="false" />
     <file path="/settings.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377458180826" ignored="false" />
@@ -38,7 +41,48 @@
     <favorites_list name="tomonotomo_project" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="betathanks.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/betathanks.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="26" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.3647059">
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loggedin.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="31" selection-start="1578" selection-end="1578" vertical-scroll-proportion="-5.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="social_auth_pipeline.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="8" selection-start="684" selection-end="684" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -62,15 +106,15 @@
         <option value="$PROJECT_DIR$/tomonotomo/urls.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html" />
         <option value="$PROJECT_DIR$/tomonotomo_project/urls.py" />
-        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/about.html" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/base.html" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/betathanks.html" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/index.html" />
-        <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
         <option value="$PROJECT_DIR$/tomonotomo_project/settings.py" />
         <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
       </list>
     </option>
   </component>
@@ -125,7 +169,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,17 +257,18 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ENV/bin/python2.7" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="GoToClass.includeJavaFiles" value="true" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -278,29 +322,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -322,6 +343,29 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -387,8 +431,8 @@
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Django server.tomonotomo_project" />
-      <item index="1" class="java.lang.String" itemvalue="Python.manage" />
+      <item index="0" class="java.lang.String" itemvalue="Python.manage" />
+      <item index="1" class="java.lang.String" itemvalue="Django server.tomonotomo_project" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -419,16 +463,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1303" height="773" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3273906" sideWeight="0.49960032" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32901135" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2022382" sideWeight="0.68557537" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31442463" sideWeight="0.49960032" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.206235" sideWeight="0.6709887" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12965964" sideWeight="0.49960032" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48622367" sideWeight="0.5003997" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3273906" sideWeight="0.49960032" order="2" side_tool="false" content_ui="tabs" />
@@ -436,6 +479,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -503,32 +547,32 @@
       <breakpoints>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>147</line>
+          <line>165</line>
           <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>148</line>
+          <line>166</line>
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>142</line>
+          <line>160</line>
           <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>144</line>
+          <line>162</line>
           <option name="timeStamp" value="150" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>145</line>
+          <line>163</line>
           <option name="timeStamp" value="151" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/models.py</url>
-          <line>34</line>
+          <line>33</line>
           <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
@@ -548,58 +592,63 @@
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>82</line>
+          <line>100</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>81</line>
+          <line>99</line>
           <option name="timeStamp" value="171" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>84</line>
+          <line>102</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>83</line>
+          <line>101</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>85</line>
+          <line>103</line>
           <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>87</line>
+          <line>105</line>
           <option name="timeStamp" value="176" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>86</line>
+          <line>104</line>
           <option name="timeStamp" value="177" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>88</line>
+          <line>106</line>
           <option name="timeStamp" value="178" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>89</line>
+          <line>107</line>
           <option name="timeStamp" value="179" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>91</line>
+          <line>109</line>
           <option name="timeStamp" value="180" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
-          <line>90</line>
+          <line>108</line>
           <option name="timeStamp" value="181" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/tomonotomo/views.py</url>
+          <line>148</line>
+          <option name="timeStamp" value="208" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -609,29 +658,18 @@
           </selected-grouping-rules>
         </breakpoints-dialog>
       </breakpoints-dialog>
-      <option name="time" value="208" />
+      <option name="time" value="209" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../ENV/lib/python2.7/site-packages/django/db/models/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="271" column="11" selection-start="12255" selection-end="12255" vertical-scroll-proportion="0.054545455">
-          <folding />
-        </state>
+        <state line="271" column="11" selection-start="12255" selection-end="12255" vertical-scroll-proportion="0.054545455" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ENV/local/lib/python2.7/site-packages/django/db/models/fields/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1214" column="0" selection-start="45269" selection-end="45269" vertical-scroll-proportion="0.052083332">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="87" selection-start="1104" selection-end="1104" vertical-scroll-proportion="-3.75">
-          <folding />
-        </state>
+        <state line="1214" column="0" selection-start="45269" selection-end="45269" vertical-scroll-proportion="0.052083332" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo_project/urls.py">
@@ -644,13 +682,7 @@
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/about.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
-          <folding>
-            <marker date="1377444548134" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444548134" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444548134" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444548134" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444548134" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -661,43 +693,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/betathanks.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.0">
-          <folding>
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444579034" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/friend.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="167" column="14" selection-start="5933" selection-end="5933" vertical-scroll-proportion="-10.708333">
-          <folding>
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1377444582930" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -717,29 +716,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="0" selection-start="5526" selection-end="5526" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="225" column="0" selection-start="9494" selection-end="9494" vertical-scroll-proportion="0.91549295">
           <folding>
             <element signature="e#0#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="15" selection-start="4758" selection-end="4758" vertical-scroll-proportion="0.04225352">
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -762,6 +743,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="16" selection-start="1255" selection-end="1255" vertical-scroll-proportion="0.3816794">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/betathanks.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/templates/tomonotomo/loggedin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="31" selection-start="1578" selection-end="1578" vertical-scroll-proportion="-5.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="8" selection-start="684" selection-end="684" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="26" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.3647059">
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

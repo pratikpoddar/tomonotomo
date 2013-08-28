@@ -32,8 +32,8 @@ def index(request):
 
 @login_required(login_url='index')
 def friendrandom(request):
-    loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
-    gender = UserTomonotomo.objects.get(username=request.user.username).gender
+    loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
+    gender = UserTomonotomo.objects.get(email=request.user.email).gender
     reqgender = "indifferent"
     if gender=="male":
         reqgender = "female"
@@ -47,7 +47,7 @@ def friendrandom(request):
 def friend(request, fbid):
     #fbid = 717323242
     if request.user.id:
-        loggedid = UserTomonotomo.objects.get(username=request.user.username).userid
+        loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
@@ -146,7 +146,7 @@ def join(request):
 
 @login_required(login_url='index')
 def loggedin(request):
-    fbid = UserTomonotomo.objects.get(username=request.user.username).userid
+    fbid = UserTomonotomo.objects.get(email=request.user.email).userid
     template = loader.get_template('tomonotomo/loggedin.html')
     meta = Meta(
         use_og=1,
@@ -168,7 +168,7 @@ def loggedin(request):
 
 @login_required(login_url='index')
 def betathanks(request):
-    fbid = UserTomonotomo.objects.get(username=request.user.username).userid
+    fbid = UserTomonotomo.objects.get(email=request.user.email).userid
     template = loader.get_template('tomonotomo/betathanks.html')
     meta = Meta(
         use_og=1,
@@ -194,7 +194,7 @@ def tntAction(request, fbid, action, fbfriend):
 
     fbid = int(fbid)
     action = int(action)
-    userinfo = UserTomonotomo.objects.get(username=request.user.username)
+    userinfo = UserTomonotomo.objects.get(email=request.user.email)
     userid = userinfo.userid
 
     try:
