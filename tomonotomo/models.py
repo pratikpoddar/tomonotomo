@@ -22,7 +22,7 @@ class UserTomonotomo(models.Model):
     education= models.CharField(max_length=2000L)
     work= models.CharField(max_length=2000L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
-    username= models.CharField(max_length=200L)
+    username= models.CharField(max_length=200L,null=True)
 
     def get_full_name(self):
             return self.first_name + " " + self.last_name
