@@ -1,17 +1,19 @@
 # Django settings for tomonotomo_project project.
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+#DEBUG = True
+#TEMPLATE_DEBUG = True
  
-# DEBUG = False
-# TEMPLATE_DEBUG = False
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Pratik Poddar', 'pratik.phodu@gmail.com'),
 )
 
-EMAIL_SUBJECT_PREFIX = "[Django - Tomonotomo] "
 MANAGERS = ADMINS
+
+FAILED_RUNS_CRONJOB_EMAIL_PREFIX = "[Django - Tomonotomo - Cron Job] "
+EMAIL_SUBJECT_PREFIX = "[Django - Tomonotomo] "
 
 #DATABASES = {
 #    'default': {
@@ -116,6 +118,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware'
 )
 
 ROOT_URLCONF = 'tomonotomo_project.urls'
@@ -147,6 +150,8 @@ INSTALLED_APPS = (
     'django_cron'
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -163,7 +168,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            #'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
@@ -179,7 +184,6 @@ LOGGING = {
 CRON_CLASSES = [
     "tomonotomo.social_auth_pipeline.startPostProcessing",
 ]
-
 
 FACEBOOK_APP_ID='1398031667088132'
 FACEBOOK_API_SECRET='c264a27d591710a5bfbf072043623dbd'

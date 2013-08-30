@@ -25,7 +25,7 @@ def getPotentialList(fbid, reqgender):
 
         listofFoFs = getFriendsofFriends(fbid)
 
-        friendlist = UserFriends.objects.filter(userid=fbid).values('friendid')
+        friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()

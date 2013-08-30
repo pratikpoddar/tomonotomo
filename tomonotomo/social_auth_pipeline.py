@@ -93,61 +93,6 @@ def create_custom_user(backend, details, user=None,
 
         userprocessing.save()
 
-        # friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
-        # numberfriends = friendnumber.get('data')[0].get('friend_count')
-        # print "number of friends " + str(numberfriends)
-        #
-        # friendgraphdata= []
-        # friendgraph= []
-        # for i in range(0,10):
-        #     query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
-        #     friendgraphdata.append(graph.fql(query))
-        #     friendgraph.extend(friendgraphdata[i].get('data'))
-        #     print "recieved data for " + str(len(friendgraph)) + " friends - some are duplicate"
-        #
-        # print "list of friends data "+str(len(friendgraph))+" - some are duplicate"
-        #
-        # count = 0
-        # for frienddata in friendgraph:
-        #
-        #     count = count + 1
-        #     print "Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count)
-        #
-        #     try:
-        #         profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
-        #     except UserFriends.DoesNotExist:
-        #         profilefriends = UserFriends()
-        #         profilefriends.userid = userloggedin
-        #         profilefriends.friendid = frienddata.get('uid')
-        #         profilefriends.save()
-        #
-        #     try:
-        #         userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
-        #     except UserTomonotomo.DoesNotExist:
-        #         userfriend = UserTomonotomo()
-        #
-        #     if frienddata.get('work'):
-        #        userfriend.work= getSanitizedWork(frienddata['work'])
-        #     if frienddata.get('education'):
-        #         userfriend.education= getSanitizedEducation(frienddata['education'])
-        #     userfriend.first_name = frienddata.get('first_name')
-        #     userfriend.last_name = frienddata.get('last_name')
-        #     userfriend.gender = frienddata.get('sex') or "not specified"
-        #     if frienddata.get('hometown_location'):
-        #         userfriend.hometown = frienddata.get('hometown_location').get('name')
-        #     if frienddata.get('current_location'):
-        #         userfriend.location = frienddata.get('current_location').get('name')
-        #     userfriend.username = frienddata.get('username')
-        #     userfriend.userid = frienddata.get('uid')
-        #     if frienddata.get('birthday'):
-        #         try:
-        #             userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
-        #         except:
-        #             print "could not parse birthday for " + str(frienddata.get('uid'))
-        #
-        #     userfriend.save()
-        #
-
         print "completed for " + str(userloggedin)
         return
 
@@ -170,8 +115,9 @@ def getSanitizedWork (workProfile):
                         work = work + value['employer']['name']+'---'
         return work
 
-def postProcessing(userloggedin, accessToken):
+def postProcessing(userid, accessToken):
 
+	userloggedin = UserTomonotomo.objects.get(userid=userid)
         graph = GraphAPI(accessToken)
         print "processing " + accessToken
         friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
@@ -201,12 +147,12 @@ def postProcessing(userloggedin, accessToken):
                 profilefriends.userid = userloggedin
                 profilefriends.friendid = frienddata.get('uid')
                 profilefriends.save()
-
+	
             try:
                 userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
             except UserTomonotomo.DoesNotExist:
                 userfriend = UserTomonotomo()
-
+	    
             if frienddata.get('work'):
                userfriend.work= getSanitizedWork(frienddata['work'])
             if frienddata.get('education'):
@@ -220,23 +166,27 @@ def postProcessing(userloggedin, accessToken):
                 userfriend.location = frienddata.get('current_location').get('name')
             userfriend.username = frienddata.get('username')
             userfriend.userid = frienddata.get('uid')
-            if frienddata.get('birthday'):
+            
+	    if frienddata.get('birthday'):
                 try:
                     userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
                 except:
                     print "could not parse birthday for " + str(frienddata.get('uid'))
 
             userfriend.save()
+	
+	print "!!!!!!!!!"
 
         return
 
 class startPostProcessing(CronJobBase):
-    RUN_EVERY_MINS = 10 # every 10 mins
+    RUN_EVERY_MINS = 1 # every 1 min
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'tomonotomo.startPostProcessing'    # a unique code
+    code = 'tomonotomo.social_auth_pipeline.startPostProcessing'    # a unique code
 
     def do(self):
+	print "StartPostProcessing starts"
         pendingusers = UserProcessing.objects.all().values('userloggedin','accesstoken')
 	print "StartPostProcessing starts - length of list is " + str(len(pendingusers)) 
         if len(pendingusers) > 0:
@@ -245,8 +195,9 @@ class startPostProcessing(CronJobBase):
                 accesstoken = pendingusers[randnum].get('accesstoken')
                 try:
 			print "Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
-                	postProcessing(userloggedin, accessToken)
-                	UserProcessing.objects.delete(userloggedin = userloggedin, accesstoken = accesstoken)
+                	postProcessing(userloggedin, accesstoken)
+			print "Almost Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
+                	UserProcessing.objects.filter(userloggedin = userloggedin, accesstoken = accesstoken).delete()
                 	print "Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
         	except:
             		print "Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
