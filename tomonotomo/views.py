@@ -12,7 +12,7 @@ from meta.views import Meta
 
 from django.templatetags.static import static
 
-import urllib
+import urllib, functools
 
 def index(request):
     meta = Meta(
