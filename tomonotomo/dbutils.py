@@ -20,19 +20,12 @@ def getFriendsofFriends(fbid):
                 fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
         return list(fofs)
 
-def getFullName (fbid):
-        return UserTomonotomo.objects.get(userid=fbid).get_full_name()
+@lru_cache(maxsize=16)
+def getPotentialList(fbid, reqgender):
 
-def getFriendsonTnT (fbid):
-        fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
-        fblist2 = filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
-        return fblist2
-
-#TODO: Remove people with whom you have already had a conversation
-def getRandFoF (fbid, reqgender):
         listofFoFs = getFriendsofFriends(fbid)
 
-	friendlist = UserFriends.objects.filter(userid=fbid).values('friendid')
+        friendlist = UserFriends.objects.filter(userid=fbid).values('friendid')
         listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
@@ -43,13 +36,27 @@ def getRandFoF (fbid, reqgender):
         if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
 
+        return listofFoFs
+
+def getFullName (fbid):
+        return UserTomonotomo.objects.get(userid=fbid).get_full_name()
+
+def getFriendsonTnT (fbid):
+        fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
+        fblist2 = filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
+        return fblist2
+
+#TODO: Remove people with whom you have already had a conversation
+def getRandFoF (fbid, reqgender):
+
+        listofFoFs = getPotentialList(fbid, reqgender)
+
         if len(listofFoFs):
             return choice(listofFoFs)
         else:
             return 0
 
 ## TODO: Improve Email
-
 def sendemailCute (userid, fofid, mutualfriendlist):
 
         s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
