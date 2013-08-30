@@ -50,4 +50,5 @@ class UserFeedback(models.Model):
     action = models.IntegerField(null=False)
 
 class UserProcessing(models.Model):
+    userloggedin= models.BigIntegerField(null=False)
     accesstoken = models.TextField(null=True)

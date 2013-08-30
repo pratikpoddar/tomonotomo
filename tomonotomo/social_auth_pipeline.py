@@ -67,13 +67,21 @@ def create_custom_user(backend, details, user=None,
 
         print "----"
 
-        friendlist = graph.fql('SELECT uid2 FROM friend where uid=me() limit 5')
-        print "Ffffffffffffffffffffffffffffffff"
-        print friendlist
-        print "ffffffffffffffffffffffffffqqqqqqqqqqqqqqqqqqqqq"
-
-
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
+
+        friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
+        peopleontnt = UserTomonotomo.objects.all().values('userid')
+
+        friendsontnt = list(set(map(lambda x: x['uid2'], friendlist.get('data'))) & set(map(lambda x: x['userid'], peopleontnt)))
+
+        for friendontnt in friendsontnt:
+            try:
+                profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=friendontnt)
+            except UserFriends.DoesNotExist:
+                profilefriends = UserFriends()
+                profilefriends.userid = userloggedin
+                profilefriends.friendid = friendontnt
+                profilefriends.save()
 
         print "----"
 
@@ -157,7 +165,7 @@ def getSanitizedWork (workProfile):
                         work = work + value['employer']['name']+'---'
         return work
 
-def postProcessing(accessToken):
+def postProcessing(userloggedin, accessToken):
 
         graph = GraphAPI(accessToken)
         print "processing " + accessToken
@@ -181,13 +189,13 @@ def postProcessing(accessToken):
             count = count + 1
             print "Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count)
 
-            # try:
-            #     profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
-            # except UserFriends.DoesNotExist:
-            #     profilefriends = UserFriends()
-            #     profilefriends.userid = userloggedin
-            #     profilefriends.friendid = frienddata.get('uid')
-            #     profilefriends.save()
+            try:
+                profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
+            except UserFriends.DoesNotExist:
+                profilefriends = UserFriends()
+                profilefriends.userid = userloggedin
+                profilefriends.friendid = frienddata.get('uid')
+                profilefriends.save()
 
             try:
                 userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
