@@ -177,7 +177,7 @@ LOGGING = {
 }
 
 CRON_CLASSES = [
-    "tomonotomo.cron.startPostProcessing",
+    "tomonotomo.social_auth_pipeline.startPostProcessing",
 ]
 
 

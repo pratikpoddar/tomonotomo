@@ -2,6 +2,7 @@ from social_auth.models import UserSocialAuth
 from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
 import time
+import pprint
 from random import randint
 
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing
@@ -236,10 +237,11 @@ class startPostProcessing(CronJobBase):
     code = 'tomonotomo.startPostProcessing'    # a unique code
 
     def do(self):
-        pendingusers = UserProcessing.objects.all()
+        pendingusers = UserProcessing.objects.all().values('userloggedin','accesstoken')
+	print "StartPostProcessing starts - length of list is " + str(len(pendingusers)) 
         if len(pendingusers) > 0:
         	randnum = randint(0, len(pendingusers)-1)
-                userloggedin = pendingusers[randnum].get('userloggedin')
+		userloggedin = pendingusers[randnum].get('userloggedin')
                 accesstoken = pendingusers[randnum].get('accesstoken')
                 try:
 			print "Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
