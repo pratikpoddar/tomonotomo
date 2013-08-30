@@ -21,7 +21,7 @@ def index(request):
         use_sites=True,
         description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='tomonotomo/img/logo.jpg',
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )    
     template = loader.get_template('tomonotomo/index.html')
@@ -119,7 +119,7 @@ def about(request):
         use_sites=True,
         description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='tomonotomo/img/logo.jpg',
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )    
     template = loader.get_template('tomonotomo/about.html')
@@ -135,7 +135,7 @@ def join(request):
         use_sites=True,
         description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='tomonotomo/img/logo.jpg',
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )    
     template = loader.get_template('tomonotomo/join.html')
@@ -154,7 +154,7 @@ def loggedin(request):
         use_sites=True,
         description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='tomonotomo/img/logo.jpg',
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )
     dictin = {
@@ -176,7 +176,7 @@ def betathanks(request):
         use_sites=True,
         description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='tomonotomo/img/logo.jpg',
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )
     dictin = {

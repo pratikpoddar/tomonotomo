@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="" />
+    <list default="true" id="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tomonotomo/views.py" afterPath="$PROJECT_DIR$/tomonotomo/views.py" />
+    </list>
     <ignored path="tomonotomo_project.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377844454357" ignored="false" />
@@ -10,7 +12,7 @@
     <file path="/models.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377855949135" ignored="false" />
     <file path="/base.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1376510563953" ignored="false" />
     <file path="/index.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377444501735" ignored="false" />
-    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377849393878" ignored="false" />
+    <file path="/views.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377862734869" ignored="false" />
     <file path="/loggedin.html" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377441870178" ignored="false" />
     <file path="/dbutils.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377861802967" ignored="false" />
     <file path="/urls.py" changelist="b1b4f01c-dc03-4043-ad01-43cb3b4446a2" time="1377849126976" ignored="false" />
@@ -49,10 +51,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="450" selection-end="450" vertical-scroll-proportion="-8.4">
+            <state line="239" column="0" selection-start="8680" selection-end="8680" vertical-scroll-proportion="0.9053628">
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -60,10 +62,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbutils.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="dbutils.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="0" selection-start="2046" selection-end="2046" vertical-scroll-proportion="0.5604396">
+            <state line="58" column="0" selection-start="2046" selection-end="2046" vertical-scroll-proportion="-2.2173913">
               <folding>
                 <element signature="e#0#71#0" expanded="true" />
               </folding>
@@ -158,11 +160,11 @@
         <option value="$PROJECT_DIR$/tomonotomo/dbsummary.py" />
         <option value="$PROJECT_DIR$/tomonotomo/templates/tomonotomo/dbsummary.html" />
         <option value="$PROJECT_DIR$/tomonotomo/urls.py" />
-        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
         <option value="$PROJECT_DIR$/tomonotomo/models.py" />
         <option value="$PROJECT_DIR$/tomonotomo/social_auth_pipeline.py" />
         <option value="$PROJECT_DIR$/tomonotomo_project/settings.py" />
         <option value="$PROJECT_DIR$/tomonotomo/dbutils.py" />
+        <option value="$PROJECT_DIR$/tomonotomo/views.py" />
       </list>
     </option>
   </component>
@@ -779,15 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="450" selection-end="450" vertical-scroll-proportion="-8.4">
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="0" selection-start="2030" selection-end="2030" vertical-scroll-proportion="-12.0">
@@ -813,9 +806,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tomonotomo/dbutils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="2046" selection-end="2046" vertical-scroll-proportion="0.5604396">
+        <state line="58" column="0" selection-start="2046" selection-end="2046" vertical-scroll-proportion="-2.2173913">
           <folding>
             <element signature="e#0#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tomonotomo/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="0" selection-start="8680" selection-end="8680" vertical-scroll-proportion="0.9053628">
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
