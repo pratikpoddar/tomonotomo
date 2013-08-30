@@ -144,7 +144,7 @@ INSTALLED_APPS = (
     'tomonotomo',
     'social_auth',
     'functools32',
-    'django-cron'
+    'django_cron'
 )
 
 # A sample logging configuration. The only tangible logging

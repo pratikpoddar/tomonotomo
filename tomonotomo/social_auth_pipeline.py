@@ -10,7 +10,6 @@ from django.db import transaction
 
 from django_cron import CronJobBase, Schedule
 
-@transaction.commit_manually
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
@@ -19,17 +18,14 @@ def create_custom_user(backend, details, user=None,
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
         # if kwargs['is_new'] == False:
         #     print "Returning user " + str(user)
-        #     transaction.commit()
         #     return
 
         print "Getting data for first time user " + str(user)
 
         if user is None:
                 print "User came as None in the function create_custom_user"
-                transaction.commit()
                 return
         if backend.__class__ != FacebookBackend:
-                transaction.commit()
                 return
 
         res = kwargs['response']
@@ -66,8 +62,6 @@ def create_custom_user(backend, details, user=None,
 
         profile.save()
 
-        transaction.commit()
-
         print "----"
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
@@ -89,11 +83,12 @@ def create_custom_user(backend, details, user=None,
         print "----"
 
         try:
-            userprocessing = UserProcessing.objects.get(userloggedin = userloggedin)
+            userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
         except UserProcessing.DoesNotExist:
-            userprocessing = UserProcessing()
+	    userprocessing = UserProcessing()
             userprocessing.userloggedin = userloggedin
-            userprocessing.accesstoken = res.get('access_token')
+
+	userprocessing.accesstoken = res.get('access_token')
 
         userprocessing.save()
 
@@ -151,10 +146,7 @@ def create_custom_user(backend, details, user=None,
         #
         #     userfriend.save()
         #
-        #     if count % 50 == 0:
-        #         transaction.commit()
 
-        transaction.commit()
         print "completed for " + str(userloggedin)
         return
 
@@ -244,18 +236,18 @@ class startPostProcessing(CronJobBase):
     code = 'tomonotomo.startPostProcessing'    # a unique code
 
     def do(self):
-        try:
-            pendingusers = UserProcessing.objects.all()
-            if len(pendingusers) > 0:
-                randnum = randint(0, len(pendingusers)-1)
+        pendingusers = UserProcessing.objects.all()
+        if len(pendingusers) > 0:
+        	randnum = randint(0, len(pendingusers)-1)
                 userloggedin = pendingusers[randnum].get('userloggedin')
                 accesstoken = pendingusers[randnum].get('accesstoken')
-                print "Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
-                postProcessing(userloggedin, accessToken)
-                UserProcessing.objects.delete(userloggedin = userloggedin, accesstoken = accesstoken)
-                print "Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
-        except:
-            print "Failed Post Processing"
+                try:
+			print "Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
+                	postProcessing(userloggedin, accessToken)
+                	UserProcessing.objects.delete(userloggedin = userloggedin, accesstoken = accesstoken)
+                	print "Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
+        	except:
+            		print "Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
 
-    return
+    	return
 
