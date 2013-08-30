@@ -1,0 +1,16 @@
+{% extends "tomonotomo/base.html" %}
+{% load staticfiles %}
+
+{% block bodycontent %}
+
+<div class="page1_block">
+	<div class="container_12">
+            Number of Users with accesstoken: {{ nusersat }}<br/>
+            Number of Users with email: {{ nusersemail }}<br/>
+            Number of Users with data: {{ nusers }}<br/>
+            Number of UserFriend Entries: {{ userfriends }}<br/>
+            Number of Feedback received: {{ userfeedback }}<br/>
+	</div>
+</div>
+
+{% endblock %}

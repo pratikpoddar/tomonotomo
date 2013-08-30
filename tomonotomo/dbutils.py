@@ -9,10 +9,11 @@ def getMutualFriends (fbid1, fbid2):
 
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
-def getFriendsofFriends (fbid):
+@functools.lru_cache(max_size=16)
+def getFriendsofFriends(fbid):
         
         fofs = set()
-        fblist = getFriendsonTnT (fbid)
+        fblist = getFriendsonTnT(fbid)
         for friendid in fblist:
                 fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
         return list(fofs)
@@ -29,8 +30,16 @@ def getFriendsonTnT (fbid):
 def getRandFoF (fbid, reqgender):
         listofFoFs = getFriendsofFriends(fbid)
 
+        for friend in UserFriends.objects.filter(userid=fbid).values('friendid'):
+            listofFoFs.remove(friend)
+
+        fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
+
         if not reqgender == "indifferent":
             listofFoFs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender == reqgender, listofFoFs)
+
+        if fbidage != "[Age N.A.]":
+            listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
 
         if len(listofFoFs):
             return choice(listofFoFs)

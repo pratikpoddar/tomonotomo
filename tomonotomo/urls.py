@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^logout$', 'django.contrib.auth.views.logout',{'next_page': 'home'}),
     url(r'^auth/', include('social_auth.urls')),
     url(r'^betathanks$', views.betathanks, name='betathanks'),
+    url(r'^dbsummary$', views.dbsummary, name='dbsummary'),
 )
 

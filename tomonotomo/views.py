@@ -223,3 +223,16 @@ def tntAction(request, fbid, action, fbfriend):
             return redirect('/friend')
 
     return redirect('/friend')
+
+def dbsummary(request):
+
+    template = loader.get_template('tomonotomo/dbsummary.html')
+    context = RequestContext(request, {
+        'nusersat': UserTomonotomo.objects.filter('accesstoken'!='').count(),
+        'nusersemail': UserTomonotomo.objects.filter('email'!='').count(),
+        'musers': UserTomonotomo.objects.count(),
+        'userfriends': UserFriends.objects.count(),
+        'userfeedback': UserFeedback.objects.count(),
+    })
+
+    return HttpResponse(template.render(context))
