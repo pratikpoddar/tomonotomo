@@ -3,14 +3,28 @@
 
 {% block bodycontent %}
 
+<!TODO: More detailed summary -->
 <div class="page1_block">
 	<div class="container_12">
-            Number of Users with accesstoken: {{ nusersat }}<br/>
-            Number of Users with email: {{ nusersemail }}<br/>
-            Number of Users with data: {{ nusers }}<br/>
-            Number of UserFriend Entries: {{ userfriends }}<br/>
-            Number of Feedback received: {{ userfeedback }}<br/>
+		<div style="margin-left:20%;margin-top:20px;font-size:120%">
+		<span id="todaydate"></span><br/>
+            Number of Users with accesstoken: {{ dbsummary_users_at }}<br/>
+            Number of Users with email: {{ dbsummary_users_email }}<br/>
+            Number of Users with data: {{ dbsummary_users_data }}<br/>
+            Number of UserFriend Entries: {{ dbsummary_userfriends }}<br/>
+            Number of Feedback received: {{ dbsummary_userfeedback }}<br/>
+		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	var currentTime = new Date();
+	var month = currentTime.getMonth() + 1;
+	var day = currentTime.getDate();
+	var year = currentTime.getFullYear();
+	$("#todaydate").html(month + "/" + day + "/" + year);
+
+</script>
 
 {% endblock %}

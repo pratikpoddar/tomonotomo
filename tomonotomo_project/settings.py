@@ -142,7 +142,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'meta',
     'tomonotomo',
-    'social_auth'
+    'social_auth',
+    'functools32'
 )
 
 # A sample logging configuration. The only tangible logging

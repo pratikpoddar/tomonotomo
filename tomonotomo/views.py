@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
-from tomonotomo.models import UserTomonotomo, UserFeedback
+from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends
 
 from tomonotomo import dbutils
 
@@ -12,7 +12,7 @@ from meta.views import Meta
 
 from django.templatetags.static import static
 
-import urllib, functools
+import urllib
 
 def index(request):
     meta = Meta(
@@ -228,11 +228,12 @@ def dbsummary(request):
 
     template = loader.get_template('tomonotomo/dbsummary.html')
     context = RequestContext(request, {
-        'nusersat': UserTomonotomo.objects.filter('accesstoken'!='').count(),
-        'nusersemail': UserTomonotomo.objects.filter('email'!='').count(),
-        'musers': UserTomonotomo.objects.count(),
-        'userfriends': UserFriends.objects.count(),
-        'userfeedback': UserFeedback.objects.count(),
+        'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
+        'dbsummary_users_email': UserTomonotomo.objects.exclude(email=None).count(),
+        'dbsummary_users_data': UserTomonotomo.objects.count(),
+        'dbsummary_userfriends': UserFriends.objects.count(),
+        'dbsummary_userfeedback': UserFeedback.objects.count(),
     })
 
     return HttpResponse(template.render(context))
+

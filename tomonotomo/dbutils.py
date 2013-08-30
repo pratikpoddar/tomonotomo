@@ -2,6 +2,8 @@ from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
 from random import choice
 import sendgrid
 
+from functools32 import lru_cache
+
 def getMutualFriends (fbid1, fbid2):
         
         fblist1 = UserFriends.objects.filter(userid=fbid1).values('friendid')
@@ -9,7 +11,7 @@ def getMutualFriends (fbid1, fbid2):
 
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
-@functools.lru_cache(max_size=16)
+@lru_cache(maxsize=16)
 def getFriendsofFriends(fbid):
         
         fofs = set()
@@ -30,8 +32,8 @@ def getFriendsonTnT (fbid):
 def getRandFoF (fbid, reqgender):
         listofFoFs = getFriendsofFriends(fbid)
 
-        for friend in UserFriends.objects.filter(userid=fbid).values('friendid'):
-            listofFoFs.remove(friend)
+	friendlist = UserFriends.objects.filter(userid=fbid).values('friendid')
+        listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 
