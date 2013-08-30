@@ -49,4 +49,5 @@ class UserFeedback(models.Model):
     fbid = models.BigIntegerField(null=False)
     action = models.IntegerField(null=False)
 
-
+class UserProcessing(models.Model):
+    accesstoken = models.TextField(null=True)
