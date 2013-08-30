@@ -143,7 +143,8 @@ INSTALLED_APPS = (
     'meta',
     'tomonotomo',
     'social_auth',
-    'functools32'
+    'functools32',
+    'django-cron'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,6 +175,11 @@ LOGGING = {
         },
     }
 }
+
+CRON_CLASSES = [
+    "tomonotomo.cron.startPostProcessing",
+]
+
 
 FACEBOOK_APP_ID='1398031667088132'
 FACEBOOK_API_SECRET='c264a27d591710a5bfbf072043623dbd'
