@@ -70,8 +70,8 @@ def create_custom_user(backend, details, user=None,
         friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
         peopleontnt = UserTomonotomo.objects.all().values('userid')
 
-        friendsontnt = list(set(map(lambda x: x['uid2'], friendlist.get('data'))) & set(map(lambda x: x['userid'], peopleontnt)))
-
+        friendsontnt = list(set(map(lambda x: int(x['uid2']), friendlist.get('data'))) & set(map(lambda x: x['userid'], peopleontnt)))
+	
         for friendontnt in friendsontnt:
             try:
                 profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=friendontnt)
