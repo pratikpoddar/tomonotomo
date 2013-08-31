@@ -29,7 +29,7 @@ EMAIL_SUBJECT_PREFIX = "[Django - Tomonotomo] "
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tomonotomo_db',
         'USER': 'tomonotomo_user',
         'PASSWORD': '12345678',
