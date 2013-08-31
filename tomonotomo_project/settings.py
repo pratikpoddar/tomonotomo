@@ -1,7 +1,7 @@
 # Django settings for tomonotomo_project project.
 
-#DEBUG = True
-#TEMPLATE_DEBUG = True
+DEBUG = True
+TEMPLATE_DEBUG = True
  
 DEBUG = False
 TEMPLATE_DEBUG = False
@@ -41,7 +41,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tomonotomo.com','www.tomonotomo.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -118,7 +118,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware'
+#    'django.middleware.common.BrokenLinkEmailsMiddleware'
 )
 
 ROOT_URLCONF = 'tomonotomo_project.urls'
@@ -168,7 +168,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            #'filters': ['require_debug_false'],
+            'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
