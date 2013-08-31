@@ -26,8 +26,6 @@ def getPotentialList(fbid, reqgender):
         listofFoFs = getFriendsofFriends(fbid)
 
         friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
-        listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
-
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 
         if not reqgender == "indifferent":
@@ -35,6 +33,8 @@ def getPotentialList(fbid, reqgender):
 
         if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
+
+	listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
 
         return listofFoFs
 
@@ -240,4 +240,18 @@ def historyFeedback (userid1, userid2):
                     info.append("You marked - Pass, and never show")
 
         return {'deactivate': deactivate, 'info': info}
+
+
+def prepareEmail(list1, list2):
+
+	with open("tomonotomo/templates/tomonotomo/email.html", "r") as myfile:
+    		data=myfile.read().replace('\n', '')
+
+	num = len(list1)
+
+	for i in range(0,num):
+		data.replace("*|"+list1[i]+"|*", list2[i])
+
+	return data
+
 
