@@ -97,7 +97,7 @@ def sendemailFriend (userid, fofid, friendid):
         friendinfo = UserTomonotomo.objects.get(userid=friendid)
 
 	contextdict = {}
-        subject = "Tomonotomo - Request by " + userinfo.first_name + " to connect to " + fofinfo.first_name
+        subject = "Request by " + userinfo.first_name + " to get connected to " + fofinfo.first_name
 	print subject
 	contextdict['teaserline'] = subject
 	contextdict['mailheading'] = subject
@@ -272,8 +272,8 @@ def historyFeedback (userid1, userid2):
 
 def prepareEmail(contextdict, userid, fofid, username, fofname):
 
-	contextdict['leftimage'] = "https://graph.facebook.com/"+str(userid)+"/picture?type=square"
-	contextdict['rightimage'] = "https://graph.facebook.com/"+str(fofid)+"/picture?type=square"
+	contextdict['leftimage'] = "https://graph.facebook.com/"+str(userid)+"/picture?width=200&height=200"
+	contextdict['rightimage'] = "https://graph.facebook.com/"+str(fofid)+"/picture?width=200&height=200"
 	
 	contextdict['leftcontent'] = ""
 	contextdict['rightcontent'] = ""
