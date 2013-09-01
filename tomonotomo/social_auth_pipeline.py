@@ -141,18 +141,20 @@ def postProcessing(userid, accessToken):
             print "Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count)
 
             try:
-                profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
+		profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
             except UserFriends.DoesNotExist:
                 profilefriends = UserFriends()
                 profilefriends.userid = userloggedin
                 profilefriends.friendid = frienddata.get('uid')
                 profilefriends.save()
+	    #except Exception as e:
+	    #	print e
 	
             try:
                 userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
             except UserTomonotomo.DoesNotExist:
                 userfriend = UserTomonotomo()
-	    
+	     
             if frienddata.get('work'):
                userfriend.work= getSanitizedWork(frienddata['work'])
             if frienddata.get('education'):
@@ -164,6 +166,7 @@ def postProcessing(userid, accessToken):
                 userfriend.hometown = frienddata.get('hometown_location').get('name')
             if frienddata.get('current_location'):
                 userfriend.location = frienddata.get('current_location').get('name')
+
             userfriend.username = frienddata.get('username')
             userfriend.userid = frienddata.get('uid')
             
@@ -173,8 +176,13 @@ def postProcessing(userid, accessToken):
                 except:
                     print "could not parse birthday for " + str(frienddata.get('uid'))
 
-            userfriend.save()
-	
+	    try:
+            	userfriend.save()
+	    except Exception as inst:
+		print inst
+		print type(inst)
+		print inst.args
+		
 	print "!!!!!!!!!"
 
         return

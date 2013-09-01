@@ -128,7 +128,7 @@ def about(request):
         })
     return HttpResponse(template.render(context))
 
-def join(request):
+def terms(request):
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -138,7 +138,7 @@ def join(request):
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
     )    
-    template = loader.get_template('tomonotomo/join.html')
+    template = loader.get_template('tomonotomo/terms.html')
     context = RequestContext(request, {
         'meta': meta
         })
