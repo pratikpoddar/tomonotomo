@@ -15,13 +15,10 @@ def getMutualFriends (fbid1, fbid2):
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
 @lru_cache(maxsize=16)
-def getFriendsofFriends(fbid):
-        
-        fofs = set()
+def getFriendsofFriends(fbid): 
         fblist = getFriendsonTnT(fbid)
-        for friendid in fblist:
-		fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
-        return list(fofs)
+	fofs = map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist).values('friendid'))
+        return fofs
 
 @lru_cache(maxsize=16)
 def getPotentialFoFs(fbid, reqgender):
@@ -54,7 +51,7 @@ def getFullName (fbid):
 def getFriendsonTnT (fbid):
         fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
         fblist2 = filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)
-        return fblist2
+        return map(lambda x: x['friendid'], fblist2)
 
 #TODO: Remove people with whom you have already had a conversation
 def getRandFoF (fbid, reqgender):
