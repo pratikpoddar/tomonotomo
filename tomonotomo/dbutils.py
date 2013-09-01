@@ -18,7 +18,7 @@ def getMutualFriends (fbid1, fbid2):
 def getFriendsofFriends(fbid): 
         fblist = getFriendsonTnT(fbid)
 	fofs = map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist).values('friendid'))
-        return fofs
+        return list(set(fofs))
 
 @lru_cache(maxsize=16)
 def getPotentialFoFs(fbid, reqgender):
