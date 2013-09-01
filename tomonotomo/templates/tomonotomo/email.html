@@ -3,9 +3,9 @@
         
         
         <!-- Facebook sharing information tags -->
-        <meta property="og:title" content="*|MC:SUBJECT|*">
+        <meta property="og:title" content="{{ title }}">
         
-        <title>*|MC:SUBJECT|*</title>
+        <title>{{ title }}</title>
 		<style type="text/css">
 			/* Client-specific Styles */
 			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
@@ -425,7 +425,7 @@
                                     	<tbody><tr>
                                         	<td valign="top">
                                             	<div mc:edit="std_preheader_content">
-                                                	 *|TEASER-LINE|*
+                                                	 {{ teaserline }}
                                                 </div>
                                             </td>
                                             <!-- *|IFNOT:ARCHIVE_PAGE|* -->
@@ -450,7 +450,7 @@
                                             <td class="headerContent">
                                             
                                             	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img src="*|HEADER-IMAGE|*" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner="" mc:allowtext="">
+                                            	<img src="{{ headerimage }}" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner="" mc:allowtext="" alt="tomonotomo - meet friends of friends">
                                             	<!-- // End Module: Standard Header Image \\ -->
                                             
                                             </td>
@@ -470,10 +470,10 @@
                                                 <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                     <tbody><tr mc:repeatable="">
                                                         <td valign="top">
-                                                            <img src="*|LEFT-IMAGE|*" style="max-width:260px;" mc:label="image" mc:edit="tiwc300_image00">
+                                                            <img src="{{ leftimage }}" style="max-width:260px;" mc:label="image" mc:edit="tiwc300_image00">
                                                             <div mc:edit="tiwc300_content00">
- 	                                                           <h4 class="h4">*|LEFT-TITLE|*</h4>
-                                                               	*|LEFT-CONTENT|*
+ 	                                                           <h4 class="h4"><a href="http://www.tomonotomo.com/friend/{{ leftid }}" target="_blank">{{ lefttitle }}</a></h4>
+                                                               	{{ leftcontent }}
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -487,10 +487,10 @@
                                                 <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                     <tbody><tr mc:repeatable="">
                                                         <td valign="top">
-                                                            <img src="*|RIGHT-IMAGE|*" style="max-width:260px;" mc:label="image" mc:edit="tiwc300_image01">
+                                                            <img src="{{ rightimage }}" style="max-width:260px;" mc:label="image" mc:edit="tiwc300_image01">
                                                             <div mc:edit="tiwc300_content01">
- 	                                                           <h4 class="h4">*|RIGHT-TITLE|*</h4>
-                                                               	*|RIGHT-CONTENT|*
+ 	                                                           <h4 class="h4"><a href="http://www.tomonotomo.com/friend/{{ rightid }}" target="_blank">{{ righttitle }}</a></h4>
+                                                               	{{ rightcontent }}
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -507,8 +507,8 @@
                                                     <tbody><tr>
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
-                                                                <h3 class="h3">*|MAIL-HEADING|*</h3>
-                                                                *|MAIL-CONTENT|*
+                                                                <h3 class="h3">{{ mailheading }}</h3>
+                                                                {{ mailcontent }}
                                                                 <br>
                                                                 <br>
                                                             </div>
@@ -534,15 +534,15 @@
                                                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                                     <tbody><tr>
                                                         <td colspan="2" valign="middle" id="social">
-                                                            <div mc:edit="std_social">
+                                                           <!-- <div mc:edit="std_social">
                                                                 &nbsp;<a href="https://twitter.com/tomonotomo_date" target="_blank">follow on Twitter</a> | <a href="https://www.facebook.com/tomonotomo" target="_blank">friend on Facebook</a>
-                                                            </div>
+                                                            </div>-->
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
-																<em>Copyright © 2013, All rights reserved.</em>
+															<!--	<em>Copyright © 2013, All rights reserved.</em>-->
 																<br>
 																<strong>Our mailing address is:</strong>
 																<br>
@@ -554,9 +554,9 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="utility">
-                                                            <div mc:edit="std_utility">
+                                                            <!--<div mc:edit="std_utility">
                                                                 &nbsp;<a href="mailto:admin@tomonotomo.com">unsubscribe from this list</a>
-                                                            </div>
+                                                            </div>-->
                                                         </td>
                                                     </tr>
                                                 </tbody></table>

@@ -212,13 +212,13 @@ def tntAction(request, fbid, action, fbfriend):
 
     if action == 2:
         mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
-        dbutils.sendemailFoF(userid, fbid, mutualfriendlist)
+        dbutils.sendemailFoF(userid, fbid)
 
     if action == 3:
         try:
             if UserFeedback.objects.filter(userid=fbid, fbid=userid).values()[0]['action'] == 3:
                 mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
-                dbutils.sendemailCute(userid, fbid, mutualfriendlist)
+                dbutils.sendemailCute(userid, fbid)
         except:
             return redirect('/friend')
 

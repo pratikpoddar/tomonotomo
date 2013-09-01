@@ -1,4 +1,7 @@
 from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
+from django.template import RequestContext, loader
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from random import choice
 import sendgrid
 
@@ -56,26 +59,32 @@ def getRandFoF (fbid, reqgender):
         else:
             return 0
 
-## TODO: Improve Email
-def sendemailCute (userid, fofid, mutualfriendlist):
+def sendemailCute (userid, fofid):
 
         s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
 
         userinfo = UserTomonotomo.objects.get(userid=userid)
         fofinfo = UserTomonotomo.objects.get(userid=fofid)
 
-        # make a message object
-        subject = "Tomonotomo - Connecting " + userinfo.first_name + " and " + fofinfo.first_name
-        plaintext_message = "Both of you indicated that you find each other cute. Please take it forward from here. Both of you can see each other email addresses. You have following common friends."
-        html_message = "Both of you indicated that you find each other cute. Please take it forward from here. Both of you can see each other email addresses. You have following common friends."
+        contextdict = {}
+        subject = "Mutual Connection Request for " + userinfo.first_name + " and " + fofinfo.first_name
+        contextdict['teaserline'] = subject
+        contextdict['mailheading'] = subject
+        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+" and "+userinfo.first_name+", Both of you have indicated privately that you find each other interesting / cute / handsome. Since both of you want to meet each other, by god's grace, we at tomonotomo, have been privileged, to introduce you two to each other. You can take it forward from here. Best of Luck. We are happy. :-). Thanks a ton. Regards, Tomonotomo."
+        plaintext_message = contextdict['mailcontent']
+        html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
+
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        message.add_to(userinfo.email, userinfo.get_full_name())
-        message.add_to(fofinfo.email, fofinfo.get_full_name())
+        #message.add_to(userinfo.email, userinfo.get_full_name())
+        #message.add_to(fofinfo.email, fofinfo.get_full_name())
 
         # use the SMTP API to send your message
         #s.smtp.send(message)
+	
+	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+	s.smtp.send(message)
 
         return
 
@@ -87,40 +96,59 @@ def sendemailFriend (userid, fofid, friendid):
         fofinfo = UserTomonotomo.objects.get(userid=fofid)
         friendinfo = UserTomonotomo.objects.get(userid=friendid)
 
-        # make a message object
-        subject = "Tomonotomo - Requesting to connect to " + fofinfo.first_name
-        plaintext_message = "Please connect me to this friend of yours. His name is .... and his profile is ..."
-        html_message = "Please connect me to this friend of yours. His name is .... and his profile is ..."
+	contextdict = {}
+        subject = "Tomonotomo - Request by " + userinfo.first_name + " to connect to " + fofinfo.first_name
+	print subject
+	contextdict['teaserline'] = subject
+	contextdict['mailheading'] = subject
+	contextdict['mailcontent'] = "Hey "+friendinfo.first_name+", Hope you are doing well. I discovered "+fofinfo.first_name+" on www.tomonotomo.com . I think we might hit it off together. Do you mind introducing me to " + fofinfo.first_name + " and I wil take it forward from there. Thanks a ton. Regards, "+userinfo.first_name
+        plaintext_message = contextdict['mailcontent']
+	print contextdict['mailcontent']
+        html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        message.add_to(userinfo.email, userinfo.get_full_name())
-        message.add_to(friendinfo.email, friendinfo.get_full_name())
+        # message.add_to(userinfo.email, userinfo.get_full_name())
+        # message.add_to(friendinfo.email, friendinfo.get_full_name())
 
         # use the SMTP API to send your message
         #s.smtp.send(message)
 
+	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+	
+        s.smtp.send(message)
+
+	sendemailCute(userid, fofid)
+	sendemailFoF(userid, fofid)
         return
 
-def sendemailFoF (userid, fofid, mutualfriendlist):
+def sendemailFoF (userid, fofid):
 
         s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
 
         userinfo = UserTomonotomo.objects.get(userid=userid)
         fofinfo = UserTomonotomo.objects.get(userid=fofid)
 
-        # make a message object
-        subject = "Tomonotomo - Request to connect from " + userinfo.first_name
-        plaintext_message = "I find you cute. I will like to take this forward. We have these common friends. What say?"
-        html_message = "I find you cute. I will like to take this forward. We have these common friends. What say?"
+        contextdict = {}
+        subject = "Connection Request by " + userinfo.first_name + " to connect to " + fofinfo.first_name
+        contextdict['teaserline'] = subject
+        contextdict['mailheading'] = subject
+	
+        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+", Hope you are doing well. I discovered you on www.tomonotomo.com . I think we might hit it off together. I would like to connect to you. To feel comfortable before replying to the email, you can assure yourself through our mutual friends. You can get all the details from my tomonotomo profile page. Thanks a ton. Sincere apologies if I was offensive or intrusive in any way. Regards, "+userinfo.first_name
+
+        plaintext_message = contextdict['mailcontent']
+        html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        message.add_to(userinfo.email, userinfo.get_full_name())
-        message.add_to(fofinfo.email, fofinfo.get_full_name())
+        #message.add_to(userinfo.email, userinfo.get_full_name())
+        #message.add_to(fofinfo.email, fofinfo.get_full_name())
 
         # use the SMTP API to send your message
         #s.smtp.send(message)
+
+	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+        s.smtp.send(message)
 
         return
 
@@ -242,16 +270,25 @@ def historyFeedback (userid1, userid2):
         return {'deactivate': deactivate, 'info': info}
 
 
-def prepareEmail(list1, list2):
+def prepareEmail(contextdict, userid, fofid, username, fofname):
 
-	with open("tomonotomo/templates/tomonotomo/email.html", "r") as myfile:
-    		data=myfile.read().replace('\n', '')
+	contextdict['leftimage'] = "https://graph.facebook.com/"+str(userid)+"/picture?type=square"
+	contextdict['rightimage'] = "https://graph.facebook.com/"+str(fofid)+"/picture?type=square"
+	
+	contextdict['leftcontent'] = ""
+	contextdict['rightcontent'] = ""
 
-	num = len(list1)
+	contextdict['lefttitle']  = username
+	contextdict['righttitle'] = fofname
 
-	for i in range(0,num):
-		data.replace("*|"+list1[i]+"|*", list2[i])
+	contextdict['leftid'] = userid
+	contextdict['rightid'] = fofid
 
-	return data
+	contextdict['title'] = "tomonotomo - meet friends of friends"
+	contextdict['headerimage'] = "http://www.tomonotomo.com/static/tomonotomo/img/emailbanner.png"
+
+	output = render_to_string('tomonotomo/email.html', contextdict)
+	return output
+
 
 
