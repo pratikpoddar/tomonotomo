@@ -20,26 +20,33 @@ def getFriendsofFriends(fbid):
         fofs = set()
         fblist = getFriendsonTnT(fbid)
         for friendid in fblist:
-                fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
+		fofs |= set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid=friendid['friendid']).values('friendid')))
         return list(fofs)
+
+@lru_cache(maxsize=16)
+def getPotentialFoFs(fbid, reqgender):
+
+	fofs = getFriendsofFriends(fbid)
+
+	if not reqgender=="indifferent":
+		fofs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=reqgender).values('userid'))) & set(fofs))
+
+	return fofs
 
 @lru_cache(maxsize=16)
 def getPotentialList(fbid, reqgender):
 
-        listofFoFs = getFriendsofFriends(fbid)
-
-        friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+	listofFoFs = getPotentialFoFs(fbid, reqgender)
+        
+	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-
-        if not reqgender == "indifferent":
-            listofFoFs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender == reqgender, listofFoFs)
-
-        if fbidage != "[Age N.A.]":
+        
+	if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
-
+	
 	listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
-
-        return listofFoFs
+        
+	return listofFoFs
 
 def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
