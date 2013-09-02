@@ -11,8 +11,10 @@ from tomonotomo import dbutils
 from meta.views import Meta
 
 from django.templatetags.static import static
+from django.db.models import Count
 
 import urllib
+import datetime
 
 def index(request):
     meta = Meta(
@@ -244,14 +246,21 @@ def tntAction(request, fbid, action, fbfriend):
 
 def dbsummary(request):
 
+    print "DB Summary"
+    print datetime.datetime.now().strftime("The date is %d/%m/%Y") 
+
     template = loader.get_template('tomonotomo/dbsummary.html')
-    context = RequestContext(request, {
-        'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
+    contextdict = {'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
         'dbsummary_users_email': UserTomonotomo.objects.exclude(email=None).count(),
         'dbsummary_users_data': UserTomonotomo.objects.count(),
         'dbsummary_userfriends': UserFriends.objects.count(),
         'dbsummary_userfeedback': UserFeedback.objects.count(),
-    })
+	'dbsummary_users': UserTomonotomo.objects.exclude(email=None).values('userid','first_name','last_name','email'),
+	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by()
+    }
+
+    print contextdict
+    context = RequestContext(request, contextdict)
 
     return HttpResponse(template.render(context))
 

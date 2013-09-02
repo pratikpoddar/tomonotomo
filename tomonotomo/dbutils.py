@@ -287,5 +287,3 @@ def prepareEmail(contextdict, userid, fofid, username, fofname):
 	output = render_to_string('tomonotomo/email.html', contextdict)
 	return output
 
-
-

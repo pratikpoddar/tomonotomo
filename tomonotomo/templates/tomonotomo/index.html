@@ -17,15 +17,14 @@
 			</div>
 		</div>
 
-        {# TODO: Beta - Change betathanks to loggedin  #}
-		<div class="grid_4">
+       	<div class="grid_4">
 			<h2>Connect only with Friends of Friends</h2>
             <h3>We are revolutionising the way dating happens. Be a part of it.</h3><br/>
 			{% if not user.id %}
                 <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-large"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
                 <h3><u>We are not a cheap dating website.<br/>We hate spammers!<br/>We do not post anything on your wall</u></h3>
             {% else %}
-                <a href="{% url 'betathanks' %}" class="btn btn-large"><h3 style="color:white">Start Exploring</h3></a><br/><br/>
+                <a href="{% url 'loggedin' %}" class="btn btn-large"><h3 style="color:white">Start Exploring</h3></a><br/><br/>
             {% endif %}
 
 

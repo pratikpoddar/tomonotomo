@@ -218,9 +218,7 @@ SOCIAL_AUTH_ERROR_KEY = 'socialauth_error'
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
 LOGIN_URL = '/login/'
-# TODO: BETA LAUNCH
-# LOGIN_REDIRECT_URL = '/loggedin'
-LOGIN_REDIRECT_URL = '/betathanks'
+LOGIN_REDIRECT_URL = '/loggedin'
 LOGIN_ERROR_URL = '/login-error/'
 
 META_SITE_PROTOCOL = 'http'
