@@ -42,20 +42,29 @@ def friendrandom(request):
     fbid = dbutils.getRandFoF(loggedid, reqgender)
     if fbid == 0:
         raise Http404
-    return friend(request, fbid)
+
+    return redirect('/friend/'+str(fbid))
 
 def friend(request, fbid):
     #fbid = 717323242
+    show_button = 1
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
         infoList = historyFeedback['info']
+	if len(mutualfriends) == 0:
+		show_button=0
+        try:
+		isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)		show_button=0
+	except UserFriends.DoesNotExist:
+		show_button=show_button
     else:
         mutualfriends = []
         deactivateList = [1, 2, 3, 4]
         infoList = []
+	show_button = 0
 
     template = loader.get_template('tomonotomo/friend.html')
     try:
@@ -107,7 +116,8 @@ def friend(request, fbid):
 		'meta': meta,
         'deactivateList': deactivateList,
         'infoList': infoList,
-        'email_exists': email_exists
+        'email_exists': email_exists,
+	'show_button': show_button
         })
 
     return HttpResponse(template.render(context))
@@ -209,10 +219,12 @@ def tntAction(request, fbid, action, fbfriend):
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)
+	return redirect('/friend/'+str(fbid))
 
     if action == 2:
         mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid)
+	return redirect('/friend/'+str(fbid))
 
     if action == 3:
         try:
@@ -220,7 +232,7 @@ def tntAction(request, fbid, action, fbfriend):
                 mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
                 dbutils.sendemailCute(userid, fbid)
         except:
-            return redirect('/friend')
+            return redirect('/friend/'+str(fbid))
 
     return redirect('/friend')
 

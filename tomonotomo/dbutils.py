@@ -74,7 +74,7 @@ def sendemailCute (userid, fofid):
         subject = "Mutual Connection Request for " + userinfo.first_name + " and " + fofinfo.first_name
         contextdict['teaserline'] = subject
         contextdict['mailheading'] = subject
-        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+" and "+userinfo.first_name+", Both of you have indicated privately that you find each other interesting / cute / handsome. Since both of you want to meet each other, by god's grace, we at tomonotomo, have been privileged, to introduce you two to each other. You can take it forward from here. Best of Luck. We are happy. :-). Thanks a ton. Regards, Tomonotomo."
+        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+" and "+userinfo.first_name+", Both of you have indicated privately that you find each other interesting / cute / handsome. Since both of you want to meet each other, by god's grace, we at tomonotomo, have been privileged, to introduce you to each other. You can take it forward from here. Best of Luck. We are happy. :-). Thanks a ton. Regards, Tomonotomo."
         plaintext_message = contextdict['mailcontent']
         html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
 
@@ -101,7 +101,7 @@ def sendemailFriend (userid, fofid, friendid):
         friendinfo = UserTomonotomo.objects.get(userid=friendid)
 
 	contextdict = {}
-        subject = "Request by " + userinfo.first_name + " to get connected to " + fofinfo.first_name
+        subject = "Request by " + userinfo.first_name + " to get connected with " + fofinfo.first_name
 	print subject
 	contextdict['teaserline'] = subject
 	contextdict['mailheading'] = subject
@@ -134,11 +134,11 @@ def sendemailFoF (userid, fofid):
         fofinfo = UserTomonotomo.objects.get(userid=fofid)
 
         contextdict = {}
-        subject = "Connection Request by " + userinfo.first_name + " to connect to " + fofinfo.first_name
+        subject = "Connection Request by " + userinfo.first_name + " to connect with " + fofinfo.first_name
         contextdict['teaserline'] = subject
         contextdict['mailheading'] = subject
 	
-        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+", Hope you are doing well. I discovered you on www.tomonotomo.com . I think we might hit it off together. I would like to connect to you. To feel comfortable before replying to the email, you can assure yourself through our mutual friends. You can get all the details from my tomonotomo profile page. Thanks a ton. Sincere apologies if I was offensive or intrusive in any way. Regards, "+userinfo.first_name
+        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+", Hope you are doing well. I discovered you on www.tomonotomo.com . I think we might hit it off together. I would like to connect with you. To feel comfortable before replying to the email, you can assure yourself through our mutual friends. You can get all the details from my tomonotomo profile page. Thanks a ton. Sincere apologies if I was offensive or intrusive in any way. Regards, "+userinfo.first_name
 
         plaintext_message = contextdict['mailcontent']
         html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
