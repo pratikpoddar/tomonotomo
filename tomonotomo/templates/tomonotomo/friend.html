@@ -54,6 +54,7 @@
         border: solid #eb7e8d 2pt;
     }
 
+
 </style>
 
 <div class="page1_block">
@@ -73,14 +74,14 @@
 			<div style="padding-right:0px;text-align:right">
 				{% if worklist %}
 					<div class="block"><span> Work </span>
-						{% for work in worklist.reverse() %}
+						{% for work in worklist %}
 							{{ work }}<br/>
 						{% endfor %}
 					</div>
 				{% endif %}
 				{% if educationlist %}
 					<div class="block"><span> Education </span>
-						{% for education in educationlist.reverse() %}
+						{% for education in educationlist %}
 							{{ education }}<br/>
 						{% endfor %}
 					</div>
@@ -101,15 +102,31 @@
 					<div>
                         {% if user.id %}
 				{% if show_button %}
-						<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn"><h3 style="color:white">Ask friend for Introduction</h3><img src="http://www.tomonotomo.com/static/tomonotomo/img/help.png" style="margin-left:3px;vertical-align:center"/></a><br/><br/>
-						    {% if email_exists %}
-                                <a id="feedback2" href="/tntAction/{{ fbid }}/2/0" class="btn friendbtn"><h3 style="color:white">Connect directly</h3></a><br/><br/>
-						    {% endif %}
-                        <a id="feedback3" href="/tntAction/{{ fbid }}/3/0" class="btn friendbtn"><h3 style="color:white">Looks Cute/Handsome</h3></a><br/><br/>
-						<a id="feedback4" href="/tntAction/{{ fbid }}/4/0" class="btn friendbtn"><h3 style="color:white">Pass, and never show</h3></a><br/><br/>
-				<a id="feedback5" href="/tntAction/{{ fbid }}/5/0" class="btn friendbtn"><h3 style="color:white">Skip</h3></a><br/><br/>
-					    {% endif %}
+					<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn" title="sends an email to you and a friend you choose requesting for an introduction to {{ fullname }}">
+						<h3 style="color:white">Ask friend for Introduction</h3>
+					</a>
+					<br/><br/>
+					{% if email_exists %}
+                                	<a id="feedback2" href="/tntAction/{{ fbid }}/2/0" class="btn friendbtn" title="sends an email to you and {{ fullname }} requesting to connect">
+						<h3 style="color:white">Connect directly</h3>
+					</a>
+					<br/><br/>
 					{% endif %}
+                        		<a id="feedback3" href="/tntAction/{{ fbid }}/3/0" class="btn friendbtn" title="sends email to you and {{ fullname }} only if both of you find each other cute/handsome">
+					<h3 style="color:white">Looks Cute/Handsome</h3>
+					</a>
+					<br/><br/>
+					<a id="feedback4" href="/tntAction/{{ fbid }}/4/0" class="btn friendbtn" title="skip, do not show {{ fullname }} to me again and show next">
+					<h3 style="color:white">Pass, and never show</h3>
+					</a>
+					<br/><br/>
+					<a id="feedback5" href="/tntAction/{{ fbid }}/5/0" class="btn friendbtn" title="skip and show next">
+					<h3 style="color:white">Skip</h3>
+					</a>
+					<br/><br/>
+			{% endif %}
+		{% endif %}
+			&nbsp;
                     </div>
 
                     <script type="text/javascript">

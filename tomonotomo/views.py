@@ -57,7 +57,8 @@ def friend(request, fbid):
 	if len(mutualfriends) == 0:
 		show_button=0
         try:
-		isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)		show_button=0
+		isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)
+		show_button=0
 	except UserFriends.DoesNotExist:
 		show_button=show_button
     else:
@@ -92,11 +93,15 @@ def friend(request, fbid):
     	worklist = []
     else:
 	worklist = profile.work.split('---')
+	worklist.reverse()
+	worklist = filter(lambda x: len(x), worklist)
 
     if profile.education == "":
 	educationlist = []
     else:
 	educationlist = profile.education.split('---')
+	educationlist.reverse()
+	educationlist = filter(lambda x: len(x), educationlist)
 
     if profile.get_age() != "[Age N.A.]":
 	if profile.location != "":
