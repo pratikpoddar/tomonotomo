@@ -81,14 +81,14 @@ def sendemailCute (userid, fofid):
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        #message.add_to(userinfo.email, userinfo.get_full_name())
-        #message.add_to(fofinfo.email, fofinfo.get_full_name())
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(fofinfo.email, fofinfo.get_full_name())
 
         # use the SMTP API to send your message
-        #s.smtp.send(message)
+        s.smtp.send(message)
 	
-	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
-	s.smtp.send(message)
+	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+	#s.smtp.send(message)
 
         return
 
@@ -102,28 +102,23 @@ def sendemailFriend (userid, fofid, friendid):
 
 	contextdict = {}
         subject = "Request by " + userinfo.first_name + " to get connected with " + fofinfo.first_name
-	print subject
 	contextdict['teaserline'] = subject
 	contextdict['mailheading'] = subject
 	contextdict['mailcontent'] = "Hey "+friendinfo.first_name+", Hope you are doing well. I discovered "+fofinfo.first_name+" on www.tomonotomo.com . I think we might hit it off together. Do you mind introducing me to " + fofinfo.first_name + " and I wil take it forward from there. Thanks a ton. Regards, "+userinfo.first_name
         plaintext_message = contextdict['mailcontent']
-	print contextdict['mailcontent']
         html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        # message.add_to(userinfo.email, userinfo.get_full_name())
-        # message.add_to(friendinfo.email, friendinfo.get_full_name())
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(friendinfo.email, friendinfo.get_full_name())
 
         # use the SMTP API to send your message
-        #s.smtp.send(message)
-
-	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
-	
         s.smtp.send(message)
 
-	sendemailCute(userid, fofid)
-	sendemailFoF(userid, fofid)
+	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+        #s.smtp.send(message)
+
         return
 
 def sendemailFoF (userid, fofid):
@@ -137,22 +132,20 @@ def sendemailFoF (userid, fofid):
         subject = "Connection Request by " + userinfo.first_name + " to connect with " + fofinfo.first_name
         contextdict['teaserline'] = subject
         contextdict['mailheading'] = subject
-	
         contextdict['mailcontent'] = "Hey "+fofinfo.first_name+", Hope you are doing well. I discovered you on www.tomonotomo.com . I think we might hit it off together. I would like to connect with you. To feel comfortable before replying to the email, you can assure yourself through our mutual friends. You can get all the details from my tomonotomo profile page. Thanks a ton. Sincere apologies if I was offensive or intrusive in any way. Regards, "+userinfo.first_name
-
         plaintext_message = contextdict['mailcontent']
         html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
         message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
 
         # add a recipient
-        #message.add_to(userinfo.email, userinfo.get_full_name())
-        #message.add_to(fofinfo.email, fofinfo.get_full_name())
+        message.add_to(userinfo.email, userinfo.get_full_name())
+        message.add_to(fofinfo.email, fofinfo.get_full_name())
 
         # use the SMTP API to send your message
-        #s.smtp.send(message)
-
-	message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
         s.smtp.send(message)
+
+	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+        #s.smtp.send(message)
 
         return
 
