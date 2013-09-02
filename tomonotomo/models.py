@@ -25,7 +25,11 @@ class UserTomonotomo(models.Model):
     username= models.CharField(max_length=200L,null=True)
 
     def get_full_name(self):
-            return self.first_name + " " + self.last_name
+	    try:
+	    	fullname = (self.first_name + " " + self.last_name).encode('ascii')
+            	return fullname
+	    except:
+		return "Name not Readable"
     def get_short_name(self):
             return self.first_name
     def get_age(self):

@@ -1,10 +1,10 @@
 # Django settings for tomonotomo_project project.
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+#DEBUG = True
+#TEMPLATE_DEBUG = True
  
-#DEBUG = False
-#TEMPLATE_DEBUG = False
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Pratik Poddar', 'pratik.phodu@gmail.com'),
@@ -219,7 +219,7 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/loggedin'
-LOGIN_ERROR_URL = '/login-error/'
+LOGIN_ERROR_URL = '/loginerror'
 
 META_SITE_PROTOCOL = 'http'
 

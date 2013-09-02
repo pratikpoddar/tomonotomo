@@ -2,10 +2,19 @@ from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from random import choice
+from random import choice,shuffle
 import sendgrid
 
 from functools32 import lru_cache
+
+from datetime import datetime
+
+def print_for_me(fbid,string=""):
+	
+	string = str(datetime.now()) + " " + string
+	if fbid==717323242:
+		print str(string)
+	return
 
 def getMutualFriends (fbid1, fbid2):
         
@@ -30,24 +39,41 @@ def getPotentialFoFs(fbid, reqgender):
 
 	return fofs
 
-@lru_cache(maxsize=16)
+def getPotentialFoFsFast(fbid, reqgender):
+
+	print_for_me(fbid, "will getfriendsontnt")
+	fblist = getFriendsonTnT(fbid)
+	print_for_me(fbid, "will shuffle")
+	shuffle(fblist)
+	print_for_me(fbid, "will get fofs")
+	fblistFast = fblist[:2]
+	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
+	print_for_me(fbid,"will remove gender")
+	if not reqgender=="indifferent":
+		fofs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender==reqgender, fofs)
+		#fofs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=reqgender).values('userid'))) & set(fofs))
+
+	return fofs
+
 def getPotentialList(fbid, reqgender):
 
-	listofFoFs = getPotentialFoFs(fbid, reqgender)
-        
+	listofFoFs = getPotentialFoFsFast(fbid, reqgender)
+        print_for_me(fbid,"will get friendlist")
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-        
+        print_for_me(fbid,"will check age")
 	if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
-	
+	print_for_me(fbid,"will check if not friend")
 	listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
-        
+        print_for_me(fbid,"done")
+
 	return listofFoFs
 
 def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
 
+@lru_cache(maxsize=32)
 def getFriendsonTnT (fbid):
         fblist = UserFriends.objects.filter(userid=fbid).values('friendid')
         fblist2 = filter(lambda x: UserTomonotomo.objects.get(userid=x['friendid']).email!=None, fblist)

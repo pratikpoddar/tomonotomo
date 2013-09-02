@@ -162,6 +162,24 @@ def terms(request):
     return HttpResponse(template.render(context))
 
 @login_required(login_url='index')
+def loginerror(request):
+    meta = Meta(
+        use_og=1,
+        url=request.build_absolute_uri(),
+        use_sites=True,
+        description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and freindly relationship based on trust and respect',
+        keywords=['dating', 'tomonotomo', 'friend'],
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
+        title='tomonotomo - meet friends of friends'
+    )
+    template = loader.get_template('tomonotomo/loginerror.html')
+    context = RequestContext(request, {
+        'meta': meta
+        })
+    return HttpResponse(template.render(context))
+
+
+@login_required(login_url='index')
 def loggedin(request):
     fbid = UserTomonotomo.objects.get(email=request.user.email).userid
     template = loader.get_template('tomonotomo/loggedin.html')
@@ -244,11 +262,12 @@ def tntAction(request, fbid, action, fbfriend):
 
     return redirect('/friend')
 
+@login_required(login_url='index')
 def dbsummary(request):
 
-    print "DB Summary"
-    print datetime.datetime.now().strftime("The date is %d/%m/%Y") 
-
+    if request.user.email != "pratik_phodu@yahoo.com":
+	raise Http404
+	 
     template = loader.get_template('tomonotomo/dbsummary.html')
     contextdict = {'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
         'dbsummary_users_email': UserTomonotomo.objects.exclude(email=None).count(),
@@ -259,7 +278,6 @@ def dbsummary(request):
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by()
     }
 
-    print contextdict
     context = RequestContext(request, contextdict)
 
     return HttpResponse(template.render(context))

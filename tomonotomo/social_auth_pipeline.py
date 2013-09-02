@@ -17,9 +17,9 @@ def create_custom_user(backend, details, user=None,
         print "Creating Custom User"
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
-        # if kwargs['is_new'] == False:
-        #     print "Returning user " + str(user)
-        #     return
+        if kwargs['is_new'] == False:
+        	print "Returning user " + str(user)
+        	return
 
         print "Getting data for first time user " + str(user)
 
@@ -209,6 +209,8 @@ class startPostProcessing(CronJobBase):
                 	print "Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
         	except:
             		print "Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
+
+		print "Before this operation - length of list was " + str(len(pendingusers))
 
     	return
 

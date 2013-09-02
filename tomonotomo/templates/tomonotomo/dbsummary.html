@@ -12,8 +12,14 @@
             Number of Users with data: {{ dbsummary_users_data }}<br/>
             Number of UserFriend Entries: {{ dbsummary_userfriends }}<br/>
             Number of Feedback received: {{ dbsummary_userfeedback }}<br/>
-	    Users: {{ dbsummary_users }}<br/>
-	    Feedback Stats: {{ dbsummary_feedback }}<br/>
+	    Users: <br/>
+		{% for dbuser in dbsummary_users %}
+			{{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
+		{% endfor %}
+	    Feedback Stats: <br/>
+		{% for dbfeedback in dbsummary_feedback %}
+			{{ dbfeedback.action }} - {{dbfeedback.action__count }}<br/>
+		{% endfor %}
 		</div>
 	</div>
 </div>
