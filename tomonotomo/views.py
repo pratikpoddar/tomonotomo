@@ -214,7 +214,8 @@ def tntAction(request, fbid, action, fbfriend):
 
     try:
         feedback = UserFeedback.objects.get(userid=userinfo, fbid=fbid)
-        setattr(feedback, 'action', action)
+	if action < 5:
+		setattr(feedback, 'action', action)
         feedback.save()
     except UserFeedback.DoesNotExist:
         feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
