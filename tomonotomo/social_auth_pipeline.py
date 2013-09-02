@@ -20,8 +20,8 @@ def create_custom_user(backend, details, user=None,
         if kwargs['is_new'] == False:
         	print "Returning user " + str(user)
         	return
-
-        print "Getting data for first time user " + str(user)
+	else:
+        	print "Getting data for first time user " + str(user)
 
         if user is None:
                 print "User came as None in the function create_custom_user"
@@ -64,6 +64,9 @@ def create_custom_user(backend, details, user=None,
         profile.save()
 
         print "----"
+
+	if kwargs['is_new'] == False:
+		return
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
