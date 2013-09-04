@@ -11,6 +11,8 @@ from django.db import transaction
 
 from django_cron import CronJobBase, Schedule
 
+genderdict = { "male":1, "female":2, "not specified":3 }
+
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
@@ -47,7 +49,7 @@ def create_custom_user(backend, details, user=None,
         profile.email = res.get('email')
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
-        profile.gender = res.get('gender') or "not specified"
+        profile.gender = genderdict[res.get('gender') or "not specified"]
         if res.get('hometown'):
                 profile.hometown = res.get('hometown').get('name')
         if res.get('location'):
@@ -164,7 +166,7 @@ def postProcessing(userid, accessToken):
                 userfriend.education= getSanitizedEducation(frienddata['education'])
             userfriend.first_name = frienddata.get('first_name')
             userfriend.last_name = frienddata.get('last_name')
-            userfriend.gender = frienddata.get('sex') or "not specified"
+            userfriend.gender = genderdict[frienddata.get('sex') or "not specified"]
             if frienddata.get('hometown_location'):
                 userfriend.hometown = frienddata.get('hometown_location').get('name')
             if frienddata.get('current_location'):

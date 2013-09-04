@@ -2,9 +2,9 @@ from django.db import models
 from datetime import datetime
 
 GENDER_CHOICES = (
-    ('male', 'male'),
-    ('female', 'female'),
-    ('not specified', 'not specified')
+    (1, 'male'),
+    (2, 'female'),
+    (3, 'not specified')
     )
 
 class UserTomonotomo(models.Model):
@@ -18,7 +18,7 @@ class UserTomonotomo(models.Model):
     birthday= models.CharField(max_length=100L,null=True)
     hometown= models.CharField(max_length=100L)
     location= models.CharField(max_length=100L)
-    gender= models.CharField(max_length=100L, choices=GENDER_CHOICES, default="not specified")
+    gender= models.IntegerField(choices=GENDER_CHOICES, default=3)
     education= models.CharField(max_length=2000L)
     work= models.CharField(max_length=2000L)
     time= models.DateTimeField(auto_now_add=True, blank=True)

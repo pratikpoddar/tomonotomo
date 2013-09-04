@@ -36,11 +36,11 @@ def index(request):
 def friendrandom(request):
     loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
     gender = UserTomonotomo.objects.get(email=request.user.email).gender
-    reqgender = "indifferent"
-    if gender=="male":
-        reqgender = "female"
-    if gender=="female":
-        reqgender = "male"
+    reqgender = 3
+    if gender==1:
+        reqgender = 2
+    if gender==2:
+        reqgender = 1
     fbid = dbutils.getRandFoF(loggedid, reqgender)
     if fbid == 0:
         raise Http404
@@ -232,14 +232,15 @@ def tntAction(request, fbid, action, fbfriend):
     userinfo = UserTomonotomo.objects.get(email=request.user.email)
     userid = userinfo.userid
 
-    try:
-        feedback = UserFeedback.objects.get(userid=userinfo, fbid=fbid)
-	if action < 5:
-		setattr(feedback, 'action', action)
-        feedback.save()
-    except UserFeedback.DoesNotExist:
-        feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
+#    try:
+#        feedback = UserFeedback.objects.get(userid=userinfo, fbid=fbid)
+#	if action < 5:
+#		setattr(feedback, 'action', action)
+#        feedback.save()
+#    except UserFeedback.DoesNotExist:
+#        feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
 
+    feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
     print "Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action)
 
