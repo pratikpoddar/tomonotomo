@@ -28,7 +28,8 @@ def index(request):
     )    
     template = loader.get_template('tomonotomo/index.html')
     context = RequestContext(request, {
-        'meta': meta
+        'meta': meta,
+	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count())
         })
     return HttpResponse(template.render(context))
 
@@ -193,9 +194,9 @@ def loggedin(request):
         title='tomonotomo - meet friends of friends'
     )
     dictin = {
-		'degree1': len(dbutils.getFriendsonTnT(fbid)),
-		'degree2': len(dbutils.getFriendsofFriends(fbid)),
-        'meta': meta
+		'degree1': "{:,}".format(len(dbutils.getFriendsonTnT(fbid))),
+		'degree2': "{:,}".format(len(dbutils.getFriendsofFriends(fbid))),
+        	'meta': meta
 		}
 
     context = RequestContext(request, dictin)
