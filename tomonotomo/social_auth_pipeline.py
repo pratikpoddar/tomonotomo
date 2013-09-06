@@ -132,8 +132,6 @@ def postProcessing(userid, accessToken):
         	print "number of friends " + str(numberfriends)
 	except Exception as e:
 		print e
-		prin type(e)
-		print e.args
 		raise
 
         friendgraphdata= []
@@ -192,8 +190,6 @@ def postProcessing(userid, accessToken):
             	userfriend.save()
 	    except Exception as inst:
 		print inst
-		print type(inst)
-		print inst.args
 		
 	print "!!!!!!!!!"
 
