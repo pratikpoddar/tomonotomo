@@ -157,38 +157,47 @@ def postProcessing(userid, accessToken):
                 profilefriends.userid = userloggedin
                 profilefriends.friendid = frienddata.get('uid')
                 profilefriends.save()
-	    #except Exception as e:
-	    #	print e
-	
-            try:
+	    except Exception as e:
+	    	print "Exception saving UserFriends"
+		print e
+		raise
+
+	    try:
                 userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
             except UserTomonotomo.DoesNotExist:
                 userfriend = UserTomonotomo()
-	     
-            if frienddata.get('work'):
-               userfriend.work= getSanitizedWork(frienddata['work'])
-            if frienddata.get('education'):
-                userfriend.education= getSanitizedEducation(frienddata['education'])
-            userfriend.first_name = frienddata.get('first_name')
-            userfriend.last_name = frienddata.get('last_name')
-            userfriend.gender = genderdict[frienddata.get('sex') or "not specified"]
-            if frienddata.get('hometown_location'):
-                userfriend.hometown = frienddata.get('hometown_location').get('name')
-            if frienddata.get('current_location'):
-                userfriend.location = frienddata.get('current_location').get('name')
 
-            userfriend.username = frienddata.get('username')
-            userfriend.userid = frienddata.get('uid')
+	    try:	     
+            	if frienddata.get('work'):
+               		userfriend.work= getSanitizedWork(frienddata['work'])
+            	if frienddata.get('education'):
+                	userfriend.education= getSanitizedEducation(frienddata['education'])
+            	userfriend.first_name = frienddata.get('first_name')
+           	userfriend.last_name = frienddata.get('last_name')
+            	userfriend.gender = genderdict[frienddata.get('sex') or "not specified"]
+           	if frienddata.get('hometown_location'):
+                	userfriend.hometown = frienddata.get('hometown_location').get('name')
+            	if frienddata.get('current_location'):
+                	userfriend.location = frienddata.get('current_location').get('name')
+
+            	userfriend.username = frienddata.get('username')
+            	userfriend.userid = frienddata.get('uid')
             
-	    if frienddata.get('birthday'):
-                try:
-                    userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
-                except:
-                    print "could not parse birthday for " + str(frienddata.get('uid'))
+	    	if frienddata.get('birthday'):
+                	try:
+                    		userfriend.birthday = time.strftime("%m/%d/%Y", time.strptime(frienddata.get('birthday'), "%B %d, %Y"))
+                	except:
+                    		print "could not parse birthday for " + str(frienddata.get('uid'))
+
+	    except Exception as e:
+		print "Exception getting information"
+		print e
+		raise
 
 	    try:
             	userfriend.save()
 	    except Exception as inst:
+		print "Exception saving UserData"
 		print inst
 		
 	print "!!!!!!!!!"
