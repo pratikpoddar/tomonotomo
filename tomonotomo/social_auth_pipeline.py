@@ -19,11 +19,11 @@ def create_custom_user(backend, details, user=None,
         print "Creating Custom User"
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
-        if kwargs['is_new'] == False:
-        	print "Returning user " + str(user)
-        	return
-	else:
-        	print "Getting data for first time user " + str(user)
+        #if kwargs['is_new'] == False:
+        #	print "Returning user " + str(user)
+        #	return
+	#else:
+        #	print "Getting data for first time user " + str(user)
 
         if user is None:
                 print "User came as None in the function create_custom_user"
@@ -125,9 +125,16 @@ def postProcessing(userid, accessToken):
 	userloggedin = UserTomonotomo.objects.get(userid=userid)
         graph = GraphAPI(accessToken)
         print "processing " + accessToken
-        friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
-        numberfriends = friendnumber.get('data')[0].get('friend_count')
-        print "number of friends " + str(numberfriends)
+	try:
+		## Checking if accesstoken is valid
+        	friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
+        	numberfriends = friendnumber.get('data')[0].get('friend_count')
+        	print "number of friends " + str(numberfriends)
+	except Exception as e:
+		print e
+		prin type(e)
+		print e.args
+		raise
 
         friendgraphdata= []
         friendgraph= []

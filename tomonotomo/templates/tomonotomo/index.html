@@ -7,11 +7,11 @@
 	<div class="container_12">
 		<div class="grid_8">
 			<div class="page_block">
-				<img src="{% static 'tomonotomo/img/page1_img2.jpg' %}" alt="">
-				<div class="extra_wrapper">
+				<img src="{% static 'tomonotomo/img/page1_img3.jpg' %}" alt="">
+				<div class="extra_wrapper">		
 					safe
+					credible
 					friendly
-					trust
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -19,7 +19,7 @@
 
        	<div class="grid_4">
 			<h2>Connect only with Friends of Friends</h2>
-            <h3>We are revolutionising the way dating happens. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> boys and girls are here already</span></h3><br/>
+            <h3>We are revolutionising the way dating happens. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> men and women are here already</span></h3><br/>
 			{% if not user.id %}
                 <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-large"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
                 <h3>We don't post anything on your wall!</h3>
@@ -37,7 +37,7 @@
 
 		<div class="grid_4">
 			<div class="pad1">
-				<h2>ask mutual friend to connect</h2>If you find someone cute/handsome, you can request one of your mutual friends to connect with him/her. Since the relationship is originated by a trusted mediator, it forces both parties to be disciplined, honest and gentle.<br>
+				<h2>ask mutual friend to connect</h2>If you find someone attractive, you can request one of your mutual friends to connect with him/her. Since the relationship is originated by a trusted mediator, it forces both parties to be disciplined, honest and gentle.<br>
 			</div>
 		</div>
 		<div class="grid_4">
@@ -47,7 +47,7 @@
 		</div>
 		<div class="grid_4">
 			<div class="pad1">
-				<h2>looks cute/handsome</h2>You find someone cute/handsome, and you do not want to initiate the conversation and be more passive. Just indicate that you find him/her cute and we will connect you two only if he/she also finds you cute<br>
+				<h2>looks attractive</h2>You find someone attractive, and you do not want to initiate the conversation and be more passive. Just indicate that you find him/her attractive and we will connect you two only if he/she also finds you attractive<br>
 			</div>
 		</div>
 		<div class="clear"></div>
