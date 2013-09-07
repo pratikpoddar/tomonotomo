@@ -25,7 +25,11 @@
                 {% for dbuser in dbsummary_users_register_24 %}
                         {{ dbuser }} <br/>
                 {% endfor %}
-            <br/>Users: <br/>
+            <br/>Users registerd in last 1 hour:<br/>
+                {% for dbuser in dbsummary_users_register_1 %}
+                        {{ dbuser }} <br/>
+                {% endfor %}            
+	    <br/>Users: <br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
                 {% endfor %}
