@@ -3,8 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = True
  
-#DEBUG = False
-#TEMPLATE_DEBUG = False
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Pratik Poddar', 'pratik.phodu@gmail.com'),
@@ -165,17 +165,31 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+	'verbose': {
+		'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+	}
+    },
     'handlers': {
+	'null': {
+	    'level': 'INFO',
+	    'class': 'logging.NullHandler'
+	},
+
         'mail_admins': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
     'loggers': {
+	'django': {
+	    'handlers': ['null'],
+	    'level': 'INFO',
+	    'propagate': True,
+	},
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'INFO',
+            'level': 'ERROR',
             'propagate': True,
         },
     }

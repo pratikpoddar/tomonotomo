@@ -266,11 +266,12 @@ def tntAction(request, fbid, action, fbfriend):
 
     return redirect('/friend')
 
-@login_required(login_url='index')
 def dbsummary(request):
 
-    if request.user.email != "pratik_phodu@yahoo.com":
-	raise Http404
+    try: 
+	secret = request.GET['secret']
+    except:	
+    	raise Http404
 	 
     template = loader.get_template('tomonotomo/dbsummary.html')
     contextdict = {'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
