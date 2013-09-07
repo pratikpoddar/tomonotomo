@@ -74,6 +74,21 @@ def create_custom_user(backend, details, user=None,
 
         print "----"
 
+        try:
+            userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
+        except UserProcessing.DoesNotExist:
+            userprocessing = UserProcessing()
+            userprocessing.userloggedin = userloggedin
+        except UserProcessing.MultipleObjectsReturned:
+            userprocessing = userProcessing()
+            userprocessing.userloggedin = userloggedin
+
+        userprocessing.accesstoken = res.get('access_token')
+
+        userprocessing.save()
+
+	print "----"
+
 	if kwargs['is_new']==False:
 		print "completed for returning user " + str(res.get('id'))
 		return
@@ -93,19 +108,6 @@ def create_custom_user(backend, details, user=None,
                 profilefriends.save()
 
         print "----"
-
-        try:
-            userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
-        except UserProcessing.DoesNotExist:
-	    userprocessing = UserProcessing()
-            userprocessing.userloggedin = userloggedin
-	except UserProcessing.MultipleObjectsReturned:
-	    userprocessing = userProcessing()
-	    userprocessing.userloggedin = userloggedin
-
-	userprocessing.accesstoken = res.get('access_token')
-
-        userprocessing.save() 
 
         print "completed for first time user " + str(userloggedin)
         return
