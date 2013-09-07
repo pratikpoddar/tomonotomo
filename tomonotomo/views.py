@@ -280,7 +280,7 @@ def dbsummary(request):
         'dbsummary_userfeedback': UserFeedback.objects.count(),
 	'dbsummary_users': UserTomonotomo.objects.exclude(email=None).values('userid','first_name','last_name','email'),
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),
-	'dbsummary_users_login_24': UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin', 'timestamp'),
+	'dbsummary_users_login_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin')))),
 	'dbsummary_users_register_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin')))-set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__lte=datetime.now()+timedelta(hours=-24)).values('userlogin'))))
     }
 

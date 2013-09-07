@@ -19,7 +19,7 @@
 		{% endfor %}
 	    <br/>Users loggedin in last 24 hours:<br/>
 		{% for dbuser in dbsummary_users_login_24 %}
-			{{ dbuser.userlogin }} <br/>
+			{{ dbuser }} <br/>
 		{% endfor %}
 	    <br/>Users registerd in last 24 hours:<br/>
                 {% for dbuser in dbsummary_users_register_24 %}

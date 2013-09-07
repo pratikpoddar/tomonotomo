@@ -19,11 +19,10 @@ def create_custom_user(backend, details, user=None,
         print "Creating Custom User"
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
-        #if kwargs['is_new'] == False:
-        #	print "Returning user " + str(user)
-        #	return
-	#else:
-        #	print "Getting data for first time user " + str(user)
+        if kwargs['is_new'] == False:
+        	print "Returning user " + str(user)
+	else:
+        	print "Getting data for first time user " + str(user)
 
         if user is None:
                 print "User came as None in the function create_custom_user"
@@ -69,6 +68,16 @@ def create_custom_user(backend, details, user=None,
 
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
+        userlogin = UserLogin()
+        userlogin.userlogin = userloggedin
+        userlogin.save()
+
+        print "----"
+
+	if kwargs['is_new']==False:
+		print "completed for returning user " + str(res.get('id'))
+		return
+
         friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
         peopleontnt = UserTomonotomo.objects.values('userid')
 
@@ -98,13 +107,7 @@ def create_custom_user(backend, details, user=None,
 
         userprocessing.save() 
 
-	print "----"
-	
-	userlogin = UserLogin()
-	userlogin.userlogin = userloggedin
-	userlogin.save()
-
-        print "completed for " + str(userloggedin)
+        print "completed for first time user " + str(userloggedin)
         return
 
 def getSanitizedEducation (educationProfile):
