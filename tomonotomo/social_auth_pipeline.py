@@ -233,7 +233,7 @@ class startPostProcessing(CronJobBase):
 			print "Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
                 	postProcessing(userloggedin, accesstoken)
 			print "Almost Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
-                	UserProcessing.objects.filter(userloggedin = userloggedin, accesstoken = accesstoken).delete()
+                	UserProcessing.objects.filter(userloggedin = userloggedin).delete()
                 	print "Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
         	except:
             		print "Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken
