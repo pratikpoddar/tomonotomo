@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
-from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends
+from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends, UserLogin
 
 from tomonotomo import dbutils
 
@@ -14,7 +14,9 @@ from django.templatetags.static import static
 from django.db.models import Count
 
 import urllib
-import datetime
+from datetime import datetime
+from datetime import timedelta
+
 
 def index(request):
     meta = Meta(
@@ -277,7 +279,9 @@ def dbsummary(request):
         'dbsummary_userfriends': UserFriends.objects.count(),
         'dbsummary_userfeedback': UserFeedback.objects.count(),
 	'dbsummary_users': UserTomonotomo.objects.exclude(email=None).values('userid','first_name','last_name','email'),
-	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by()
+	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),
+	'dbsummary_users_login_24': UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin', 'timestamp'),
+	'dbsummary_users_register_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin')))-set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__lte=datetime.now()+timedelta(hours=-24)).values('userlogin'))))
     }
 
     context = RequestContext(request, contextdict)

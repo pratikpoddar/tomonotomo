@@ -5,7 +5,7 @@ import time
 import pprint
 from random import randint
 
-from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing
+from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin
 
 from django.db import transaction
 
@@ -67,9 +67,6 @@ def create_custom_user(backend, details, user=None,
 
         print "----"
 
-	if kwargs['is_new'] == False:
-		return
-
         userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
         friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
@@ -93,10 +90,19 @@ def create_custom_user(backend, details, user=None,
         except UserProcessing.DoesNotExist:
 	    userprocessing = UserProcessing()
             userprocessing.userloggedin = userloggedin
+	except UserProcessing.MultipleObjectsReturned:
+	    userprocessing = userProcessing()
+	    userprocessing.userloggedin = userloggedin
 
 	userprocessing.accesstoken = res.get('access_token')
 
-        userprocessing.save()
+        userprocessing.save() 
+
+	print "----"
+	
+	userlogin = UserLogin()
+	userlogin.userlogin = userloggedin
+	userlogin.save()
 
         print "completed for " + str(userloggedin)
         return

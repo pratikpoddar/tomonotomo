@@ -12,14 +12,24 @@
             Number of Users with data: {{ dbsummary_users_data }}<br/>
             Number of UserFriend Entries: {{ dbsummary_userfriends }}<br/>
             Number of Feedback received: {{ dbsummary_userfeedback }}<br/>
-	    Users: <br/>
-		{% for dbuser in dbsummary_users %}
-			{{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
-		{% endfor %}
-	    Feedback Stats: <br/>
+	    
+	    <br/>Feedback Stats: <br/>
 		{% for dbfeedback in dbsummary_feedback %}
 			{{ dbfeedback.action }} - {{dbfeedback.action__count }}<br/>
 		{% endfor %}
+	    <br/>Users loggedin in last 24 hours:<br/>
+		{% for dbuser in dbsummary_users_login_24 %}
+			{{ dbuser.userlogin }} <br/>
+		{% endfor %}
+	    <br/>Users registerd in last 24 hours:<br/>
+                {% for dbuser in dbsummary_users_register_24 %}
+                        {{ dbuser }} <br/>
+                {% endfor %}
+            <br/>Users: <br/>
+                {% for dbuser in dbsummary_users %}
+                        {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
+                {% endfor %}
+
 		</div>
 	</div>
 </div>
