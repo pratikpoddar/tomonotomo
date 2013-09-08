@@ -112,8 +112,20 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script><!-- end Mixpanel -->
  
 <footer>
 	<div class="container_12">
-		<div class="grid_12">
-			Tomonotomo © 2013| <a href='{% url "index" %}'>Home</a> | <a href='{% url "about" %}'>About</a> | <a href='{% url "terms" %}'>Terms</a>
+		<div class="grid_6">
+			Tomonotomo © 2013| <a href='{% url "index" %}'>Home</a> | <a href='{% url "about" %}'>About</a> | <a href='{% url "terms" %}'>Terms</a> 
+</div>
+<div class="grid_6">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1398031667088132";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-href="http://www.facebook.com/tomonotomo" data-width="450" data-colorscheme="dark" data-show-faces="true" data-send="true"></div>
+</div>
 		</div>
 	</div>
 </footer>
