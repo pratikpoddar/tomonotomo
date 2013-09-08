@@ -71,6 +71,7 @@ def friend(request, fbid):
         mutualfriends = []
         deactivateList = [1, 2, 3, 4]
         infoList = []
+	doneList = []
 	show_button = 0
 
     template = loader.get_template('tomonotomo/friend.html')
