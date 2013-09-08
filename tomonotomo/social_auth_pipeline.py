@@ -215,7 +215,8 @@ def postProcessing(userid, accessToken):
 	    except Exception as inst:
 		print "Exception saving UserData"
 		print inst
-		
+		raise
+
 	print "!!!!!!!!!"
 
         return

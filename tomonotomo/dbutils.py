@@ -202,7 +202,7 @@ def historyFeedback (userid1, userid2):
 	            if result1.values()[i]['action'] == 3:
 	                deactivate.append(3)
 	                deactivate.append(4)
-	                info.append("You marked - Looks Cute/Handsome")
+	                info.append("You marked - Looks Attractive")
 
 	            if result1.values()[i]['action'] == 4:
 	                deactivate.append(3)
@@ -237,7 +237,7 @@ def historyFeedback (userid1, userid2):
         	        if result1.values()[i]['action'] == 3:
 	                    deactivate.append(3)
 	                    deactivate.append(4)
-	                    info.append("You marked - Looks Cute/Handsome")
+	                    info.append("You marked - Looks Attractive")
 
         	        if result1.values()[i]['action'] == 4:
 	                    deactivate.append(3)
@@ -265,7 +265,7 @@ def historyFeedback (userid1, userid2):
         	            deactivate.append(1)
 	                    deactivate.append(3)
 	                    deactivate.append(4)
-        	            info.append("You marked - Looks Cute/Handsome")
+        	            info.append("You marked - Looks Attractive")
 	                    info.append("You would have received a Direct Connection Request over email")
 
         	        if result1.values()[i]['action'] == 4:
