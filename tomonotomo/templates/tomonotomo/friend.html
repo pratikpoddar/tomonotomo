@@ -11,9 +11,13 @@
 		text-align: center;
 	}
 
+    .friendbtn.donebtn {
+		background: #eb7e8d;
+        	cursor: default;
+	}
+
     .friendbtn.inactivebtn {
-		background:	#eb7e8d;
-        cursor: default;
+		display:none;
 	}
 
     #lean_overlay {
@@ -105,25 +109,25 @@
 					<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn" title="Sends an email to you and a friend you choose requesting for an introduction to {{ fullname }}">
 						<h3 style="color:white">Ask friend for Introduction</h3>
 					</a>
-					<br/><br/>
+					<br class="br1"/><br class="br1"/>
 					{% if email_exists %}
                                 	<a id="feedback2" href="/tntAction/{{ fbid }}/2/0" class="btn friendbtn" title="Sends an email to you and {{ fullname }} requesting to connect">
 						<h3 style="color:white">Connect directly</h3>
 					</a>
-					<br/><br/>
+					<br class="br2"/><br class="br2"/>
 					{% endif %}
                         		<a id="feedback3" href="/tntAction/{{ fbid }}/3/0" class="btn friendbtn" title="Sends email to you and {{ fullname }} only if both of you find each other attractive">
 					<h3 style="color:white">Looks Attractive</h3>
 					</a>
-					<br/><br/>
+					<br class="br3"/><br class="br3"/>
 					<a id="feedback4" href="/tntAction/{{ fbid }}/4/0" class="btn friendbtn" title="Skip, do not show {{ fullname }} to me again and show next">
 					<h3 style="color:white">Pass, and never show</h3>
 					</a>
-					<br/><br/>
+					<br class="br4"/><br class="br4"/>
 					<a id="feedback5" href="/tntAction/{{ fbid }}/5/0" class="btn friendbtn" title="Skip and show next">
 					<h3 style="color:white">Skip</h3>
 					</a>
-					<br/><br/>
+					<br class="br5"/><br class="br5"/>
 			{% endif %}
 		{% endif %}
 			&nbsp;
@@ -135,10 +139,15 @@
                            $('a[rel*=leanModal]').leanModal({ top : 80, closeButton: ".modal_close" });
                             {% for deactivate in deactivateList %}
                                 $("#feedback".concat(({{ deactivate }}).toString())).addClass("inactivebtn");
-                                $("#feedback".concat(({{ deactivate }}).toString())).unbind("click");
-                                $("#feedback".concat(({{ deactivate }}).toString())).unbind("hover");
                                 $("#feedback".concat(({{ deactivate }}).toString())).removeAttr("href");
+				$(".br".concat(({{ deactivate }}).toString())).hide();
                             {% endfor %}
+		  	    {% for doneelement in doneList %}
+                                $("#feedback".concat(({{ doneelement }}).toString())).addClass("donebtn");
+                                $("#feedback".concat(({{ doneelement }}).toString())).unbind("click");
+                                $("#feedback".concat(({{ doneelement }}).toString())).removeAttr("href");
+                            {% endfor %}
+
                         })
                     </script>
                     <div>

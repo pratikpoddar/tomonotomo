@@ -58,6 +58,7 @@ def friend(request, fbid):
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
+	doneList = historyFeedback['donelist']
         infoList = historyFeedback['info']
 	if len(mutualfriends) == 0:
 		show_button=0
@@ -126,6 +127,7 @@ def friend(request, fbid):
 		'meta': meta,
         'deactivateList': deactivateList,
         'infoList': infoList,
+	'doneList': doneList,
         'email_exists': email_exists,
 	'show_button': show_button
         })
