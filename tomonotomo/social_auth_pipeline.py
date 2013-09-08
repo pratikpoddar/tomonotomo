@@ -46,6 +46,11 @@ def create_custom_user(backend, details, user=None,
         if res.get('education'):
                 profile.education= getSanitizedEducation(res['education'])
         profile.email = res.get('email')
+	if not res.get('email'):
+		print "CRITICAL: Logged in but did not get email"
+		print res
+		print dir(res)
+		print res.get('email')
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
         profile.gender = genderdict[res.get('gender') or "not specified"]
