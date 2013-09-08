@@ -1,4 +1,4 @@
-from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback
+from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -116,6 +116,9 @@ def sendemailCute (userid, fofid):
 	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
 	#s.smtp.send(message)
 
+	emaillogging = UserEmail(userid=userid, fofid=fofid, action=3)
+	emaillogging.save()
+
         return
 
 def sendemailFriend (userid, fofid, friendid):
@@ -145,6 +148,9 @@ def sendemailFriend (userid, fofid, friendid):
 	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
         #s.smtp.send(message)
 
+        emaillogging = UserEmail(userid=userid, fofid=fofid, friendid=friendid, action=1)
+        emaillogging.save()
+
         return
 
 def sendemailFoF (userid, fofid):
@@ -172,6 +178,9 @@ def sendemailFoF (userid, fofid):
 
 	#message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
         #s.smtp.send(message)
+
+        emaillogging = UserEmail(userid=userid, fofid=fofid, action=2)
+        emaillogging.save()
 
         return
 
