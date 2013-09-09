@@ -1,4 +1,4 @@
-from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail
+from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -330,4 +330,9 @@ def prepareEmail(contextdict, userid, fofid, username, fofname):
 
 	output = render_to_string('tomonotomo/email.html', contextdict)
 	return output
+
+def updateUserHappening(userid, action):
+
+	userhappening = UserHappening(userid=userid, action=action)
+	userhappening.save()
 

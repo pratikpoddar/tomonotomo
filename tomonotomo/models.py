@@ -68,3 +68,7 @@ class UserEmail(models.Model):
     action = models.IntegerField(null=False)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
+class UserHappening(models.Model):
+    userid = models.BigIntegerField(null=False)
+    action = models.IntegerField(null=False)
+
