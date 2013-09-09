@@ -217,7 +217,7 @@ def historyFeedback (userid1, userid2):
 	            if result1.values()[i]['action'] == 4:
 	                deactivate.append(3)
 	                donelist.append(4)
-	                info.append("You marked - Pass, and never show")
+	                info.append("You marked - Skip, and never show")
 
         if (len(result1) == 0) and (len(result2) > 0):
 
@@ -252,7 +252,7 @@ def historyFeedback (userid1, userid2):
         	        if result1.values()[i]['action'] == 4:
 	                    deactivate.append(3)
 	                    donelist.append(4)
-        	            info.append("You marked - Pass, and never show")
+        	            info.append("You marked - Skip, and never show")
 
 	            if result2.values()[j]['action'] == 2:
 
@@ -282,7 +282,7 @@ def historyFeedback (userid1, userid2):
                 	    deactivate.append(1)
 	                    deactivate.append(3)
         	            donelist.append(4)
-                	    info.append("You marked - Pass, and never show")
+                	    info.append("You marked - Skip, and never show")
 	                    info.append("You would have received a Direct Connection Request over email")
 
         	    if result2.values()[j]['action'] == 3:
@@ -306,7 +306,7 @@ def historyFeedback (userid1, userid2):
         	        if result1.values()[i]['action'] == 4:
 	                    deactivate.append(3)
         	            donelist.append(4)
-                	    info.append("You marked - Pass, and never show")
+                	    info.append("You marked - Skip, and never show")
 
         return {'deactivate': list(set(deactivate) - set(donelist)), 'info': list(set(info)), 'donelist': list(set(donelist))}
 
