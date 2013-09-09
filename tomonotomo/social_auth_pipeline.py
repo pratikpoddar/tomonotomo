@@ -190,7 +190,10 @@ def postProcessing(userid, accessToken):
                 	userfriend.education= getSanitizedEducation(frienddata['education'])
             	userfriend.first_name = frienddata.get('first_name')
            	userfriend.last_name = frienddata.get('last_name')
-            	userfriend.gender = genderdict[frienddata.get('sex') or "not specified"]
+		try:
+            		userfriend.gender = genderdict[frienddata.get('sex') or "not specified"]
+		except:
+			userfriend.gender = genderdict["not specified"]
            	if frienddata.get('hometown_location'):
                 	userfriend.hometown = frienddata.get('hometown_location').get('name')
             	if frienddata.get('current_location'):
