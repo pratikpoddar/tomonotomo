@@ -26,18 +26,22 @@
                 {% endif %}    
             {% endif %}
 	
-		{% if number_new_introduction|add:number_new_introductions|add:number_new_attractive > 0 %}
-		We have missed you and so have many people. People have been talking about you since you last loggedin ;) 
-			{% if number_new_introductions %}
-				{{ number_new_introductions }} friends of friends asked your mutual friends if they could connect to you. 
+		{% if show_happening|add:"0" > 0 %}
+		<br/><br/>
+		<span style="font-size:120%">People have been talking about you since you last loggedin ;) 
+			{% if number_new_introductions|add:"0" > 0 %}
+				<br/>{{ number_new_introductions }} friends of friends asked your mutual friends if they could connect to you. 
 			{% endif %}
-			{% if number_new_connect_directly %}
-				{{ number_new_connect_directly }} friends of friends connected with you directly and you would have got the emails.
+			{% if number_new_connect_directly|add:"0" > 0 %}
+				<br/>{{ number_new_connect_directly }} friends of friends connected with you directly and you would have got the emails.
 			{% endif %}
-			{% if number_new_attractive %}
-				{{ number_new_attractive }} friends of friends found you attractive and are waiting for you to discover them :)
+			{% if number_new_attractive|add:"0" > 0 %}
+				<br/>{{ number_new_attractive }} friends of friends found you attractive and are waiting for you to discover them :)
 			{% endif %}
+		<br/>Have fun :)
+		</span>
 		{% endif %}
+		
 			</div>
             <br/>
 

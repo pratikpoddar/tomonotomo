@@ -193,6 +193,10 @@ def loggedin(request):
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
     number_new_connect_directly = UserHappening.objects.filter(userid=fbid, action=2).count()
     number_new_attractive = UserHappening.objects.filter(userid=fbid, action=3).count()
+    show_happening = 0
+    if number_new_introductions + number_new_connect_directly + number_new_attractive > 0:
+	show_happening = 1
+
     UserHappening.objects.filter(userid=fbid).delete()
 
     meta = Meta(
@@ -210,6 +214,7 @@ def loggedin(request):
 		'number_new_introductions': number_new_introductions,
 		'number_new_connect_directly': number_new_connect_directly,
 		'number_new_attractive': number_new_attractive,
+		'show_happening': show_happening,
         	'meta': meta
 		}
 
@@ -261,17 +266,17 @@ def tntAction(request, fbid, action, fbfriend):
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)
-	updateUserHappening(fbid, action)
+	dbutils.updateUserHappening(fbid, action)
 	return redirect('/friend/'+str(fbid))
 
     if action == 2:
         mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid)
-	updateUserHappening(fbid,action)
+	dbutils.updateUserHappening(fbid,action)
 	return redirect('/friend/'+str(fbid))
 
     if action == 3:
-	updateUserHappening(fbid, action)
+	dbutils.updateUserHappening(fbid, action)
         try:
             if UserFeedback.objects.filter(userid=fbid, fbid=userid).values()[0]['action'] == 3:
                 mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
