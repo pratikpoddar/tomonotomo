@@ -100,7 +100,7 @@ def sendemailCute (userid, fofid):
         subject = "Mutual Connection Request for " + userinfo.first_name + " and " + fofinfo.first_name
         contextdict['teaserline'] = subject
         contextdict['mailheading'] = subject
-        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+" and "+userinfo.first_name+", Both of you have indicated privately that you find each other attractive. Since both of you want to meet each other, by god's grace, we at tomonotomo, have been privileged, to introduce you to each other. You can take it forward from here. Best of Luck. We are happy. :-). Thanks a ton. Regards, Tomonotomo."
+        contextdict['mailcontent'] = "Hey "+fofinfo.first_name+" and "+userinfo.first_name+", Both of you have indicated privately that you admire each other. Since both of you want to meet each other, by god's grace, we at tomonotomo, have been privileged, to introduce you to each other. You can take it forward from here. Best of Luck. We are happy. :-). Thanks a ton. Regards, Tomonotomo."
         plaintext_message = contextdict['mailcontent']
         html_message = prepareEmail(contextdict, userid, fofid, userinfo.get_full_name(), fofinfo.get_full_name())
 
@@ -212,7 +212,7 @@ def historyFeedback (userid1, userid2):
 	            if result1.values()[i]['action'] == 3:
 	                donelist.append(3)
 	                deactivate.append(4)
-	                info.append("You marked - Looks Attractive")
+	                info.append("You marked - Admire Secretly")
 
 	            if result1.values()[i]['action'] == 4:
 	                deactivate.append(3)
@@ -247,7 +247,7 @@ def historyFeedback (userid1, userid2):
         	        if result1.values()[i]['action'] == 3:
 	                    donelist.append(3)
 	                    deactivate.append(4)
-	                    info.append("You marked - Looks Attractive")
+	                    info.append("You marked - Admire Secretly")
 
         	        if result1.values()[i]['action'] == 4:
 	                    deactivate.append(3)
@@ -275,7 +275,7 @@ def historyFeedback (userid1, userid2):
         	            deactivate.append(1)
 	                    donelist.append(3)
 	                    deactivate.append(4)
-        	            info.append("You marked - Looks Attractive")
+        	            info.append("You marked - Admire Secretly")
 	                    info.append("You would have received a Direct Connection Request over email")
 
         	        if result1.values()[i]['action'] == 4:
@@ -301,7 +301,7 @@ def historyFeedback (userid1, userid2):
 	                    deactivate.append(1)
 	                    donelist.append(3)
         	            deactivate.append(4)
-	                    info.append("Both of you find each other attractive. Tomonotomo sent an email to both of you. Best of Luck")
+	                    info.append("Both of you admire each other. Tomonotomo sent an email to both of you. Best of Luck")
 
         	        if result1.values()[i]['action'] == 4:
 	                    deactivate.append(3)

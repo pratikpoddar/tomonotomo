@@ -192,9 +192,9 @@ def loggedin(request):
 
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
     number_new_connect_directly = UserHappening.objects.filter(userid=fbid, action=2).count()
-    number_new_attractive = UserHappening.objects.filter(userid=fbid, action=3).count()
+    number_new_admire = UserHappening.objects.filter(userid=fbid, action=3).count()
     show_happening = 0
-    if number_new_introductions + number_new_connect_directly + number_new_attractive > 0:
+    if number_new_introductions + number_new_connect_directly + number_new_admire > 0:
 	show_happening = 1
 
     UserHappening.objects.filter(userid=fbid).delete()
@@ -213,7 +213,7 @@ def loggedin(request):
 		'degree2': "{:,}".format(len(dbutils.getFriendsofFriends(fbid))),
 		'number_new_introductions': number_new_introductions,
 		'number_new_connect_directly': number_new_connect_directly,
-		'number_new_attractive': number_new_attractive,
+		'number_new_admire': number_new_admire,
 		'show_happening': show_happening,
         	'meta': meta
 		}
