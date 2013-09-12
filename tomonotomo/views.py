@@ -91,7 +91,7 @@ def friend(request, fbid):
         use_sites=True,
         description='Tomonotomo - We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
-        image='http://www.facebook.com/'+str(fbid)+'/picture?type=square',
+        image='http://graph.facebook.com/'+str(fbid)+'/picture?type=square',
         title= str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
     )        
 
@@ -197,7 +197,10 @@ def loggedin(request):
     if number_new_introductions + number_new_connect_directly + number_new_admire > 0:
 	show_happening = 1
 
-    UserHappening.objects.filter(userid=fbid).delete()
+    try:
+    	UserHappening.objects.filter(userid=fbid).delete()
+    except:
+	pass
 
     meta = Meta(
         use_og=1,
@@ -252,16 +255,14 @@ def tntAction(request, fbid, action, fbfriend):
     userinfo = UserTomonotomo.objects.get(email=request.user.email)
     userid = userinfo.userid
 
-#    try:
-#        feedback = UserFeedback.objects.get(userid=userinfo, fbid=fbid)
-#	if action < 5:
-#		setattr(feedback, 'action', action)
-#        feedback.save()
-#    except UserFeedback.DoesNotExist:
-#        feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
+    try:
+	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()
+    except:
+	pass    	
 
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
+
     print "Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action)
 
     if action == 1:
