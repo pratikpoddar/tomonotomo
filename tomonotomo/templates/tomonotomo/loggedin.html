@@ -16,13 +16,13 @@
             <span style="font-size: 150%">"{{ degree1 }}"</span> friends in your network are on tomonotomo<br/><br/>
             {% if degree1|add:"0" > 2 %}
                 You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends in degree 2 network.<br/><br/>
-                <a href="{% url "friendrandom" %}" class="btn btn-large"><h3 style="color:white">Start</h3></a>
+                <a href="{% url "fofrandom" %}" class="btn btn-large"><h3 style="color:white">Start</h3></a>
             {%  else %}
                 You need to have at least <span style="font-size: 150%">"3"</span> friends on tomonotono so that we can build a dense social graph.
                 <br/><br/>Please get your friends to be a part of tomonotomo.<br/><br/>
                 <a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
                 {% if degree2|add:"0" >= 50 %}
-                    <br/><br/><a href="{% url "friendrandom" %}" class="btn btn-large"><h3 style="color:white">Start Anyway</h3></a>
+                    <br/><br/><a href="{% url "fofrandom" %}" class="btn btn-large"><h3 style="color:white">Start Anyway</h3></a>
                 {% endif %}    
             {% endif %}
 	
