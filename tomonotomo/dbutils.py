@@ -41,14 +41,10 @@ def getPotentialFoFs(fbid, reqgender):
 
 def getPotentialFoFsFast(fbid, reqgender):
 
-	print_for_me(fbid, "will getfriendsontnt")
 	fblist = getFriendsonTnT(fbid)
-	print_for_me(fbid, "will shuffle")
 	shuffle(fblist)
-	print_for_me(fbid, "will get fofs")
 	fblistFast = fblist[:2]
 	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
-	print_for_me(fbid,"will remove gender")
 	if not reqgender==3:
 		#fofs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender==reqgender, fofs)
 		fofs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=reqgender).values('userid'))) & set(fofs))
@@ -58,15 +54,18 @@ def getPotentialFoFsFast(fbid, reqgender):
 def getPotentialList(fbid, reqgender):
 
 	listofFoFs = getPotentialFoFsFast(fbid, reqgender)
-        print_for_me(fbid,"will get friendlist")
+
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+	nevershowlist1 = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=4).values('fbid'))
+	nevershowlist2 = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=3).values('fbid'))
+
+	barredlist = list(set(friendlist + nevershowlist1 + nevershowlist2))
+
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-        print_for_me(fbid,"will check age")
 	if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
-	print_for_me(fbid,"will check if not friend")
-	listofFoFs = filter(lambda x: x not in friendlist, listofFoFs)
-        print_for_me(fbid,"done")
+
+	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
 	return listofFoFs
 
