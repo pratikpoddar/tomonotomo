@@ -2,7 +2,9 @@
 {% load staticfiles %}
 
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>tomonotomo - meet friends of friends</title>
+
+<title>{% block titlecontent %}tomonotomo - meet friends of friends{% endblock %}</title>
+
 <meta charset="utf-8">
 
 {% include 'meta.html' %}

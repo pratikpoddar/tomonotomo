@@ -36,6 +36,21 @@ def index(request):
         })
     return HttpResponse(template.render(context))
 
+def sitemap(request, number):
+    template = loader.get_template('tomonotomo/sitemap.html')
+    print number
+    try:
+    	listofusers = UserTomonotomo.objects.filter(id__range=(int(number)*500, int(number)*500+520)).values('userid')
+    except:
+	listofusers = UserTomonotomo.objects.filter(id<500).values('userid')
+
+    print number
+    context = RequestContext(request, {
+        'listofusers' : map(lambda x: {'name': dbutils.getFullName(x['userid']), 'id':x['userid']},  listofusers)
+        })
+    return HttpResponse(template.render(context))
+
+
 @login_required(login_url='index')
 def fofrandom(request):
     loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
@@ -73,6 +88,10 @@ def profile(request, fbname, fbid):
                 show_button=0
         except UserFriends.DoesNotExist:
                 show_button=show_button
+
+	if request.user.id == fbid:
+		show_button=0
+
     else:
         mutualfriends = []
         deactivateList = [1, 2, 3, 4]
@@ -136,7 +155,8 @@ def profile(request, fbname, fbid):
         'infoList': infoList,
         'doneList': doneList,
         'email_exists': email_exists,
-        'show_button': show_button
+        'show_button': show_button,
+	'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends'
         })
 
     return HttpResponse(template.render(context))
@@ -269,7 +289,7 @@ def tntAction(request, fbid, action, fbfriend):
     action = int(action)
     userinfo = UserTomonotomo.objects.get(email=request.user.email)
     userid = userinfo.userid
-    fbname = slugify(userinfo.get_full_name())
+    fbname = slugify(dbutils.getFullName(fbid))
 
     try:
 	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()

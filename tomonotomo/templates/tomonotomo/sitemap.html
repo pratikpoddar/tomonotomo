@@ -1,0 +1,15 @@
+{% extends "tomonotomo/base.html" %}
+{% load staticfiles %}
+
+{% block bodycontent %}
+
+<div class="page1_block">
+
+{% for user in listofusers %}
+	<a href="http://www.tomonotomo.com/profile/{{user.name | slugify}}/{{ user.id }}">{{ user.name }}</a>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}
