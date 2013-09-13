@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^auth/', include('social_auth.urls')),
     url(r'^betathanks$', views.betathanks, name='betathanks'),
     url(r'^dbsummary$', views.dbsummary, name='dbsummary'),
+    url(r'^profile/(\w+)/(\d+)$', views.profile, name='profile')
 )
 

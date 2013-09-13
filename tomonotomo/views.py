@@ -50,6 +50,92 @@ def friendrandom(request):
 
     return redirect('/friend/'+str(fbid))
 
+def profile(request, fbname, fbid):
+    #fbid = 717323242
+    show_button = 1
+    if request.user.id:
+        loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
+        mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
+        historyFeedback = dbutils.historyFeedback(loggedid, fbid)
+        deactivateList = historyFeedback['deactivate']
+        doneList = historyFeedback['donelist']
+        infoList = historyFeedback['info']
+        if len(mutualfriends) == 0:
+                show_button=0
+        try:
+                isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)
+                show_button=0
+        except UserFriends.DoesNotExist:
+                show_button=show_button
+    else:
+        mutualfriends = []
+        deactivateList = [1, 2, 3, 4]
+        infoList = []
+        doneList = []
+        show_button = 0
+
+    template = loader.get_template('tomonotomo/friend.html')
+    try:
+        profile = UserTomonotomo.objects.get(userid=fbid)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    if UserTomonotomo.objects.get(userid=fbid).email == None:
+        email_exists = 0
+    else:
+        email_exists = 1
+
+    meta = Meta(
+        use_og=1,
+        url=request.build_absolute_uri(),
+        use_sites=True,
+        description='Tomonotomo - We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        keywords=['dating', 'tomonotomo', 'friend'],
+        image='http://graph.facebook.com/'+str(fbid)+'/picture?type=square',
+        title= str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
+    )
+
+
+    if profile.work == "":
+        worklist = []
+    else:
+        worklist = profile.work.split('---')
+        worklist.reverse()
+        worklist = filter(lambda x: len(x), worklist)
+
+    if profile.education == "":
+        educationlist = []
+    else:
+        educationlist = profile.education.split('---')
+        educationlist.reverse()
+        educationlist = filter(lambda x: len(x), educationlist)
+
+    if profile.get_age() != "[Age N.A.]":
+        if profile.location != "":
+                agelocation = str(profile.get_age()) + ", " + profile.location
+        else:
+                agelocation = profile.get_age()
+    else:
+        agelocation = profile.location
+
+    context = RequestContext(request, {
+                'fbid': fbid,
+                'fullname': profile.get_full_name(),
+                'agelocation': agelocation,
+                'worklist': worklist,
+                'educationlist': educationlist,
+                'mutualfriends': mutualfriends,
+                'meta': meta,
+        'deactivateList': deactivateList,
+        'infoList': infoList,
+        'doneList': doneList,
+        'email_exists': email_exists,
+        'show_button': show_button
+        })
+
+    return HttpResponse(template.render(context))
+
+
 def friend(request, fbid):
     #fbid = 717323242
     show_button = 1
