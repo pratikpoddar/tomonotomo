@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^betathanks$', views.betathanks, name='betathanks'),
     url(r'^dbsummary$', views.dbsummary, name='dbsummary'),
     url(r'^profile/([a-z0-9-]+)/(\d+)$', views.profile, name='profile'),
-    url(r'^sitemap/(\d+)$', views.sitemap, name='sitemap'),
+    url(r'^sitemap/(\d+)$', views.sitemapgen, name='sitemapgen'),
+    url(r'^sitemap$', views.sitemap, name='sitemap')
 )
 

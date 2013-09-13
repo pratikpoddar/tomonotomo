@@ -5,10 +5,22 @@
 
 <div class="page1_block">
 
+<div class="container_12">
+
 {% for user in listofusers %}
-	<a href="http://www.tomonotomo.com/profile/{{user.name | slugify}}/{{ user.id }}">{{ user.name }}</a>
+        <a href="http://www.tomonotomo.com/profile/{{user.name | slugify}}/{{ user.id }}">{{ user.name }}</a>
 {% endfor %}
 
+</div>
+
+
+<div class="container_12">
+
+{% for sitemap in sitemaplist %}
+	<a href="http://www.tomonotomo.com/sitemap/{{ sitemap|add:"0" }}">Tomonotomo Sitemap {{ sitemap|add:"0" }}</a>
+{% endfor %}
+
+</div>
 
 </div>
 
