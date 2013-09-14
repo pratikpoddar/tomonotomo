@@ -64,8 +64,12 @@ def create_custom_user(backend, details, user=None,
         print "----"
 
         graph = GraphAPI(res.get('access_token'))
-        responsegraph = graph.get(str(res['id'])+'?fields=birthday')
+        responsegraph = graph.get(str(res['id'])+'?fields=birthday,email')
         profile.birthday = str(responsegraph.get('birthday'))
+
+	if not profile.email:
+		print "CRITICAL SOLVED"
+		profile.email = str(responsegraph.get('email'))
 
         profile.save()
 

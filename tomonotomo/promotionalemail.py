@@ -67,6 +67,12 @@ def findPeople101():
 	
 	return list(set(map(lambda x: x['userid'], peopleonTnT)) & set(map(lambda x: x['friendid'], friendsofPratik)))
 
+def findPeople101_2():
+	peopleonTnT = UserTomonotomo.objects.exclude(email=None).values('userid')
+	alreadysent = UserEmail.objects.filter(action=101).values('userid')
+	
+	return list(set(map(lambda x: x['userid'], peopleonTnT)) - set(map(lambda x: x['userid'], alreadysent)))	
+
 def sendEmail101():
 	
 	lpeople = findPeople101()
@@ -74,6 +80,12 @@ def sendEmail101():
 		sendPromotionalEmailCuteFriends101(lperson)
 
 	return
+
+def sendEmail101_2():
+	lpeople = findPeople101_2()
+	for lperson in lpeople:
+		sendPromotionalEmailCuteFriends101(lperson)
+
 
 	
 
