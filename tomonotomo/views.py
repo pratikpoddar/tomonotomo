@@ -131,7 +131,7 @@ def profile(request, fbname, fbid):
         doneList = []
         show_button = 0
 
-    template = loader.get_template('tomonotomo/friend.html')
+    template = loader.get_template('tomonotomo/profile.html')
     try:
         profile = UserTomonotomo.objects.get(userid=fbid)
     except ObjectDoesNotExist:
