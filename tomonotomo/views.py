@@ -83,6 +83,7 @@ def profile(request, fbname, fbid):
     show_button = 1
     notify_hover_on_button = 0
     notify_invite_friends = 0
+    notify_welcome = 0
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
@@ -98,7 +99,10 @@ def profile(request, fbname, fbid):
         except UserFriends.DoesNotExist:
                 show_button=show_button
 
-	lastfeedback = dbutils.getLastFeedback(loggedid,25)
+	lastfeedback = dbutils.getLastFeedback(loggedid,30)
+
+	if len(lastfeedback)==0:
+		notify_welcome=1
 
 	if len(lastfeedback)==10:
 		try:
@@ -113,14 +117,10 @@ def profile(request, fbname, fbid):
 			print "Notification On for hover on button " + str(loggedid)
 			notify_hover_on_button=1
 
-	if len(lastfeedback)==20:
+	if len(lastfeedback)==25:
 		print "Notification On for invite friends " + str(loggedid)
 		notify_invite_friends=1
 
-	if loggedid==717323242:
-		notify_invite_friends=1
-		notify_hover_on_button=1
-	
 	if request.user.id == fbid:
 		show_button=0
 
@@ -193,6 +193,7 @@ def profile(request, fbname, fbid):
 		'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
 		'notify_invite_friends': notify_invite_friends,
 		'notify_hover_on_button': notify_hover_on_button,
+		'notify_welcome': notify_welcome
         })
 
     return HttpResponse(template.render(context))
