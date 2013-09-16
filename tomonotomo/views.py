@@ -60,8 +60,8 @@ def sitemap(request):
 
 @login_required(login_url='index')
 def fofrandom(request):
-    loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
-    gender = UserTomonotomo.objects.get(email=request.user.email).gender
+    loggedid = dbutils.getLoggedInUser(request)
+    gender = UserTomonotomo.objects.get(userid=loggedid).gender
     reqgender = 3
     if gender==1:
         reqgender = 2
@@ -85,7 +85,7 @@ def profile(request, fbname, fbid):
     notify_invite_friends = 0
     notify_welcome = 0
     if request.user.id:
-        loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
+        loggedid = dbutils.getLoggedInUser(request)
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
@@ -259,7 +259,7 @@ def loginerror(request):
 
 @login_required(login_url='index')
 def loggedin(request):
-    fbid = UserTomonotomo.objects.get(email=request.user.email).userid
+    fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/loggedin.html')
 
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
@@ -298,7 +298,7 @@ def loggedin(request):
 
 @login_required(login_url='index')
 def betathanks(request):
-    fbid = UserTomonotomo.objects.get(email=request.user.email).userid
+    fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/betathanks.html')
     meta = Meta(
         use_og=1,
@@ -324,8 +324,8 @@ def tntAction(request, fbid, action, fbfriend):
 
     fbid = int(fbid)
     action = int(action)
-    userinfo = UserTomonotomo.objects.get(email=request.user.email)
-    userid = userinfo.userid
+    userid = dbutils.getLoggedInUser(request)
+    userinfo = UserTomonotomo.objects.get(userid=userid)
     fbname = slugify(dbutils.getFullName(fbid))
 
     try:

@@ -16,6 +16,17 @@ def print_for_me(fbid,string=""):
 		print str(string)
 	return
 
+def getLoggedInUser (request):
+	
+	email = ""
+	if request.user.email:
+		email = request.user.email
+	
+	elif request.user.username:
+		email = request.user.username+"@facebook.com"
+		
+	return UserTomonotomo.objects.get(email=email).userid
+	
 def getMutualFriends (fbid1, fbid2):
         
         fblist1 = UserFriends.objects.filter(userid=fbid1).values('friendid')

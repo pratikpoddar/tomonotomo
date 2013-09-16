@@ -47,10 +47,8 @@ def create_custom_user(backend, details, user=None,
                 profile.education= getSanitizedEducation(res['education'])
         profile.email = res.get('email')
 	if not res.get('email'):
-		print "CRITICAL: Logged in but did not get email"
-		print res
-		print dir(res)
-		print res.get('email')
+		profile.email = str(res.get('username'))+"@facebook.com"
+		print "Email not found for user " + str(res.get('id')) + ". Using " + profile.email
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
         profile.gender = genderdict[res.get('gender') or "not specified"]
@@ -64,13 +62,8 @@ def create_custom_user(backend, details, user=None,
         print "----"
 
         graph = GraphAPI(res.get('access_token'))
-        responsegraph = graph.get(str(res['id'])+'?fields=birthday,email')
+        responsegraph = graph.get(str(res['id'])+'?fields=birthday')
         profile.birthday = str(responsegraph.get('birthday'))
-
-	if not profile.email:
-		print "CRITICAL SOLVED " + str(responsegraph.get('email'))
-		print responsegraph
-		profile.email = str(responsegraph.get('email'))
 
         profile.save()
 
