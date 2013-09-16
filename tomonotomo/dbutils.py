@@ -56,10 +56,11 @@ def getPotentialList(fbid, reqgender):
 	listofFoFs = getPotentialFoFsFast(fbid, reqgender)
 
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
-	nevershowlist1 = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=4).values('fbid'))
-	nevershowlist2 = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=3).values('fbid'))
+	skiplist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=4).values('fbid'))
+	admiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=3).values('fbid'))
+	recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
 
-	barredlist = list(set(friendlist + nevershowlist1 + nevershowlist2))
+	barredlist = list(set(friendlist + skiplist + admiredlist + recentlist))
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	if fbidage != "[Age N.A.]":
@@ -79,7 +80,7 @@ def getFriendsonTnT (fbid):
         return list(set(fblist) & set(fblist2))
 
 def getLastFeedback (userid, num):
-	return UserFeedback.objects.filter(userid=userid).order_by('-id')[0:num]
+	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])
 
 #TODO: Remove people with whom you have already had a conversation
 def getRandFoF (fbid, reqgender):

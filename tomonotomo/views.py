@@ -116,6 +116,10 @@ def profile(request, fbname, fbid):
 	if len(lastfeedback)==20:
 		print "Notification On for invite friends " + str(loggedid)
 		notify_invite_friends=1
+
+	if loggedid==717323242:
+		notify_invite_friends=1
+		notify_hover_on_button=1
 	
 	if request.user.id == fbid:
 		show_button=0
