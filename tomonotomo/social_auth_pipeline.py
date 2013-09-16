@@ -68,7 +68,8 @@ def create_custom_user(backend, details, user=None,
         profile.birthday = str(responsegraph.get('birthday'))
 
 	if not profile.email:
-		print "CRITICAL SOLVED"
+		print "CRITICAL SOLVED " + str(responsegraph.get('email'))
+		print responsegraph
 		profile.email = str(responsegraph.get('email'))
 
         profile.save()

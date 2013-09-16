@@ -78,6 +78,9 @@ def getFriendsonTnT (fbid):
         fblist2 = map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
         return list(set(fblist) & set(fblist2))
 
+def getLastFeedback (userid, num):
+	return UserFeedback.objects.filter(userid=userid).order_by('-id')[0:num]
+
 #TODO: Remove people with whom you have already had a conversation
 def getRandFoF (fbid, reqgender):
 

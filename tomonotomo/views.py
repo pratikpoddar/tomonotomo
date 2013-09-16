@@ -81,6 +81,8 @@ def fofrandom(request):
 def profile(request, fbname, fbid):
     #fbid = 717323242
     show_button = 1
+    notify_hover_on_button = 0
+    notify_invite_friends = 0
     if request.user.id:
         loggedid = UserTomonotomo.objects.get(email=request.user.email).userid
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
@@ -96,6 +98,25 @@ def profile(request, fbname, fbid):
         except UserFriends.DoesNotExist:
                 show_button=show_button
 
+	lastfeedback = dbutils.getLastFeedback(loggedid,25)
+
+	if len(lastfeedback)==10:
+		try:
+			lastfeedback.remove(4)
+		except:
+			pass
+		try:
+			lastfeeback.remove(5)
+		except:
+			pass
+		if len(lastfeedback)<2:
+			print "Notification On for hover on button " + str(loggedid)
+			notify_hover_on_button=1
+
+	if len(lastfeedback)==20:
+		print "Notification On for invite friends " + str(loggedid)
+		notify_invite_friends=1
+	
 	if request.user.id == fbid:
 		show_button=0
 
@@ -150,6 +171,8 @@ def profile(request, fbname, fbid):
     else:
         agelocation = profile.location
 
+	
+
     context = RequestContext(request, {
                 'fbid': fbid,
                 'fullname': profile.get_full_name(),
@@ -158,12 +181,14 @@ def profile(request, fbname, fbid):
                 'educationlist': educationlist,
                 'mutualfriends': mutualfriends,
                 'meta': meta,
-        'deactivateList': deactivateList,
-        'infoList': infoList,
-        'doneList': doneList,
-        'email_exists': email_exists,
-        'show_button': show_button,
-	'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends'
+	        'deactivateList': deactivateList,
+	        'infoList': infoList,
+	        'doneList': doneList,
+	        'email_exists': email_exists,
+	        'show_button': show_button,
+		'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
+		'notify_invite_friends': notify_invite_friends,
+		'notify_hover_on_button': notify_hover_on_button,
         })
 
     return HttpResponse(template.render(context))

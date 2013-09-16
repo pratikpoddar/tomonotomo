@@ -71,7 +71,7 @@
 
 		<div class="grid_4">
 			<div class="page_block" style="margin:0px">
-				<img src="https://graph.facebook.com/{{ fbid }}/picture?width=300" alt="" style="width:99%;height:auto">
+				<img src="https://graph.facebook.com/{{ fbid }}/picture?width=300&height=300" alt="" style="width:99%;height:auto">
 				<div class="clear"></div>
 				<span style="text-align:center">
 					<a href="https://facebook.com/{{ fbid }}" target="_blank">{{ fullname }}'s Facebook Page</a>
@@ -79,22 +79,6 @@
 			</div>
 
 			<br/>
-			<div style="padding-right:0px;text-align:right">
-				{% if worklist %}
-					<div class="block"><span> Work </span>
-						{% for work in worklist %}
-							{{ work }}<br/>
-						{% endfor %}
-					</div>
-				{% endif %}
-				{% if educationlist %}
-					<div class="block"><span> Education </span>
-						{% for education in educationlist %}
-							{{ education }}<br/>
-						{% endfor %}
-					</div>
-				{% endif %}
-			</div>
 		</div>
 
 		<div class="grid_8">
@@ -163,19 +147,34 @@
 				</div>
 				<div class="grid_4">
 					<div>
-						<div class="block" style="background:none">
-							{% if mutualfriends %}
+						{% if mutualfriends %}
+	                                                <div class="block" style="background:none">
 								<span> Mutual Friends </span>
 								{% for mutualfriend in mutualfriends %}
-									<a href="/profile/{{mutualfriend.name|slugify}}/{{mutualfriend.id}}" target="_blank">{{ mutualfriend.name }}<a/><br/>
+									<a href="/profile/{{mutualfriend.name|slugify}}/{{mutualfriend.id}}" target="_blank" style="font-size:inherit;font-family:inherit">{{ mutualfriend.name }}<a/><br/>
 								{% endfor %}
-							{% endif %}
-						</div>
+							</div>
+						{% endif %}
+                                		{% if worklist %}
+							<div class="block" style="background:none">
+                                        			<span> Work </span>
+                                                		{% for work in worklist %}
+                                                        		{{ work }}<br/>
+                                                		{% endfor %}
+							</div>
+			                        {% endif %}
+                                		{% if educationlist %}
+                                        		<div class="block" style="background:none">
+								<span> Education </span>
+                                                		{% for education in educationlist %}
+                                                        		{{ education }}<br/>
+                                                		{% endfor %}
+							</div>
+                                		{% endif %}
 					</div>
 				</div>
-			</div>
-		</div>
 
+    </div>
     </div>
     <div id="lean_overlay">
 
@@ -196,6 +195,29 @@
 
 	</div>
 </div>
+</div>
 
+<script type="text/javascript">
+$(window).load(function(){
+	{% if notify_invite_friends %}
+	$.gritter.add({
+		title: '<br/>Help Tomonotomo to help you better',
+		text: 'Its possible that you are not finding the right match in your friend of friend network because you do not have a lot of friends on tomonotomo. To expand your reach and possibly find a match, <a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com" target="_blank">"Invite your Friends"</a> on board',
+		class_name: 'gritter-light',
+		time: 10000
+	});
+	{% endif %}
+        {% if notify_hover_on_button %}
+        $.gritter.add({
+                title: '<br/>Help Tomonotomo to help you better',
+                text: 'You are skipping profiles a lot. If you are having trouble understanding the options, please hover on the buttons and spend 5 seconds to understand the website. Please let us serve you better',
+		class_name: 'gritter-light',
+		time:10000
+        });
+        {% endif %}
+
+});
+
+</script>
 
 {% endblock %}
