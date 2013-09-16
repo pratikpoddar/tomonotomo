@@ -3,8 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = True
  
-#DEBUG = False
-#TEMPLATE_DEBUG = False
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Pratik Poddar', 'pratik.phodu@gmail.com'),
