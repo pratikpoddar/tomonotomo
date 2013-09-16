@@ -19,16 +19,12 @@
 		{% endfor %}
 	    <br/>Users loggedin in last 24 hours: ({{ dbsummary_users_login_24 | length }})<br/>
 		{% for dbuser in dbsummary_users_login_24 %}
-			{{ dbuser }} <br/>
+			{{ dbuser.userlogin }} - {{ dbuser.timestamp }} CDT<br/>
 		{% endfor %}
 	    <br/>Users registerd in last 24 hours: ({{ dbsummary_users_register_24 | length }})<br/>
                 {% for dbuser in dbsummary_users_register_24 %}
                         {{ dbuser }} <br/>
                 {% endfor %}
-            <br/>Users registerd in last 1 hour: ({{ dbsummary_users_register_1 | length }})<br/>
-                {% for dbuser in dbsummary_users_register_1 %}
-                        {{ dbuser }} <br/>
-                {% endfor %}            
 	    <br/>Users: ({{ dbsummary_users | length }})<br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
@@ -44,7 +40,8 @@
 	var month = currentTime.getMonth() + 1;
 	var day = currentTime.getDate();
 	var year = currentTime.getFullYear();
-	$("#todaydate").html(month + "/" + day + "/" + year);
+	var timestr = currentTime.toTimeString();
+	$("#todaydate").html(month + "/" + day + "/" + year + " " + timestr);
 
 </script>
 
