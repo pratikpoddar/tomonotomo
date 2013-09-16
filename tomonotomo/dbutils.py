@@ -57,8 +57,7 @@ def getPotentialFoFsFast(fbid, reqgender):
 	fblistFast = fblist[:2]
 	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
 	if not reqgender==3:
-		#fofs = filter(lambda x: UserTomonotomo.objects.get(userid=x).gender==reqgender, fofs)
-		fofs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=reqgender).values('userid'))) & set(fofs))
+		fofs = list(set(getUsersGender(reqgender)) & set(fofs))
 
 	return fofs
 
@@ -73,11 +72,13 @@ def getPotentialList(fbid, reqgender):
 
 	barredlist = list(set(friendlist + skiplist + admiredlist + recentlist))
 
+	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
+
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
+	shuffle(listofFoFs)
+	listofFoFs = listofFoFs[:30]
 	if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
-
-	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
 	return listofFoFs
 
@@ -89,6 +90,10 @@ def getFriendsonTnT (fbid):
         fblist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         fblist2 = map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
         return list(set(fblist) & set(fblist2))
+
+@lru_cache(maxsize=4)
+def getUsersGender (gender):
+	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=gender).values('userid'))
 
 def getLastFeedback (userid, num):
 	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])

@@ -45,7 +45,7 @@ class UserTomonotomo(models.Model):
             return "[Age N.A.]"
 
 class UserFriends(models.Model):
-    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
+    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
     friendid = models.BigIntegerField(null=False)
 
 class UserFeedback(models.Model):
