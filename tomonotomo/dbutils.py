@@ -76,7 +76,7 @@ def getPotentialList(fbid, reqgender):
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	shuffle(listofFoFs)
-	listofFoFs = listofFoFs[:30]
+	listofFoFs = listofFoFs[:300]
 	if fbidage != "[Age N.A.]":
             listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
 
