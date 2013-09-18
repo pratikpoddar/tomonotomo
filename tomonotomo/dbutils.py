@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from random import choice,shuffle
 import sendgrid
+import math
 
 from functools32 import lru_cache
 
@@ -50,37 +51,55 @@ def getPotentialFoFs(fbid, reqgender):
 
 	return fofs
 
-def getPotentialFoFsFast(fbid, reqgender):
+def getPotentialFoFsFast(fbid):
 
 	fblist = getFriendsonTnT(fbid)
 	shuffle(fblist)
 	fblistFast = fblist[:2]
 	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
-	if not reqgender==3:
-		fofs = list(set(getUsersGender(reqgender)) & set(fofs))
 
 	return fofs
 
-def getPotentialList(fbid, reqgender):
+def getRandFoF(fbid, reqgender):
 
-	listofFoFs = getPotentialFoFsFast(fbid, reqgender)
-
+	listofFoFs = getPotentialFoFsFast(fbid)
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
 	skiplist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=4).values('fbid'))
 	admiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=3).values('fbid'))
 	recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
-
 	barredlist = list(set(friendlist + skiplist + admiredlist + recentlist))
 
 	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
         fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-	shuffle(listofFoFs)
-	listofFoFs = listofFoFs[:300]
-	if fbidage != "[Age N.A.]":
-            listofFoFs = filter(lambda x: fbidage-5 <= UserTomonotomo.objects.get(userid=x).get_age() <= fbidage+5, listofFoFs)
+	
+	
+	if len(listofFoFs)==0:
+		return 0
 
-	return listofFoFs
+	if fbidage == "[Age N.A.]":
+		return choice(listofFoFs)
+
+	attempts = 0
+	if fbidage != "[Age N.A.]":
+	    while attempts < 500:
+		attempts+=1
+		try:
+			chosen_id = choice(listofFoFs)
+			chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+			if chosen_user.get_age() != "[Age N.A.]":
+            			if math.fabs(int(chosen_user.get_age())-int(fbidage)) < 5:
+					if not reqgender==3:
+						if UserTomonotomo.objects.get(userid=chosen_id).gender==reqgender:
+							return chosen_id
+					else:
+						return chosen_id
+		except Exception as e:
+			print "Exception while choosing fro the listofFoFs"
+			print e
+			pass
+
+	return 0
 
 def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
@@ -97,16 +116,6 @@ def getUsersGender (gender):
 
 def getLastFeedback (userid, num):
 	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])
-
-#TODO: Remove people with whom you have already had a conversation
-def getRandFoF (fbid, reqgender):
-
-        listofFoFs = getPotentialList(fbid, reqgender)
-
-        if len(listofFoFs):
-            return choice(listofFoFs)
-        else:
-            return 0
 
 def sendemailCute (userid, fofid):
 

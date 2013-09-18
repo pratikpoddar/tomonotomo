@@ -131,6 +131,7 @@ def profile(request, fbname, fbid):
         doneList = []
         show_button = 0
 
+
     template = loader.get_template('tomonotomo/profile.html')
     try:
         profile = UserTomonotomo.objects.get(userid=fbid)
@@ -176,7 +177,6 @@ def profile(request, fbname, fbid):
         agelocation = profile.location
 
 	
-
     context = RequestContext(request, {
                 'fbid': fbid,
                 'fullname': profile.get_full_name(),
