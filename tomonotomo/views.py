@@ -127,6 +127,7 @@ def personalprofile(request):
 		'admirelist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=3).values('fbid')))),
 		'connecteddirectlybylist': list(set(map(lambda x: x['userid'], UserFeedback.objects.filter(fbid=loggedid,action=2).values('userid')))),
 		'nevershowlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=4).values('fbid')))),
+		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, num)
         })
 
     return HttpResponse(template.render(context))
