@@ -120,6 +120,11 @@ def profile(request, fbname, fbid):
         except UserFriends.DoesNotExist:
                 show_button=show_button
 
+	print loggedid
+	print fbid
+	if int(loggedid) == int(fbid):
+		show_button=0
+
 	lastfeedback = dbutils.getLastFeedback(loggedid,30)
 
 	if len(lastfeedback)==0:
