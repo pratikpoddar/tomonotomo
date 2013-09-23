@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
-from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends, UserLogin, UserHappening, UserQuota
+from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends, UserLogin, UserHappening, UserQuota, UserEmail
 
 from tomonotomo import dbutils
 
@@ -76,6 +76,62 @@ def quotaincrease(request):
      return redirect('/fof')
 
 @login_required(login_url='index')
+def personalprofile(request):
+
+    loggedid = dbutils.getLoggedInUser(request)
+    template = loader.get_template('tomonotomo/personalprofile.html')
+    profile = UserTomonotomo.objects.get(userid=loggedid)
+
+    meta = Meta(
+        use_og=1,
+        url=request.build_absolute_uri(),
+        use_sites=True,
+        description='We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        keywords=['dating', 'tomonotomo', 'friend'],
+        image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
+        title='tomonotomo - meet friends of friends'
+    )
+    
+    if profile.work == "":
+        worklist = []
+    else:
+        worklist = profile.work.split('---')
+        worklist.reverse()
+        worklist = filter(lambda x: len(x), worklist)
+
+    if profile.education == "":
+        educationlist = []
+    else:
+        educationlist = profile.education.split('---')
+        educationlist.reverse()
+        educationlist = filter(lambda x: len(x), educationlist)
+
+    if profile.get_age() != "[Age N.A.]":
+        if profile.location != "":
+                agelocation = str(profile.get_age()) + ", " + profile.location
+        else:
+                agelocation = profile.get_age()
+    else:
+        agelocation = profile.location
+
+    context = RequestContext(request, {
+                'fbid': loggedid,
+                'fullname': profile.get_full_name(),
+                'agelocation': agelocation,
+                'worklist': worklist,
+                'educationlist': educationlist,
+                'meta': meta,
+                'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
+                'connectfriendslist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=1).values('fbid')))),
+		'connectdirectlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=2).values('fbid')))),
+		'admirelist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=3).values('fbid')))),
+		'connecteddirectlybylist': list(set(map(lambda x: x['userid'], UserFeedback.objects.filter(fbid=loggedid,action=2).values('userid')))),
+		'nevershowlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=4).values('fbid')))),
+        })
+
+    return HttpResponse(template.render(context))
+ 
+@login_required(login_url='index')
 def fofrandom(request):
     loggedid = dbutils.getLoggedInUser(request)
     quotaover = dbutils.check_quota_over(loggedid)
@@ -120,8 +176,6 @@ def profile(request, fbname, fbid):
         except UserFriends.DoesNotExist:
                 show_button=show_button
 
-	print loggedid
-	print fbid
 	if int(loggedid) == int(fbid):
 		show_button=0
 
@@ -225,7 +279,7 @@ def profile(request, fbname, fbid):
     return HttpResponse(template.render(context))
 
 
-def friend(request, fbid):    
+def profileredir(request, fbid):    
     try:
         fbname = slugify(dbutils.getFullName(fbid))
     except:
@@ -366,14 +420,20 @@ def tntAction(request, fbid, action, fbfriend):
     dbutils.decrease_quota(userid)
 
     if action == 1:
-        dbutils.sendemailFriend(userid, fbid, fbfriend)
-	dbutils.updateUserHappening(fbid, action)
+        try:
+		justdone = UserEmail.objects.get(userid=userid, fofid=fbid, friendid=fbfriend, action=action,timestamp__gte=datetime.now()+timedelta(minutes=-2))
+	except UserEmail.DoesNotExist:
+		dbutils.sendemailFriend(userid, fbid, fbfriend)
+		dbutils.updateUserHappening(fbid, action)
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     if action == 2:
-        mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
-        dbutils.sendemailFoF(userid, fbid)
-	dbutils.updateUserHappening(fbid,action)
+	try:
+		justdone = UserEmail.objects.get(userid=userid, fofid=fbid, action=action,timestamp__gte=datetime.now()+timedelta(minutes=-2))
+	except UserEmail.DoesNotExist:
+        	mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
+        	dbutils.sendemailFoF(userid, fbid)
+		dbutils.updateUserHappening(fbid,action)
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     if action == 3:

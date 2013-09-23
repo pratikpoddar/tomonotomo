@@ -1,0 +1,124 @@
+{% extends "tomonotomo/base.html" %}
+{% load staticfiles %}
+
+{% block titlecontent %}
+{{ title }}
+{% endblock %}
+
+{% block bodycontent %}
+
+
+<div class="page1_block">
+
+	<div class="container_12">
+
+		<div class="grid_4">
+			<div class="page_block" style="margin:0px">
+				<img src="https://graph.facebook.com/{{ fbid }}/picture?width=300&height=300" alt="" style="width:99%;height:auto">
+				<div class="clear"></div>
+				<span style="text-align:center">
+					<a href="https://facebook.com/{{ fbid }}" target="_blank">{{ fullname }}'s Facebook Page</a>
+				</span>
+			</div>
+
+			<br/>
+		</div>
+
+		<div class="grid_8">
+			<div class="container_12">
+			<div class="grid_12">
+			<h2>{{ fullname }}<br/>
+			<span style="font-size:60%">{{ agelocation }}</span></h2>
+			</div>
+			</div>
+
+			<div class="container_12">
+				<div class="grid_4">
+                                        <div>
+                                                {% if worklist %}
+                                                        <div class="block" style="background:none">
+                                                                <span> Work </span>
+                                                                {% for work in worklist %}
+                                                                        {{ work }}<br/>
+                                                                {% endfor %}
+                                                        </div>
+                                                {% endif %}
+                                        </div>
+				</div>
+				<div class="grid_4">
+					<div>
+                                		{% if educationlist %}
+                                        		<div class="block" style="background:none">
+								<span> Education </span>
+                                                		{% for education in educationlist %}
+                                                        		{{ education }}<br/>
+                                                		{% endfor %}
+							</div>
+                                		{% endif %}
+					</div>
+				</div>
+
+    </div>
+    </div>
+</div>
+
+
+{% if connectfriendslist %}
+        <div class="container_12">
+        <div class="block">
+                <span>FoFs for whom {{ fullname }} asked friends for introduction</span>
+                {% for user in connectfriendslist %}
+                        <a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+                {% endfor %}
+        </div>
+        </div>
+{% endif %}
+
+{% if connectdirectlist %}
+	<div class="container_12">
+	<div class="block">
+		<span>FoFs {{ fullname }} connected directly with</span>
+		{% for user in connectdirectlist %}
+			<a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+		{% endfor %}
+	</div>
+	</div>
+{% endif %}
+
+{% if admirelist %}
+        <div class="container_12">
+        <div class="block">
+                <span>FoFs {{ fullname }} admires secretly</span>
+                {% for user in admirelist %}
+                        <a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+                {% endfor %}
+        </div>
+        </div>
+{% endif %}
+
+{% if connecteddirectlybylist %}
+        <div class="container_12">
+        <div class="block">
+                <span>FoFs who connected with {{ fullname }} directly</span>
+                {% for user in connecteddirectlybylist %}
+                        <a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+                {% endfor %}
+        </div>
+        </div>
+{% endif %}
+
+{% if nevershowlist %}
+        <div class="container_12">
+        <div class="block">
+                <span>FoFs {{ fullname }} marked as never show</span>
+                {% for user in nevershowlist %}
+                        <a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+                {% endfor %}
+        </div>
+        </div>
+{% endif %}
+
+
+</div>
+
+{% endblock %}
