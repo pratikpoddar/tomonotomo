@@ -25,6 +25,10 @@
                 {% for dbuser in dbsummary_users_register_24 %}
                         <a href="http://www.tomonotomo.com/friend/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
                 {% endfor %}
+	    <br/>Quota: ({{ dbsummary_quota | length }})<br/>
+		{% for dbuser in dbsummary_quota %}
+			<a href="http://www.tomonotomo.com/friend/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
+		{% endfor %}
 	    <br/>Users: ({{ dbsummary_users | length }})<br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>

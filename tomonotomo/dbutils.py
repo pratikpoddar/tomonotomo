@@ -120,7 +120,6 @@ def getLastFeedback (userid, num):
 def check_quota_over(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid)
-		print quota.quota
 		if quota.quota:
 			return False
 		else:
