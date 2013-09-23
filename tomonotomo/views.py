@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
-from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends, UserLogin, UserHappening
+from tomonotomo.models import UserTomonotomo, UserFeedback, UserFriends, UserLogin, UserHappening, UserQuota
 
 from tomonotomo import dbutils
 
@@ -57,10 +57,28 @@ def sitemapgen(request, number):
 def sitemap(request):
     return sitemapgen(request,-1)
 
+@login_required(login_url='index')
+def quotaover(request):
+    template = loader.get_template('tomonotomo/quotaover.html')
+    loggedid = dbutils.getLoggedInUser(request)
+
+    context = RequestContext(request, {
+        'loggedid': loggedid
+        })
+    return HttpResponse(template.render(context))
+
+@login_required(login_url='index')
+def quotaincrease(request):
+
+     loggedid = dbutils.getLoggedInUser(request)
+     dbutils.increase_quota(loggedid)
+
+     return redirect('/fof')
 
 @login_required(login_url='index')
 def fofrandom(request):
     loggedid = dbutils.getLoggedInUser(request)
+    quotaover = dbutils.check_quota_over(loggedid)
     gender = UserTomonotomo.objects.get(userid=loggedid).gender
     reqgender = 3
     if gender==1:
@@ -70,6 +88,9 @@ def fofrandom(request):
     fbid = dbutils.getRandFoF(loggedid, reqgender)
     if fbid == 0:
         raise Http404
+
+    if quotaover:
+	return redirect('/quotaover')
 
     try:
     	fbname = slugify(dbutils.getFullName(fbid))
@@ -337,6 +358,7 @@ def tntAction(request, fbid, action, fbfriend):
     feedback.save()
 
     print "Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action)
+    dbutils.decrease_quota(userid)
 
     if action == 1:
         dbutils.sendemailFriend(userid, fbid, fbfriend)

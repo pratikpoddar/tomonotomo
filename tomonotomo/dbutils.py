@@ -1,4 +1,4 @@
-from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening
+from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening, UserQuota
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -116,6 +116,31 @@ def getUsersGender (gender):
 
 def getLastFeedback (userid, num):
 	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])
+
+def check_quota_over(fbid):
+	try:
+		quota = UserQuota.objects.get(userid=fbid)
+		print quota.quota
+		if quota.quota:
+			return False
+		else:
+			return True
+	except UserQuota.DoesNotExist:
+		return False
+
+	return False
+
+def increase_quota(fbid):
+	quota = UserQuota.objects.get(userid=fbid)
+	quota.quota = 30 
+	quota.save()
+	return
+
+def decrease_quota(fbid):
+	quota = UserQuota.objects.get(userid=fbid)
+	quota.quota +=-1
+	quota.save()
+	return
 
 def sendemailCute (userid, fofid):
 

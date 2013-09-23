@@ -192,6 +192,7 @@ LOGGING = {
 
 CRON_CLASSES = [
     "tomonotomo.social_auth_pipeline.startPostProcessing",
+    "tomonotomo.social_auth_pipeline.updateQuota",
 ]
 
 FACEBOOK_APP_ID='1398031667088132'

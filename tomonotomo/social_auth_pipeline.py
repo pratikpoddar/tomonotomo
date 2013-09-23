@@ -5,7 +5,7 @@ import time
 import pprint
 from random import randint
 
-from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin
+from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
 
 from django.db import transaction
 
@@ -89,6 +89,16 @@ def create_custom_user(backend, details, user=None,
         userprocessing.accesstoken = res.get('access_token')
 
         userprocessing.save()
+
+	print "----"
+
+	try:
+		userquota = UserQuota.objects.get(userid=res.get('id'))
+	except UserQuota.DoesNotExist:
+		userquota = UserQuota()
+		userquota.userid = res.get('id')
+		userquota.quota=30
+		userquota.save()
 
 	print "----"
 
@@ -248,4 +258,23 @@ class startPostProcessing(CronJobBase):
 		print "Before this operation - length of list was " + str(len(pendingusers))
 
     	return
+
+class updateQuota(CronJobBase):
+	RUN_AT_TIMES = ['00:00']
+	schedule = Schedule(run_at_times=RUN_AT_TIMES)
+	code='tomonotomo.social_auth_pipeline.updateQuota'
+
+	def do(self):
+		print "UpdateQuota starts"
+		users = UserTomonotomo.objects.all().exclude(email=None).values('userid')
+		for user in users:
+			try:
+                		userquota = UserQuota.objects.get(userid=user['userid'])
+				userquota.quota=30
+        		except UserQuota.DoesNotExist:
+                		userquota = UserQuota(userid=user['userid'], quota=30)
+                	userquota.save()
+
+		print "Done UpdateQuota"
+		return
 

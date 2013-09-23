@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^dbsummary$', views.dbsummary, name='dbsummary'),
     url(r'^profile/([a-z0-9-]+)/(\d+)$', views.profile, name='profile'),
     url(r'^sitemap/(\d+)$', views.sitemapgen, name='sitemapgen'),
-    url(r'^sitemap$', views.sitemap, name='sitemap')
+    url(r'^sitemap$', views.sitemap, name='sitemap'),
+    url(r'^quotaover$', views.quotaover, name='quotaover'),
+    url(r'^quotaincrease$', views.quotaincrease, name='quotaincrease')
 )
 

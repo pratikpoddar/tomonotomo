@@ -72,3 +72,6 @@ class UserHappening(models.Model):
     userid = models.BigIntegerField(null=False)
     action = models.IntegerField(null=False)
 
+class UserQuota(models.Model):
+    userid = models.BigIntegerField(null=False, db_index=True)
+    quota = models.IntegerField(null=False, default=30)
