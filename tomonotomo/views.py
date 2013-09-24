@@ -18,6 +18,9 @@ import urllib
 from datetime import datetime
 from datetime import timedelta
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     meta = Meta(
@@ -195,11 +198,11 @@ def profile(request, fbname, fbid):
 		except:
 			pass
 		if len(lastfeedback)<2:
-			print "Notification On for hover on button " + str(loggedid)
+			logger.info('Showed Gritter Notification - for hover on button - ' + str(loggedid))
 			notify_hover_on_button=1
 
 	if len(lastfeedback)==25:
-		print "Notification On for invite friends " + str(loggedid)
+		logger.info('Showed Gritter Notification - for invite friends - ' + str(loggedid))
 		notify_invite_friends=1
 
 	if request.user.id == fbid:
@@ -417,7 +420,7 @@ def tntAction(request, fbid, action, fbfriend):
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
 
-    print "Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action)
+    logger.debug("Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action))
     dbutils.decrease_quota(userid)
 
     if action == 1:

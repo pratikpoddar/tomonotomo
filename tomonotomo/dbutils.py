@@ -10,6 +10,10 @@ from functools32 import lru_cache
 
 from datetime import datetime
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 def print_for_me(fbid,string=""):
 	
 	string = str(datetime.now()) + " " + string
@@ -95,8 +99,7 @@ def getRandFoF(fbid, reqgender):
 					else:
 						return chosen_id
 		except Exception as e:
-			print "Exception while choosing fro the listofFoFs"
-			print e
+			logger.exception("Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
 			pass
 
 	return 0
