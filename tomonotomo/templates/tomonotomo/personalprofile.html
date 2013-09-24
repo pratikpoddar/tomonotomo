@@ -118,6 +118,17 @@
         </div>
 {% endif %}
 
+{% if mostadmiredfriends %}
+        <div class="container_12">
+        <div class="block">
+                <span>{{ fullname }}'s Most Admired Friends</span>
+                {% for user in mostadmiredfriends %}
+                        <a href="http://www.tomonotomo.com/profile/{{ user }}" target="_blank"><img src="https://graph.facebook.com/{{ user }}/picture?type=square"/ style="padding:2px"></a>
+                {% endfor %}
+        </div>
+        </div>
+{% endif %}
+
 
 </div>
 

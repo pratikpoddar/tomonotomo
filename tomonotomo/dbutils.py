@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from random import choice,shuffle
 import sendgrid
 import math
-
+from django.db.models import Count
 from functools32 import lru_cache
 
 from datetime import datetime
@@ -140,6 +140,13 @@ def decrease_quota(fbid):
 	quota.quota +=-1
 	quota.save()
 	return
+
+def getMostAdmiredFriends(fbid, num):
+	people=UserFeedback.objects.filter(action=3).values('fbid').annotate(Count('fbid')).order_by('-fbid__count')
+	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+	admiredfriends = filter(lambda x: x['fbid'] in friendlist,people)
+	admiredfriends = filter(lambda x: x['fbid__count'] > 3, admiredfriends)
+	return map(lambda x: x['fbid'], admiredfriends[:num])
 
 def sendemailCute (userid, fofid):
 
