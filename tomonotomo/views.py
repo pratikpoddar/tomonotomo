@@ -82,6 +82,8 @@ def quotaincrease(request):
 def personalprofile(request):
 
     loggedid = dbutils.getLoggedInUser(request)
+    logger.debug('view.personalprofile - ' + str(loggedid))
+
     template = loader.get_template('tomonotomo/personalprofile.html')
     profile = UserTomonotomo.objects.get(userid=loggedid)
 
@@ -160,6 +162,7 @@ def fofrandom(request):
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
 def profile(request, fbname, fbid):
+    logger.debug('view.profile - ' + fbname + ' - ' + str(fbid))
     #fbid = 717323242
     show_button = 1
     notify_hover_on_button = 0
@@ -198,11 +201,11 @@ def profile(request, fbname, fbid):
 		except:
 			pass
 		if len(lastfeedback)<2:
-			logger.info('Showed Gritter Notification - for hover on button - ' + str(loggedid))
+			logger.info('view.profile - Showed Gritter Notification - for hover on button - ' + str(loggedid))
 			notify_hover_on_button=1
 
 	if len(lastfeedback)==25:
-		logger.info('Showed Gritter Notification - for invite friends - ' + str(loggedid))
+		logger.info('view.profile - Showed Gritter Notification - for invite friends - ' + str(loggedid))
 		notify_invite_friends=1
 
 	if request.user.id == fbid:
@@ -420,7 +423,7 @@ def tntAction(request, fbid, action, fbfriend):
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
 
-    logger.debug("Feedback Submitted: " + str(userid) + " " + str(fbid) + " " + str(action))
+    logger.debug("view.tntAction - " + str(userid) + " " + str(fbid) + " " + str(action) + " " + str(fbfriend))
     dbutils.decrease_quota(userid)
 
     if action == 1:

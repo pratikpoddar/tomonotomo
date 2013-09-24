@@ -99,7 +99,7 @@ def getRandFoF(fbid, reqgender):
 					else:
 						return chosen_id
 		except Exception as e:
-			logger.exception("Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
+			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
 			pass
 
 	return 0

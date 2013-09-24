@@ -20,23 +20,23 @@ genderdict = { "male":1, "female":2, "not specified":3 }
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
-        logger.debug("Creating Custom User")
+        logger.debug("social_auth_pipeline.create_custom_user - Creating Custom User")
 
         ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
         if kwargs['is_new'] == False:
-        	logger.debug("Returning user " + str(user))
+        	logger.debug("social_auth_pipeline.create_custom_user - Returning user " + str(user))
 	else:
-        	logger.debug("Getting data for first time user " + str(user))
+        	logger.debug("social_auth_pipeline.create_custom_user - Getting data for first time user " + str(user))
 
         if user is None:
-                logger.exception("User came as None in the function create_custom_user")
+                logger.exception("social_auth_pipeline.create_custom_user - User came as None in the function create_custom_user")
                 return
         if backend.__class__ != FacebookBackend:
                 return
 
         res = kwargs['response']
 
-        logger.debug("Getting/Updating data for userid " + res.get('id'))
+        logger.debug("social_auth_pipeline.create_custom_user - Getting/Updating data for userid " + res.get('id'))
 
         try:
             profile = UserTomonotomo.objects.get(userid=res.get('id'))
@@ -52,7 +52,7 @@ def create_custom_user(backend, details, user=None,
         profile.email = res.get('email')
 	if not res.get('email'):
 		profile.email = str(res.get('username'))+"@facebook.com"
-		logger.info("Email not found for user " + str(res.get('id')) + ". Using " + profile.email)
+		logger.info("social_auth_pipeline.create_custom_user - Email not found for user " + str(res.get('id')) + ". Using " + profile.email)
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
         profile.gender = genderdict[res.get('gender') or "not specified"]
@@ -107,7 +107,7 @@ def create_custom_user(backend, details, user=None,
 	# "----"
 
 	if kwargs['is_new']==False:
-		logger.debug("completed for returning user " + str(res.get('id')))
+		logger.debug("social_auth_pipeline.create_custom_user - completed for returning user " + str(res.get('id')))
 		return
 
         friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
@@ -126,7 +126,7 @@ def create_custom_user(backend, details, user=None,
 
         # "----"
 
-        logger.debug("completed for first time user " + str(userloggedin))
+        logger.debug("social_auth_pipeline.create_custom_user - completed for first time user " + str(userloggedin))
         return
 
 def getSanitizedEducation (educationProfile):
@@ -152,14 +152,14 @@ def postProcessing(userid, accessToken):
 
 	userloggedin = UserTomonotomo.objects.get(userid=userid)
         graph = GraphAPI(accessToken)
-        logger.debug("Processing " + accessToken + " - userid")
+        logger.debug("social_auth_pipeline.postProcessing - Processing " + accessToken + " - userid")
 	try:
 		## Checking if accesstoken is valid
         	friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
         	numberfriends = friendnumber.get('data')[0].get('friend_count')
-        	logger.debug("number of friends " + str(numberfriends))
+        	logger.debug("social_auth_pipeline.postProcessing - number of friends " + str(numberfriends))
 	except Exception as e:
-		logger.exception("postProcessing: Accesstoken is invalid - " + str(e) + " - " + str(e.args))
+		logger.exception("social_auth_pipeline.postProcessing - Accesstoken is invalid - " + str(e) + " - " + str(e.args))
 		raise
 
         friendgraphdata= []
@@ -168,15 +168,15 @@ def postProcessing(userid, accessToken):
             query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
             friendgraphdata.append(graph.fql(query))
             friendgraph.extend(friendgraphdata[i].get('data'))
-            logger.debug("received data for " + str(len(friendgraph)) + " friends - some are duplicate")
+            logger.debug("social_auth_pipeline.postProcessing - received data for " + str(len(friendgraph)) + " friends - some are duplicate")
 
-        logger.debug("list of friends data "+str(len(friendgraph))+" - some are duplicate")
+        logger.debug("social_auth_pipeline.postProcessing - list of friends data "+str(len(friendgraph))+" - some are duplicate")
 
         count = 0
         for frienddata in friendgraph:
 
             count = count + 1
-            logger.debug("Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count))
+            logger.debug("social_auth_pipeline.postProcessing - Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count))
 
             try:
 		profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
@@ -186,7 +186,7 @@ def postProcessing(userid, accessToken):
                 profilefriends.friendid = frienddata.get('uid')
                 profilefriends.save()
 	    except Exception as e:
-	    	logger.exception("Exception saving UserFriends - " + str(e) + " - " + str(e.args))
+	    	logger.exception("social_auth_pipeline.postProcessing - Exception saving UserFriends - " + str(e) + " - " + str(e.args))
 		raise
 
 	    try:
@@ -220,13 +220,13 @@ def postProcessing(userid, accessToken):
                     		pass
 
 	    except Exception as e:
-		logger.exception("Error collecting information - " + str(e) + " - " + str(e.args))
+		logger.exception("social_auth_pipeline.postProcessing - Error collecting information - " + str(e) + " - " + str(e.args))
 		raise
 
 	    try:
             	userfriend.save()
 	    except Exception as e:
-		logger.exception("Error saving userdata - " + str(e) + " - " + str(e.args))
+		logger.exception("social_auth_pipeline.postProcessing - Error saving userdata - " + str(e) + " - " + str(e.args))
 		raise
 
         return
@@ -238,23 +238,23 @@ class startPostProcessing(CronJobBase):
     code = 'tomonotomo.social_auth_pipeline.startPostProcessing'    # a unique code
 
     def do(self):
-	logger.debug("StartPostProcessing starts")
+	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts")
         pendingusers = UserProcessing.objects.all().values('userloggedin','accesstoken')
-	logger.debug("StartPostProcessing starts - length of list is " + str(len(pendingusers)))
+	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts - length of list is " + str(len(pendingusers)))
         if len(pendingusers) > 0:
         	randnum = randint(0, len(pendingusers)-1)
 		userloggedin = pendingusers[randnum].get('userloggedin')
                 accesstoken = pendingusers[randnum].get('accesstoken')
                 try:
-			logger.debug("Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
+			logger.debug("social_auth_pipeline.startPostProcessing - Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
                 	postProcessing(userloggedin, accesstoken)
-			logger.debug("Almost Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
+			logger.debug("social_auth_pipeline.startPostProcessing - Almost Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
                 	UserProcessing.objects.filter(userloggedin = userloggedin).delete()
-                	logger.debug("Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
+                	logger.debug("social_auth_pipeline.startPostProcessing - Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
         	except:
-            		logger.exception("Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
+            		logger.exception("social_auth_pipeline.startPostProcessing - Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
 
-		logger.debug("Before this operation - length of list was " + str(len(pendingusers)))
+		logger.debug("social_auth_pipeline.startPostProcessing - Before this operation - length of list was " + str(len(pendingusers)))
 
     	return
 
@@ -264,7 +264,7 @@ class updateQuota(CronJobBase):
 	code='tomonotomo.social_auth_pipeline.updateQuota'
 
 	def do(self):
-		logger.debug("UpdateQuota starts")
+		logger.debug("social_auth_pipeline.updateQuota - UpdateQuota starts")
 		users = UserTomonotomo.objects.all().exclude(email=None).values('userid')
 		for user in users:
 			try:
@@ -274,6 +274,6 @@ class updateQuota(CronJobBase):
                 		userquota = UserQuota(userid=user['userid'], quota=30)
                 	userquota.save()
 
-		logger.debug("Done UpdateQuota")
+		logger.debug("social_auth_pipeline.updateQuota - Done UpdateQuota")
 		return
 
