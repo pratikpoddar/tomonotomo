@@ -424,7 +424,9 @@ def tntAction(request, fbid, action, fbfriend):
     feedback.save()
 
     logger.debug("view.tntAction - " + str(userid) + " " + str(fbid) + " " + str(action) + " " + str(fbfriend))
-    dbutils.decrease_quota(userid)
+   
+    if action < 5:
+    	dbutils.decrease_quota(userid)
 
     if action == 1:
         try:
