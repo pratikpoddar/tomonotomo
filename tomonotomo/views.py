@@ -418,16 +418,17 @@ def tntAction(request, fbid, action, fbfriend):
     try:
 	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()
     except:
-	pass    	
+	pass
 
-    feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
-    feedback.save()
+    actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
+
+    if actionbefore==0 or action<5:
+	feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
+	feedback.save()
+	dbutils.decrease_quota(userid)
 
     logger.debug("view.tntAction - " + str(userid) + " " + str(fbid) + " " + str(action) + " " + str(fbfriend))
    
-    if action < 5:
-    	dbutils.decrease_quota(userid)
-
     if action == 1:
         try:
 		justdone = UserEmail.objects.get(userid=userid, fofid=fbid, friendid=fbfriend, action=action,timestamp__gte=datetime.now()+timedelta(minutes=-2))
