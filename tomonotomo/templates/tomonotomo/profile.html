@@ -11,8 +11,11 @@
 <style type="text/css">
 
       .friendbtn {
-		width:	50%;
+		width:	60%;
 		text-align: center;
+		margin-left:5px;
+		margin-right:5px;
+		margin-bottom:20px;
 	}
 
     .friendbtn.donebtn {
@@ -21,7 +24,7 @@
 	}
 
     .friendbtn.inactivebtn {
-		display:none;
+		display: none;
 	}
 
     #lean_overlay {
@@ -90,36 +93,40 @@
 			</div>
 
 			<div class="container_12">
-				<div class="grid_4">
-					<div>
+				<div class="grid_4" style="text-align:center">
                         {% if user.id %}
 				{% if show_button %}
+					<div>
 					<a rel="leanModal" name="lean_overlay" href="#lean_overlay" id="feedback1" class="btn friendbtn" title="Sends an email to a friend you choose requesting for an introduction to {{ fullname }}">
-						<h3 style="color:white">Ask friend for Introduction</h3>
+						<img src="{% static 'tomonotomo/img/svgimages/tomonotomo1-white.png' %}" alt="" style="width:40px"><h3 style="color:white">Ask friend for Introduction</h3>
 					</a>
-					<br class="br1"/><br class="br1"/>
+					</div>
 					{% if email_exists %}
+					<div>
                                 	<a id="feedback2" href="/tntAction/{{ fbid }}/2/0" class="btn friendbtn" title="Sends an email to you and {{ fullname }} requesting to connect">
-						<h3 style="color:white">Connect directly</h3>
+						<img src="{% static 'tomonotomo/img/svgimages/tomonotomo2-white.png' %}" alt="" style="width:40px"><h3 style="color:white">Connect directly</h3>
 					</a>
-					<br class="br2"/><br class="br2"/>
+					</div>
 					{% endif %}
+					<div class="container_4">
+					<div class="grid_2" style="margin-left:0px">
                         		<a id="feedback3" href="/tntAction/{{ fbid }}/3/0" class="btn friendbtn" title="Sends email connecting you and {{ fullname }} only if both of you admire each other">
-					<h3 style="color:white">Admire Secretly</h3>
+					<img src="{% static 'tomonotomo/img/svgimages/tomonotomo3-white.png' %}" alt="" style="width:40px"><h3 style="color:white">Admire<br/>Secretly</h3>
 					</a>
-					<br class="br3"/><br class="br3"/>
+					</div>
+					<div class="grid_2" style="margin-left:0px">
 					<a id="feedback4" href="/tntAction/{{ fbid }}/4/0" class="btn friendbtn" title="Skip, do not show {{ fullname }} to me again and show next">
-					<h3 style="color:white">Skip, and never show</h3>
+					<img src="{% static 'tomonotomo/img/svgimages/tomonotomo4-white.png' %}" alt="" style="width:40px"><h3 style="color:white">Skip<br/>Forever</h3>
 					</a>
-					<br class="br4"/><br class="br4"/>
+					</div>
+					</div>
+					<div>
 					<a id="feedback5" href="/tntAction/{{ fbid }}/5/0" class="btn friendbtn" title="Skip and show next">
-					<h3 style="color:white">Skip</h3>
+					<img src="{% static 'tomonotomo/img/svgimages/tomonotomo5-white.png' %}" alt="" style="width:40px"><h3 style="color:white">Show Next</h3>
 					</a>
-					<br class="br5"/><br class="br5"/>
+					</div>
 			{% endif %}
 		{% endif %}
-			&nbsp;
-                    </div>
 
                     <script type="text/javascript">
 
@@ -127,8 +134,10 @@
                            $('a[rel*=leanModal]').leanModal({ top : 80, closeButton: ".modal_close" });
                             {% for deactivate in deactivateList %}
                                 $("#feedback".concat(({{ deactivate }}).toString())).addClass("inactivebtn");
+				$("#feedback".concat(({{ deactivate }}).toString())).unbind("click");
                                 $("#feedback".concat(({{ deactivate }}).toString())).removeAttr("href");
-				$(".br".concat(({{ deactivate }}).toString())).hide();
+				$("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').addClass('grid_4');
+				$("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').removeClass('grid_2');
                             {% endfor %}
 		  	    {% for doneelement in doneList %}
                                 $("#feedback".concat(({{ doneelement }}).toString())).addClass("donebtn");

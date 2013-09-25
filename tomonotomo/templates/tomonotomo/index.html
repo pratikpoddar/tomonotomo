@@ -3,6 +3,13 @@
 
 {% block bodycontent %}
 
+<style type="text/css">
+.pad1 > img {
+	margin-top:10px;
+	width: 70px;
+	height: 70px;
+}
+</style>
 <div class="page1_block">
 	<div class="container_12">
 		<div class="grid_8">
@@ -36,17 +43,20 @@
 	<div class="container_12">
 
 		<div class="grid_4">
-			<div class="pad1">
+			<div class="pad1" style="text-align:center">
+				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo1.png' %}" alt="">
 				<h2>ask mutual <br/>friend to connect</h2>Like someone with a close mutual friend? Request your friend to connect you with him/her & meet people who are vouched for by mutual friends<br>
 			</div>
 		</div>
-		<div class="grid_4">
+		<div class="grid_4" style="text-align:center">
 			<div class="pad1">
+				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo2.png' %}" alt="">
 				<h2>connect & <br/>message directly</h2>Like someone and want to connect directly? Its safe and honourable as only friends of friends can connect with you<br>
 			</div>
 		</div>
-		<div class="grid_4">
+		<div class="grid_4" style="text-align:center">
 			<div class="pad1">
+				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo3.png' %}" alt="">
 				<h2>admire <br/>secretly</h2>Like someone but don't want to say it loud? Just indicate that you admire him/her and we will connect you two only if they admire you too<br>
 			</div>
 		</div>
