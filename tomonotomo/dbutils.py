@@ -59,7 +59,7 @@ def getPotentialFoFsFast(fbid):
 
 	fblist = getFriendsonTnT(fbid)
 	shuffle(fblist)
-	fblistFast = fblist[:2]
+	fblistFast = fblist[:5]
 	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
 
 	return fofs
@@ -102,6 +102,7 @@ def getRandFoF(fbid, reqgender):
 			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
 			pass
 
+	logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid)) 
 	return 0
 
 def getFullName (fbid):
