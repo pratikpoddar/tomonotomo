@@ -147,7 +147,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
   {% if user.id %}
 	mixpanel.identify('{{ user }}')
   {% endif %}
-  mixpanel.track_links('a', 'click on link', {referrer: document.referrer});
+  mixpanel.track_links('a', 'click on link', {'referrer': document.referrer});
 
 </script>
 

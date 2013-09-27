@@ -240,4 +240,16 @@ $(window).load(function(){
 
 </script>
 
+<script type="text/javascript">
+
+	mixpanel.track_links('#feedback1 a', 'click on action 1', {'referrer': document.referrer, 'profileid': {{ fbid }}});
+	mixpanel.track_links('#feedback2 a', 'click on action 2', {'referrer': document.referrer, 'profileid': {{ fbid }}});
+	mixpanel.track_links('#feedback3 a', 'click on action 3', {'referrer': document.referrer, 'profileid': {{ fbid }}});
+	mixpanel.track_links('#feedback4 a', 'click on action 4', {'referrer': document.referrer, 'profileid': {{ fbid }}});
+	mixpanel.track_links('#feedback5 a', 'click on action 5', {'referrer': document.referrer, 'profileid': {{ fbid }}});
+	mixpanel.track('profilepage', {'profileid': {{ fbid }} });
+	mixpanel.track_links('.gritter_light', 'click on gritter notification');
+	
+</script>
+
 {% endblock %}

@@ -16,13 +16,13 @@
 
 		<span style="font-size:150%">To unlock more profiles, either invite 3 friends or pay $2 via paypal</span><br/><br/><br/>
                 
-		<a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com/quotaincrease" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
+		<a id="quotaoverinvite" href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com/quotaincrease" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
                 
 		<br/><br/>
 		&nbsp;&nbsp;&nbsp; OR &nbsp;&nbsp;&nbsp;
 		<br/><br/>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<form id="quotaoverpay" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="6LDWCZC2YCCP2">
 <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
@@ -35,5 +35,13 @@
 
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	mixpanel.track('quota over reached');
+	mixpanel.track_links('#quotaoverinvite', 'click on invite in quota over page');
+	mixpanel.track_forms('#quotaoverpay', 'click on pay in quota over page');
+
+</script>
 
 {% endblock %}
