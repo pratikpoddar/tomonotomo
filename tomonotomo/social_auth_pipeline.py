@@ -168,7 +168,7 @@ def postProcessing(userid, accessToken):
         friendgraphdata= []
         friendgraph= []
         for i in range(0,10):
-            query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
+            query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location,relationship_status FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
             friendgraphdata.append(graph.fql(query))
             friendgraph.extend(friendgraphdata[i].get('data'))
             logger.debug("social_auth_pipeline.postProcessing - received data for " + str(len(friendgraph)) + " friends - some are duplicate")
@@ -212,8 +212,11 @@ def postProcessing(userid, accessToken):
                 	userfriend.hometown = frienddata.get('hometown_location').get('name')
             	if frienddata.get('current_location'):
                 	userfriend.location = frienddata.get('current_location').get('name')
-		if frienddata.get('relationship_status'):
-                	userfriend.relstatus = relstatusdict[frienddata.get('relationship_status') or "not specified"]
+
+		try:
+			userfriend.relstatus = relstatusdict[frienddata.get('relationship_status') or "not specified"]
+		except:
+			userfriend.relstatus = relstatusdict["not specified"]
 
             	userfriend.username = frienddata.get('username')
             	userfriend.userid = frienddata.get('uid')
