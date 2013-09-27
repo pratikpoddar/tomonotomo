@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     'django_cron'
 )
 
+LOG_DIR='/home/ubuntu/django_log'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # A sample logging configuration. The only tangible logging
@@ -162,30 +164,40 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-	'verbose': {
-		'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-	}
+        'standard': {
+            'format': '[%(name)s]- %(levelname)s- %(asctime)s '
+                      ' %(filename)s: %(lineno)d - %(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
     },
     'handlers': {
-	'null': {
-	    'level': 'INFO',
-	    'class': 'logging.NullHandler'
-	},
-
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'standard',
+        },
+        'file_debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'standard',
+            'filename': LOG_DIR + "/debug.log",
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'standard',
+            'filename': LOG_DIR + "/error.log",
         }
     },
     'loggers': {
-	'django': {
-	    'handlers': ['null'],
-	    'level': 'INFO',
-	    'propagate': True,
-	},
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        '': {
+            'handlers': ['file_debug', 'file_error', 'mail_admins'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }
