@@ -21,21 +21,15 @@ print len(list2)
 print list2
 print "The number should be zero"
 
-list3=map(lambda x: str(x['userid'])+"-"+str(x['fbid']), UserFeedback.objects.filter(action=5).values('userid', 'fbid'))
-list4=map(lambda x: str(x['userid'])+"-"+str(x['fbid']), UserFeedback.objects.exclude(action=5).values('userid','fbid'))
+list3=UserProcessing.objects.all()
 print "----- Checking 3"
-print str(set(list3) & set(list4))
-print "The above set should be empty"
-
-list5=UserProcessing.objects.all()
-print "----- Checking 4"
-print list5
+print list3
 print "The above list should be empty"
 
-list6=UserEmail.objects.filter(action__lt=100).values('userid','fofid','friendid','action').annotate(Count('id'))
-list7=filter(lambda x: x['id__count']>1,list6)
-print "----- Checking 5"
-print list7
+list4=UserEmail.objects.filter(action__lt=100).values('userid','fofid','friendid','action').annotate(Count('id'))
+list5=filter(lambda x: x['id__count']>1,list4)
+print "----- Checking 4"
+print list5
 print "The above list should be empty"
 
 

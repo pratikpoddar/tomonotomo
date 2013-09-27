@@ -407,6 +407,8 @@ def betathanks(request):
     context = RequestContext(request, dictin)
     return HttpResponse(template.render(context))
 
+## TODO: ADD Blocking Call
+## TODO: Remove the just done funda
 @login_required(login_url='index')
 def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
