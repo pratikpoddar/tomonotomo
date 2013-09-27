@@ -153,7 +153,6 @@ def getMostAdmiredFriends(fbid, num):
 	admiredfriends = filter(lambda x: x['fbid__count'] > 3, admiredfriends)
 	return map(lambda x: x['fbid'], admiredfriends[:num])
 
-## TODO: ADD Blocking Call
 def sendemailCute (userid, fofid):
 
         emaillogging = UserEmail(userid=userid, fofid=fofid, action=3)
@@ -186,7 +185,6 @@ def sendemailCute (userid, fofid):
 
         return
 
-## TODO: ADD Blocking Call
 def sendemailFriend (userid, fofid, friendid):
 
         emaillogging = UserEmail(userid=userid, fofid=fofid, friendid=friendid, action=1)
@@ -219,7 +217,6 @@ def sendemailFriend (userid, fofid, friendid):
 
         return
 
-## TODO: ADD Blocking Call
 def sendemailFoF (userid, fofid):
 
         emaillogging = UserEmail(userid=userid, fofid=fofid, action=2)

@@ -407,8 +407,6 @@ def betathanks(request):
     context = RequestContext(request, dictin)
     return HttpResponse(template.render(context))
 
-## TODO: ADD Blocking Call
-## TODO: Remove the just done funda
 @login_required(login_url='index')
 def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
@@ -421,37 +419,25 @@ def tntAction(request, fbid, action, fbfriend):
     userinfo = UserTomonotomo.objects.get(userid=userid)
     fbname = slugify(dbutils.getFullName(fbid))
 
-    #try:
-    #	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()
-    #except:
-    #	pass
-
     if not fbid in map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=userinfo).order_by('-id').values('fbid')[0:10]):
         dbutils.decrease_quota(userid)
 
     actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
 
-    #if actionbefore==0 or action<5:
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
 
     logger.debug("view.tntAction - " + str(userid) + " " + str(fbid) + " " + str(action) + " " + str(fbfriend))
    
     if action == 1:
-        try:
-		justdone = UserEmail.objects.get(userid=userid, fofid=fbid, friendid=fbfriend, action=action,timestamp__gte=datetime.now()+timedelta(minutes=-2))
-	except UserEmail.DoesNotExist:
-		dbutils.sendemailFriend(userid, fbid, fbfriend)
-		dbutils.updateUserHappening(fbid, action)
+	dbutils.sendemailFriend(userid, fbid, fbfriend)
+	dbutils.updateUserHappening(fbid, action)
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     if action == 2:
-	try:
-		justdone = UserEmail.objects.get(userid=userid, fofid=fbid, action=action,timestamp__gte=datetime.now()+timedelta(minutes=-2))
-	except UserEmail.DoesNotExist:
-        	mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
-        	dbutils.sendemailFoF(userid, fbid)
-		dbutils.updateUserHappening(fbid,action)
+        mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
+        dbutils.sendemailFoF(userid, fbid)
+	dbutils.updateUserHappening(fbid,action)
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     if action == 3:

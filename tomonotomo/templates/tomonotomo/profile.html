@@ -146,6 +146,7 @@
                                 $("#feedback".concat(({{ doneelement }}).toString())).unbind("click");
                                 $("#feedback".concat(({{ doneelement }}).toString())).removeAttr("href");
                             {% endfor %}
+			   $(".friendbtn").live('click', function() { $(".friendbtn").attr('disabled','disabled')} );
 
                         })
                     </script>
