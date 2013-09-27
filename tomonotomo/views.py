@@ -419,17 +419,19 @@ def tntAction(request, fbid, action, fbfriend):
     userinfo = UserTomonotomo.objects.get(userid=userid)
     fbname = slugify(dbutils.getFullName(fbid))
 
-    try:
-	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()
-    except:
-	pass
+    #try:
+    #	UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=5).delete()
+    #except:
+    #	pass
+
+    if not fbid in map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=userinfo).order_by('-id').values('fbid')[0:10]):
+        dbutils.decrease_quota(userid)
 
     actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
 
-    if actionbefore==0 or action<5:
-	feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
-	feedback.save()
-	dbutils.decrease_quota(userid)
+    #if actionbefore==0 or action<5:
+    feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
+    feedback.save()
 
     logger.debug("view.tntAction - " + str(userid) + " " + str(fbid) + " " + str(action) + " " + str(fbfriend))
    
