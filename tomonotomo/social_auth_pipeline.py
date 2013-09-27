@@ -138,9 +138,6 @@ def getSanitizedEducation (educationProfile):
         for value in educationProfile:
                 if value.get('school') and value['school'].get('name'):
                         education = education + value['school']['name']+'---'
-                #if value.get('concentration'):
-                #        for concentration in value['concentration']:
-                #                education = education + concentration['name']+'---'
         return education
 
 def getSanitizedWork (workProfile):
