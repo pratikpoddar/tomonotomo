@@ -86,18 +86,19 @@ def getRandFoF(fbid, reqgender):
 
 	attempts = 0
 	if fbidage != "[Age N.A.]":
-	    while attempts < 500:
+	    while attempts < 1000:
 		attempts+=1
 		try:
 			chosen_id = choice(listofFoFs)
 			chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
 			if chosen_user.get_age() != "[Age N.A.]":
             			if math.fabs(int(chosen_user.get_age())-int(fbidage)) < 5:
-					if not reqgender==3:
-						if UserTomonotomo.objects.get(userid=chosen_id).gender==reqgender:
+					if not chosen_user.relstatus==2:
+						if not reqgender==3:
+							if chosen_user.gender==reqgender:
+								return chosen_id
+						else:
 							return chosen_id
-					else:
-						return chosen_id
 		except Exception as e:
 			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
 			pass
