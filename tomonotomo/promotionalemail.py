@@ -44,7 +44,7 @@ def sendPromotionalEmailCuteFriends101(userid):
 	contextdict['mailcontent'] = "Hey "+userinfo.first_name+", Hope you are doing well. Your friends find " + friend1info.first_name + " and " + friend2info.first_name + " attractive. They are trending in your friend network on tomonotomo. You can also secretly indicate that you admire some friend of friend. If he/she also feels the same way, you two would be connected. Best of Luck!"
         plaintext_message = contextdict['mailcontent']
         html_message = dbutils.prepareEmail(contextdict, l[0].keys()[0], l[1].keys()[0], friend1info.get_full_name(), friend2info.get_full_name())
-        message = sendgrid.Message("admin@tomonotomo.com", subject, plaintext_message, html_message)
+        message = sendgrid.Message(("admin@tomonotomo.com","Tomonotomo"), subject, plaintext_message, html_message)
 
         # add a recipient
         message.add_to(userinfo.email, userinfo.get_full_name())
