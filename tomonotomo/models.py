@@ -9,10 +9,8 @@ GENDER_CHOICES = (
 
 RELSTATUS_CHOICES = (
 	(1, 'Single'),
-	(2, 'Engaged'),
-	(3, 'Married'),
-	(4, 'In a relationship'),
-	(5, 'not specified')
+	(2, 'Engaged/Married'),
+	(3, 'not specified')
 	)
 
 class UserTomonotomo(models.Model):

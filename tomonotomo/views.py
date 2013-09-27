@@ -474,6 +474,8 @@ def dbsummary(request):
         'dbsummary_users_data': UserTomonotomo.objects.count(),
         'dbsummary_userfriends': UserFriends.objects.count(),
         'dbsummary_userfeedback': UserFeedback.objects.count(),
+	'dbsummary_usergender': UserTomonotomo.objects.values('gender').annotate(Count('gender')),
+	'dbsummary_userrelstatus': UserTomonotomo.objects.values('relstatus').annotate(Count('relstatus')),
 	'dbsummary_users': UserTomonotomo.objects.exclude(email=None).values('userid','first_name','last_name','email'),
 	'dbsummary_quota': UserQuota.objects.exclude(quota=30).values('userid','quota'),
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),

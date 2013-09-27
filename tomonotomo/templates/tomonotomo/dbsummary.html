@@ -29,6 +29,14 @@
 		{% for dbuser in dbsummary_quota %}
 			<a href="http://www.tomonotomo.com/friend/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
 		{% endfor %}
+            <br/>UserGender Stats: { "male":1, "female":2, "not specified":3 }<br/>
+                {% for dbfeedback in dbsummary_usergender %}
+                        {{ dbfeedback.gender }} - {{dbfeedback.gender__count }}<br/>
+                {% endfor %}
+            <br/>UserRelationship Stats: { "Single":1, "Engaged/Married":2, "not specified":3 }<br/>
+                {% for dbfeedback in dbsummary_userrelstatus %}
+                        {{ dbfeedback.relstatus }} - {{dbfeedback.relstatus__count }}<br/>
+                {% endfor %}
 	    <br/>Users: ({{ dbsummary_users | length }})<br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
