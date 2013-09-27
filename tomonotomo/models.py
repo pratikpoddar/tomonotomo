@@ -7,6 +7,14 @@ GENDER_CHOICES = (
     (3, 'not specified')
     )
 
+RELSTATUS_CHOICES = (
+	(1, 'Single'),
+	(2, 'Engaged'),
+	(3, 'Married'),
+	(4, 'In a relationship'),
+	(5, 'not specified')
+	)
+
 class UserTomonotomo(models.Model):
 
     userid= models.BigIntegerField(null=False, unique=True, db_index=True)
@@ -19,6 +27,7 @@ class UserTomonotomo(models.Model):
     hometown= models.CharField(max_length=100L)
     location= models.CharField(max_length=100L)
     gender= models.IntegerField(choices=GENDER_CHOICES, default=3)
+    relstatus=models.IntegerField(choices=RELSTATUS_CHOICES, default=1)
     education= models.CharField(max_length=2000L)
     work= models.CharField(max_length=2000L)
     time= models.DateTimeField(auto_now_add=True, blank=True)

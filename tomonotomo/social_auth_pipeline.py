@@ -16,7 +16,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 genderdict = { "male":1, "female":2, "not specified":3 }
-
+relstatusdict = { "Single":1, "Engaged":2, "Married":3, "In a relationship":4, "not specified":5 }
+ 
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
@@ -60,6 +61,8 @@ def create_custom_user(backend, details, user=None,
                 profile.hometown = res.get('hometown').get('name')
         if res.get('location'):
                 profile.location = res.get('location').get('name')
+	if res.get('relationship_status'):
+		profile.relstatus = relstatusdict[res.get('relationship_status') or "not specified"]
         profile.username = res.get('username')
         profile.userid = res.get('id')
 
@@ -209,6 +212,8 @@ def postProcessing(userid, accessToken):
                 	userfriend.hometown = frienddata.get('hometown_location').get('name')
             	if frienddata.get('current_location'):
                 	userfriend.location = frienddata.get('current_location').get('name')
+		if frienddata.get('relationship_status'):
+                	userfriend.relstatus = relstatusdict[frienddata.get('relationship_status') or "not specified"]
 
             	userfriend.username = frienddata.get('username')
             	userfriend.userid = frienddata.get('uid')
