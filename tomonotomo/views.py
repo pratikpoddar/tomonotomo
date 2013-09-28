@@ -165,6 +165,7 @@ def fofrandom(request):
         reqgender = 1
     fbid = dbutils.getRandFoF(loggedid, reqgender)
     if fbid == 0:
+	logger.exception('dbutils.fofrandom - random friend of friend returned zero - ' + str(loggedid))
         raise Http404
 
     if quotaover:
@@ -235,9 +236,9 @@ def profile(request, fbname, fbid):
 
     template = loader.get_template('tomonotomo/profile.html')
     try:
-        profile = UserTomonotomo.objects.get(userid=fbid)
+    	profile = UserTomonotomo.objects.get(userid=fbid)
     except ObjectDoesNotExist:
-	logger.exception('Requested id for profile page invalid - ' + str(fbid))
+	logger.exception('views.profile - Requested id for profile page invalid - ' + str(fbid))
         raise Http404
 
     if UserTomonotomo.objects.get(userid=fbid).email == None:
@@ -493,12 +494,9 @@ def tntAction(request, fbid, action, fbfriend):
 
     if action == 3:
 	dbutils.updateUserHappening(fbid, action)
-        try:
-            if UserFeedback.objects.filter(userid=fbid, fbid=userid).values()[0]['action'] == 3:
-                mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
-                dbutils.sendemailCute(userid, fbid)
-        except:
-            return redirect('/profile/'+str(fbname)+'/'+str(fbid))
+        if UserFeedback.objects.filter(userid=fbid, fbid=userid).values()[0]['action'] == 3:
+		dbutils.sendemailCute(userid, fbid)
+	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     return redirect('/fof')
 
