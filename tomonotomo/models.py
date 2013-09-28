@@ -59,6 +59,7 @@ class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
     fbid = models.BigIntegerField(null=False)
     action = models.IntegerField(null=False)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
 class UserProcessing(models.Model):
     userloggedin= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
