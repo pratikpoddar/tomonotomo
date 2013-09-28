@@ -19,16 +19,20 @@
 		{% endfor %}
 	    <br/>Users loggedin in last 24 hours: ({{ dbsummary_users_login_24 | length }})<br/>
 		{% for dbuser in dbsummary_users_login_24 %}
-			<a href="http://www.tomonotomo.com/friend/{{ dbuser.userlogin }}" target="_blank">{{ dbuser.userlogin }}</a> - {{ dbuser.timestamp }} CDT<br/>
+			<a href="http://www.tomonotomo.com/profile/{{ dbuser.userlogin }}" target="_blank">{{ dbuser.userlogin }}</a> - {{ dbuser.timestamp }} CDT<br/>
 		{% endfor %}
 	    <br/>Users registered in last 24 hours: ({{ dbsummary_users_register_24 | length }})<br/>
                 {% for dbuser in dbsummary_users_register_24 %}
-                        <a href="http://www.tomonotomo.com/friend/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
+                        <a href="http://www.tomonotomo.com/profile/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
                 {% endfor %}
 	    <br/>Quota: ({{ dbsummary_quota | length }})<br/>
 		{% for dbuser in dbsummary_quota %}
-			<a href="http://www.tomonotomo.com/friend/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
+			<a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
 		{% endfor %}
+            <br/>Quota from UserFeedback: ({{ dbsummary_quota_verification | length }})<br/>
+                {% for dbuser in dbsummary_quota_verification %}
+                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.fbid__count }}<br/>
+                {% endfor %}
             <br/>UserGender Stats: { "male":1, "female":2, "not specified":3 }<br/>
                 {% for dbfeedback in dbsummary_usergender %}
                         {{ dbfeedback.gender }} - {{dbfeedback.gender__count }}<br/>
