@@ -21,6 +21,10 @@ def print_for_me(fbid,string=""):
 		print str(string)
 	return
 
+# Given that the user is logged in, getting the id from email address of the user. 
+# If email address was not there, prepared the email address from the facebook username. 
+# The case when both email and username does not exist still needs to be checked.
+# Always find current user from this and nothing else
 def getLoggedInUser (request):
 	
 	email = ""

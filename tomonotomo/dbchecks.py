@@ -1,6 +1,7 @@
 from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening, UserQuota, UserProcessing
 import math
 from django.db.models import Count
+import re
 
 set11=set([])
 set12=set([])
@@ -14,7 +15,7 @@ print "(UserFriends.userid + UserFriends.friendid) - UserTomonotomo.userid: " + 
 print "(UserFriends.userid) - UserTomonotomo.userid: " + str(set12-set2)
 print "Both the above should be null"
 
-list1=UserFeedback.objects.exclude(action=1).values('userid','fbid','action').annotate(Count('id'))
+list1=UserFeedback.objects.exclude(action=1).exclude(action=5).values('userid','fbid','action').annotate(Count('id'))
 list2 = filter(lambda x: x['id__count'] > 1, list1)
 print "----- Checking 2"
 print len(list2)
@@ -32,4 +33,9 @@ print "----- Checking 4"
 print list5
 print "The above list should be empty"
 
+list6=map(lambda x: x['email'], UserTomonotomo.objects.exclude(email=None).values('email'))
+list7=filter(lambda x: not re.match(r'[\w\.\+-]+@[\w\.-]+', x), list6)
+print "----- Checking 5"
+print list7
+print "The above list should be empty"
 

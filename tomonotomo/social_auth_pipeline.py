@@ -54,6 +54,8 @@ def create_custom_user(backend, details, user=None,
 	if not res.get('email'):
 		profile.email = str(res.get('username'))+"@facebook.com"
 		logger.info("social_auth_pipeline.create_custom_user - Email not found for user " + str(res.get('id')) + ". Using " + profile.email)
+		if not res.get('username'):
+			logger.exception("social_auth_pipeline.create_custom_user - Critical - Could neither get email nor username@facebook.com for user " + str(res.get('id')))
         profile.first_name = res.get('first_name')
         profile.last_name = res.get('last_name')
         profile.gender = genderdict[res.get('gender') or "not specified"]

@@ -23,6 +23,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 def index(request):
+
+    if request.user.id:
+    	loggedid = dbutils.getLoggedInUser(request)
+    else:
+	loggedid = 0
+
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -35,12 +41,18 @@ def index(request):
     template = loader.get_template('tomonotomo/index.html')
     context = RequestContext(request, {
         'meta': meta,
-	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count())
+	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count()),
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
 def sitemapgen(request, number):
     template = loader.get_template('tomonotomo/sitemap.html')
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
 
     if number < 0:
 	listofusers  = []
@@ -53,7 +65,8 @@ def sitemapgen(request, number):
     
     context = RequestContext(request, {
         'listofusers' : map(lambda x: {'name': dbutils.getFullName(x['userid']), 'id':x['userid']},  listofusers),
-	'sitemaplist' : range(1,1001)
+	'sitemaplist' : range(1,1001),
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
@@ -66,7 +79,8 @@ def quotaover(request):
     loggedid = dbutils.getLoggedInUser(request)
 
     context = RequestContext(request, {
-        'loggedid': loggedid
+        'loggedid': loggedid,
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
@@ -120,6 +134,7 @@ def personalprofile(request):
         agelocation = profile.location
 
     context = RequestContext(request, {
+		'loggeduserid': loggedid,
                 'fbid': loggedid,
                 'fullname': profile.get_full_name(),
                 'agelocation': agelocation,
@@ -168,6 +183,7 @@ def profile(request, fbname, fbid):
     notify_hover_on_button = 0
     notify_invite_friends = 0
     notify_welcome = 0
+    loggedid=0
     if request.user.id:
         loggedid = dbutils.getLoggedInUser(request)
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
@@ -207,9 +223,6 @@ def profile(request, fbname, fbid):
 	if len(lastfeedback)==25:
 		logger.info('view.profile - Showed Gritter Notification - for invite friends - ' + str(loggedid))
 		notify_invite_friends=1
-
-	if request.user.id == fbid:
-		show_button=0
 
     else:
         mutualfriends = []
@@ -269,6 +282,7 @@ def profile(request, fbname, fbid):
 	#	notify_welcome=1
 	
     context = RequestContext(request, {
+		'loggeduserid': loggedid,
                 'fbid': fbid,
                 'fullname': profile.get_full_name(),
                 'agelocation': agelocation,
@@ -299,6 +313,12 @@ def profileredir(request, fbid):
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
 def about(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -310,11 +330,18 @@ def about(request):
     )    
     template = loader.get_template('tomonotomo/about.html')
     context = RequestContext(request, {
-        'meta': meta
+        'meta': meta,
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
 def terms(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -326,12 +353,19 @@ def terms(request):
     )    
     template = loader.get_template('tomonotomo/terms.html')
     context = RequestContext(request, {
-        'meta': meta
+        'meta': meta,
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
 @login_required(login_url='index')
 def loginerror(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     meta = Meta(
         use_og=1,
         url=request.build_absolute_uri(),
@@ -343,13 +377,20 @@ def loginerror(request):
     )
     template = loader.get_template('tomonotomo/loginerror.html')
     context = RequestContext(request, {
-        'meta': meta
+        'meta': meta,
+	'loggeduserid': loggedid
         })
     return HttpResponse(template.render(context))
 
 
 @login_required(login_url='index')
 def loggedin(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/loggedin.html')
 
@@ -381,7 +422,8 @@ def loggedin(request):
 		'number_new_connect_directly': number_new_connect_directly,
 		'number_new_admire': number_new_admire,
 		'show_happening': show_happening,
-        	'meta': meta
+        	'meta': meta,
+		'loggeduserid': loggedid
 		}
 
     context = RequestContext(request, dictin)
@@ -389,6 +431,12 @@ def loggedin(request):
 
 @login_required(login_url='index')
 def betathanks(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/betathanks.html')
     meta = Meta(
@@ -401,7 +449,8 @@ def betathanks(request):
         title='tomonotomo - meet friends of friends'
     )
     dictin = {
-        'meta': meta
+        'meta': meta,
+	'loggeduserid': loggedid
 		}
 
     context = RequestContext(request, dictin)
@@ -453,13 +502,20 @@ def tntAction(request, fbid, action, fbfriend):
 
 def dbsummary(request):
 
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
     try: 
 	secret = request.GET['secret']
     except:	
     	raise Http404
 	 
     template = loader.get_template('tomonotomo/dbsummary.html')
-    contextdict = {'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
+    contextdict = {
+	'loggeduserid': loggedid,
+	'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
         'dbsummary_users_email': UserTomonotomo.objects.exclude(email=None).count(),
         'dbsummary_users_data': UserTomonotomo.objects.count(),
         'dbsummary_userfriends': UserFriends.objects.count(),
