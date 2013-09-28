@@ -237,6 +237,7 @@ def profile(request, fbname, fbid):
     try:
         profile = UserTomonotomo.objects.get(userid=fbid)
     except ObjectDoesNotExist:
+	logger.exception('Requested id for profile page invalid - ' + str(fbid))
         raise Http404
 
     if UserTomonotomo.objects.get(userid=fbid).email == None:
