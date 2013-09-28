@@ -34,7 +34,7 @@ def getLoggedInUser (request):
 	elif request.user.username:
 		email = request.user.username+"@facebook.com"
 
-	if email==""
+	if email=="":
 		logger.exception('dbutils.getLoggedInUser - CRITICAL - no email and no username request')
 		
 	return UserTomonotomo.objects.get(email=email).userid

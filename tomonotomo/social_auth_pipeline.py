@@ -37,7 +37,8 @@ def create_custom_user(backend, details, user=None,
 
         res = kwargs['response']
 
-        logger.debug("social_auth_pipeline.create_custom_user - Getting/Updating data for userid " + res.get('id'))
+	logger.debug("social_auth_pipeline.create_custom_user - Getting/Updating data for userid " + res.get('id'))
+	logger.debug("social_auth_pipeline.create_custom_user - " + str(res))
 
         try:
             profile = UserTomonotomo.objects.get(userid=res.get('id'))

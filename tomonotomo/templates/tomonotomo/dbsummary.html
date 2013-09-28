@@ -25,15 +25,7 @@
                 {% for dbuser in dbsummary_users_register_24 %}
                         <a href="http://www.tomonotomo.com/profile/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
                 {% endfor %}
-	    <br/>Quota: ({{ dbsummary_quota | length }})<br/>
-		{% for dbuser in dbsummary_quota %}
-			<a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
-		{% endfor %}
-            <br/>Quota from UserFeedback: ({{ dbsummary_quota_verification | length }})<br/>
-                {% for dbuser in dbsummary_quota_verification %}
-                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.fbid__count }}<br/>
-                {% endfor %}
-            <br/>UserGender Stats: { "male":1, "female":2, "not specified":3 }<br/>
+	    <br/>UserGender Stats: { "male":1, "female":2, "not specified":3 }<br/>
                 {% for dbfeedback in dbsummary_usergender %}
                         {{ dbfeedback.gender }} - {{dbfeedback.gender__count }}<br/>
                 {% endfor %}
@@ -41,6 +33,16 @@
                 {% for dbfeedback in dbsummary_userrelstatus %}
                         {{ dbfeedback.relstatus }} - {{dbfeedback.relstatus__count }}<br/>
                 {% endfor %}
+            <br/>Quota: ({{ dbsummary_quota | length }})<br/>
+                {% for dbuser in dbsummary_quota %}
+                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
+                {% endfor %}
+            <br/>Quota from UserFeedback: ({{ dbsummary_quota_verification | length }})<br/>
+                {% for dbuser in dbsummary_quota_verification %}
+                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.fbid__count }}<br/>
+                {% endfor %}
+	    <br/>DB Checks:<br/>
+		{{ dbsummary_dbchecksstring | linebreaksbr }}
 	    <br/>Users: ({{ dbsummary_users | length }})<br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
