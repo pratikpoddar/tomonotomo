@@ -497,8 +497,8 @@ def tntAction(request, fbid, action, fbfriend):
     if action == 3:
 	dbutils.updateUserHappening(fbid, action)
 	try:
-		reversefeedback = map(lambda x: x['action'], UserFeedback.objects.filter(userid=fbid, fbid=userid).values('action'))
-        	if 3 in reversefeedback:
+		fbidinfo = UserTomonotomo.objects.get(userid=fbid)
+		if UserFeedback.objects.filter(userid=fbidinfo, fbid=userid, action=3).count() > 0:
 			dbutils.sendemailCute(userid, fbid)
 	except Exception as e:
 		logger.exception('views.tntAction - checking if there is a reverse feedback for cure - error - '+str(e)+' - '+str(e.args)) 

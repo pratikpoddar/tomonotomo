@@ -412,4 +412,5 @@ def updateUserHappening(userid, action):
 
 	userhappening = UserHappening(userid=userid, action=action)
 	userhappening.save()
+	return
 
