@@ -22,7 +22,9 @@ urlpatterns = patterns('',
 	url(r'^sitemap/(\d+)$', views.sitemapgen, name='sitemapgen'),
 	url(r'^sitemap$', views.sitemap, name='sitemap'),
 	url(r'^quotaover$', views.quotaover, name='quotaover'),
-	url(r'^quotaincrease$', views.quotaincrease, name='quotaincrease')
+	url(r'^quotaincrease$', views.quotaincrease, name='quotaincrease'),
+	url(r'^nomatchforyou$', views.nomatchforyou, name='nomatch')
+	
 )
 
 

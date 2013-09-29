@@ -75,6 +75,16 @@ def sitemap(request):
     return sitemapgen(request,-1)
 
 @login_required(login_url='index')
+def nomatchforyou(request):
+    template = loader.get_template('tomonotomo/nomatchforyou.html')
+    loggedid = dbutils.getLoggedInUser(request)
+
+    context = RequestContext(request, {
+        'loggeduserid': loggedid
+        })
+    return HttpResponse(template.render(context))
+
+@login_required(login_url='index')
 def quotaover(request):
     template = loader.get_template('tomonotomo/quotaover.html')
     loggedid = dbutils.getLoggedInUser(request)
@@ -166,7 +176,7 @@ def fofrandom(request):
     fbid = dbutils.getRandFoF(loggedid, reqgender)
     if fbid == 0:
 	logger.exception('dbutils.fofrandom - random friend of friend returned zero - ' + str(loggedid))
-        raise Http404
+        return redirect('/nomatchforyou')
 
     if quotaover:
 	return redirect('/quotaover')
