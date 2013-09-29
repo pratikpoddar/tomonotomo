@@ -207,17 +207,11 @@ def profile(request, fbname, fbid):
 	lastfeedback = dbutils.getLastFeedback(loggedid,30)
 
 	if len(lastfeedback)==0:
+		logger.info('view.profile - Showed Gritter Notification - for welcome - ' + str(loggedid))
 		notify_welcome=1
 
 	if len(lastfeedback)==10:
-		try:
-			lastfeedback.remove(4)
-		except:
-			pass
-		try:
-			lastfeeback.remove(5)
-		except:
-			pass
+		lastfeedback = filter(lambda x: x not in [4,5], lastfeedback)
 		if len(lastfeedback)<2:
 			logger.info('view.profile - Showed Gritter Notification - for hover on button - ' + str(loggedid))
 			notify_hover_on_button=1
@@ -489,7 +483,7 @@ def tntAction(request, fbid, action, fbfriend):
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
     if action == 2:
-        mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
+        #mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid)
 	dbutils.updateUserHappening(fbid,action)
 	return redirect('/profile/'+str(fbname)+'/'+str(fbid))

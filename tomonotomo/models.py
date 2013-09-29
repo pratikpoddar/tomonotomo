@@ -56,8 +56,8 @@ class UserFriends(models.Model):
     friendid = models.BigIntegerField(null=False)
 
 class UserFeedback(models.Model):
-    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
-    fbid = models.BigIntegerField(null=False)
+    userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
+    fbid = models.BigIntegerField(null=False, db_index=True)
     action = models.IntegerField(null=False)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
