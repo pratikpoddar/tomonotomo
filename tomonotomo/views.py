@@ -476,7 +476,7 @@ def tntAction(request, fbid, action, fbfriend):
     if not fbid in map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=userinfo, timestamp__gte=date.today()).values('fbid')):
         dbutils.decrease_quota(userid)
 
-    actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
+    #actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
 
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
