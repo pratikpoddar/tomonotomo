@@ -25,15 +25,15 @@ def dbchecks2():
 	list1=UserFeedback.objects.exclude(action=1).exclude(action=5).values('userid','fbid','action').annotate(Count('id'))
 	list2 = filter(lambda x: x['id__count'] > 1, list1)
 	string+= "<br/>----- Checking that except 1 and 5, no action is taken twice for a userid, fbid pair in UserFeedback"
-	string+= "<br/>" + str(len(list2))
-	string+= "<br/>" + "The number should be zero"
+	string+= "<br/>" + str(list2)
+	string+= "<br/>" + "The number list should be empty"
 	
 	list3=UserProcessing.objects.all()
 	string+= "<br/>" + "----- Checking that all accesstokens have been processed"
 	string+= "<br/>" + str(list3)
 	string+= "<br/>" + "The above list should be empty"
 
-	list4=UserEmail.objects.filter(action__lt=100).values('userid','fofid','friendid','action').annotate(Count('id'))
+	list4=UserEmail.objects.filter(action__lt=100).exclude(action=1).values('userid','fofid','friendid','action').annotate(Count('id'))
 	list5=filter(lambda x: x['id__count']>1,list4)
 	string+= "<br/>" + "----- Checking that no email was sent twice except requesting a friend twice"
 	string+= "<br/>" + str(list5)
