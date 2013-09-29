@@ -62,21 +62,19 @@ def getPotentialFoFs(fbid, reqgender):
 
 	return fofs
 
-def getPotentialFoFsFast(fbid):
-
-	fblist = getFriendsonTnT(fbid)
-	shuffle(fblist)
-	fblistFast = fblist[:3]
-	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
-
-	return fofs
-
-def getBarredList(fbid):
+@lru_cache(maxsize=32)
+def getBarredListCache(fbid):
 
         friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
-        recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
-        barredlist = list(set(friendlist + skipadmiredlist + recentlist))
+        barredlist = list(set(friendlist + skipadmiredlist))
+	return barredlist
+
+def getBarredList(fbid):
+
+        barredlistcache = getBarredListCache(fbid)
+        recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:50])
+        barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
 
 def getRandFoF(fbid, reqgender):
@@ -91,7 +89,7 @@ def getRandFoF(fbid, reqgender):
 		shuffle(fblist)
 		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
 		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-	
+
 		if len(listofFoFs)==0:
 			break
 
