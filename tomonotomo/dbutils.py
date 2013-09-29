@@ -66,48 +66,57 @@ def getPotentialFoFsFast(fbid):
 
 	fblist = getFriendsonTnT(fbid)
 	shuffle(fblist)
-	fblistFast = fblist[:5]
+	fblistFast = fblist[:3]
 	fofs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblistFast).values('friendid'))))
 
 	return fofs
 
+def getBarredList(fbid):
+
+        friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+        skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
+        recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
+        barredlist = list(set(friendlist + skipadmiredlist + recentlist))
+	return barredlist
+
 def getRandFoF(fbid, reqgender):
 
-	listofFoFs = getPotentialFoFsFast(fbid)
-	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
-	skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
-	recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
-	barredlist = list(set(friendlist + skipadmiredlist + recentlist))
+	fblist = getFriendsonTnT(fbid)
+	barredlist = getBarredList(fbid)
+	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 
-	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-
-        fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
+	frndattempts = 0
+	while frndattempts < 20:
+		frndattempts+=1
+		shuffle(fblist)
+		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
+		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 	
-	
-	if len(listofFoFs)==0:
-		return 0
+		if len(listofFoFs)==0:
+			break
 
-	if fbidage == "[Age N.A.]":
-		return choice(listofFoFs)
+		if fbidage == "[Age N.A.]":
+			return choice(listofFoFs)
 
-	attempts = 0
-	if fbidage != "[Age N.A.]":
-	    while attempts < 1000:
-		attempts+=1
-		try:
-			chosen_id = choice(listofFoFs)
-			chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
-			if chosen_user.get_age() != "[Age N.A.]":
-            			if math.fabs(int(chosen_user.get_age())-int(fbidage)) < 5:
-					if not chosen_user.relstatus==2:
-						if not reqgender==3:
-							if chosen_user.gender==reqgender:
+		fofattempts = 0
+		if fbidage != "[Age N.A.]":
+		    while fofattempts < 300:
+			fofattempts+=1
+			try:
+				chosen_id = choice(listofFoFs)
+				chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+				if chosen_user.get_age() != "[Age N.A.]":
+            				if math.fabs(int(chosen_user.get_age())-int(fbidage)) < 5:
+						if not chosen_user.relstatus==2:
+							if not reqgender==3:
+								if chosen_user.gender==reqgender:
+									return chosen_id
+							else:
 								return chosen_id
-						else:
-							return chosen_id
-		except Exception as e:
-			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
-			pass
+			except Exception as e:
+				logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
+				pass
+
 
 	logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid)) 
 	return 0
