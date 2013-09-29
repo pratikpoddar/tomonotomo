@@ -397,7 +397,7 @@ def loggedin(request):
     fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/loggedin.html')
 
-    friendsonTnT = dbutils.getFriendsonTnT(fbid))
+    friendsonTnT = dbutils.getFriendsonTnT(fbid)
     friendsoffriends = dbutils.getFriendsofFriends(fbid)
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
     number_new_connect_directly = UserHappening.objects.filter(userid=fbid, action=2).count()
