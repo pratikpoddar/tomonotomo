@@ -516,7 +516,12 @@ def dbsummary(request):
 	secret = request.GET['secret']
     except:	
     	raise Http404
-	 
+
+    createerrorlist = ['tomonotomo']
+    if 'createerror' in request.GET and request.GET['createerror']:
+	createerrorlist = []
+    createerrorelem = createerrorlist[0]
+	
     template = loader.get_template('tomonotomo/dbsummary.html')
     contextdict = {
 	'loggeduserid': loggedid,
