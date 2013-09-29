@@ -397,6 +397,8 @@ def loggedin(request):
     fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/loggedin.html')
 
+    friendsonTnT = dbutils.getFriendsonTnT(fbid))
+    friendsoffriends = dbutils.getFriendsofFriends(fbid)
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
     number_new_connect_directly = UserHappening.objects.filter(userid=fbid, action=2).count()
     number_new_admire = UserHappening.objects.filter(userid=fbid, action=3).count()
@@ -419,8 +421,8 @@ def loggedin(request):
         title='tomonotomo - meet friends of friends'
     )
     dictin = {
-		'degree1': "{:,}".format(len(dbutils.getFriendsonTnT(fbid))),
-		'degree2': "{:,}".format(len(dbutils.getFriendsofFriends(fbid))),
+		'degree1': "{:,}".format(len(friendsonTnT)),
+		'degree2': "{:,}".format(len(friendsoffriends)),
 		'number_new_introductions': number_new_introductions,
 		'number_new_connect_directly': number_new_connect_directly,
 		'number_new_admire': number_new_admire,
