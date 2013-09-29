@@ -128,7 +128,8 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.common.BrokenLinkEmailsMiddleware'
-    'tomonotomo_project.middleware.error500Middleware'
+    'tomonotomo_project.middleware.error500Middleware',
+    #'profiler.middleware.ProfilerMiddleware'
    
 )
 
@@ -158,7 +159,8 @@ INSTALLED_APPS = (
     'tomonotomo',
     'social_auth',
     'functools32',
-    'django_cron'
+    'django_cron',
+    #'profiler'
 )
 
 LOG_DIR='/home/ubuntu/django_log'
