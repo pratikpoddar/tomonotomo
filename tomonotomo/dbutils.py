@@ -75,10 +75,9 @@ def getRandFoF(fbid, reqgender):
 
 	listofFoFs = getPotentialFoFsFast(fbid)
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
-	skiplist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=4).values('fbid'))
-	admiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action=3).values('fbid'))
+	skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
 	recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:30])
-	barredlist = list(set(friendlist + skiplist + admiredlist + recentlist))
+	barredlist = list(set(friendlist + skipadmiredlist + recentlist))
 
 	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 

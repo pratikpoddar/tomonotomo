@@ -473,7 +473,7 @@ def tntAction(request, fbid, action, fbfriend):
     userinfo = UserTomonotomo.objects.get(userid=userid)
     fbname = slugify(dbutils.getFullName(fbid))
 
-    if not fbid in map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=userinfo, timestamp__gte=date.today()).values('fbid')):
+    if UserFeedback.objects.filter(userid=userinfo, fbid=fbid, timestamp__gte=date.today()).count() == 0:
         dbutils.decrease_quota(userid)
 
     #actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
