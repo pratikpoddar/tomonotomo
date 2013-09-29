@@ -39,7 +39,7 @@
                 {% endfor %}
             <br/>Quota from UserFeedback: ({{ dbsummary_quota_verification | length }})<br/>
                 {% for dbuser in dbsummary_quota_verification %}
-                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.fbid__count }}<br/>
+                        <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.fbid__count|add:"-30" }}<br/>
                 {% endfor %}
 	    <br/>DB Checks:<br/>
 		{{ dbsummary_dbchecksstring | linebreaksbr }}
