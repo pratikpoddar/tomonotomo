@@ -205,11 +205,11 @@ def profile(request, fbname, fbid):
         infoList = historyFeedback['info']
         if len(mutualfriends) == 0:
                 show_button=0
-        try:
-                isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)
-                show_button=0
-        except UserFriends.DoesNotExist:
-                show_button=show_button
+        #try:
+        #        isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)
+        #        show_button=0
+        #except UserFriends.DoesNotExist:
+        #        show_button=show_button
 
 	if int(loggedid) == int(fbid):
 		show_button=0
