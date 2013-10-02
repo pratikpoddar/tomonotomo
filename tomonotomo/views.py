@@ -32,7 +32,7 @@ def index(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -114,7 +114,7 @@ def personalprofile(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -252,7 +252,7 @@ def profile(request, fbname, fbid):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/profile/' + str(fbid),
         use_sites=True,
         description='Tomonotomo - Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -328,7 +328,7 @@ def about(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/about',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -351,7 +351,7 @@ def terms(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/terms',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -375,7 +375,7 @@ def loginerror(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -417,7 +417,7 @@ def loggedin(request):
 
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com/',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
@@ -450,7 +450,7 @@ def betathanks(request):
     template = loader.get_template('tomonotomo/betathanks.html')
     meta = Meta(
         use_og=1,
-        url=request.build_absolute_uri(),
+        url='http://www.tomonotomo.com',
         use_sites=True,
         description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
