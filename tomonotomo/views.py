@@ -34,7 +34,7 @@ def index(request):
         use_og=1,
         url='http://www.tomonotomo.com/',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -116,7 +116,7 @@ def personalprofile(request):
         use_og=1,
         url='http://www.tomonotomo.com',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -254,7 +254,7 @@ def profile(request, fbname, fbid):
         use_og=1,
         url='http://www.tomonotomo.com/profile/' + str(fbid),
         use_sites=True,
-        description='Tomonotomo - Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://graph.facebook.com/'+str(fbid)+'/picture?type=square',
         title= str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
@@ -330,7 +330,7 @@ def about(request):
         use_og=1,
         url='http://www.tomonotomo.com/about',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -353,7 +353,7 @@ def terms(request):
         use_og=1,
         url='http://www.tomonotomo.com/terms',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -377,7 +377,7 @@ def loginerror(request):
         use_og=1,
         url='http://www.tomonotomo.com/',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -419,7 +419,7 @@ def loggedin(request):
         use_og=1,
         url='http://www.tomonotomo.com/',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
@@ -452,7 +452,7 @@ def betathanks(request):
         use_og=1,
         url='http://www.tomonotomo.com',
         use_sites=True,
-        description='Single? Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
+        description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://www.tomonotomo.com/static/tomonotomo/img/logo.jpg',
         title='tomonotomo - meet friends of friends'
