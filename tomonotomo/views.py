@@ -43,7 +43,8 @@ def index(request):
     context = RequestContext(request, {
         'meta': meta,
 	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count()),
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -67,7 +68,8 @@ def sitemapgen(request, number):
     context = RequestContext(request, {
         'listofusers' : map(lambda x: {'name': dbutils.getFullName(x['userid']), 'id':x['userid']},  listofusers),
 	'sitemaplist' : range(1,1001),
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -80,7 +82,8 @@ def nomatchforyou(request):
     loggedid = dbutils.getLoggedInUser(request)
 
     context = RequestContext(request, {
-        'loggeduserid': loggedid
+        'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -91,7 +94,8 @@ def quotaover(request):
 
     context = RequestContext(request, {
         'loggedid': loggedid,
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -158,7 +162,8 @@ def personalprofile(request):
 		'admirelist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=3).values('fbid')))),
 		'connecteddirectlybylist': list(set(map(lambda x: x['userid'], UserFeedback.objects.filter(fbid=loggedid,action=2).values('userid')))),
 		'nevershowlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=4).values('fbid')))),
-		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, 15)
+		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, 15),
+		'quota': dbutils.getQuota(loggedid),
         })
 
     return HttpResponse(template.render(context))
@@ -305,7 +310,8 @@ def profile(request, fbname, fbid):
 		'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
 		'notify_invite_friends': notify_invite_friends,
 		'notify_hover_on_button': notify_hover_on_button,
-		'notify_welcome': notify_welcome
+		'notify_welcome': notify_welcome,
+		'quota': dbutils.getQuota(loggedid),
         })
 
     return HttpResponse(template.render(context))
@@ -338,7 +344,8 @@ def about(request):
     template = loader.get_template('tomonotomo/about.html')
     context = RequestContext(request, {
         'meta': meta,
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -361,7 +368,8 @@ def terms(request):
     template = loader.get_template('tomonotomo/terms.html')
     context = RequestContext(request, {
         'meta': meta,
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -385,7 +393,8 @@ def loginerror(request):
     template = loader.get_template('tomonotomo/loginerror.html')
     context = RequestContext(request, {
         'meta': meta,
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
         })
     return HttpResponse(template.render(context))
 
@@ -432,7 +441,8 @@ def loggedin(request):
 		'number_new_admire': number_new_admire,
 		'show_happening': show_happening,
         	'meta': meta,
-		'loggeduserid': loggedid
+		'loggeduserid': loggedid,
+		'quota': dbutils.getQuota(loggedid),
 		}
 
     context = RequestContext(request, dictin)
@@ -459,7 +469,8 @@ def betathanks(request):
     )
     dictin = {
         'meta': meta,
-	'loggeduserid': loggedid
+	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
 		}
 
     context = RequestContext(request, dictin)
@@ -531,6 +542,7 @@ def dbsummary(request):
     template = loader.get_template('tomonotomo/dbsummary.html')
     contextdict = {
 	'loggeduserid': loggedid,
+	'quota': dbutils.getQuota(loggedid),
 	'dbsummary_users_at': UserTomonotomo.objects.exclude(accesstoken=None).count(),
         'dbsummary_users_email': UserTomonotomo.objects.exclude(email=None).count(),
         'dbsummary_users_data': UserTomonotomo.objects.count(),

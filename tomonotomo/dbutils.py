@@ -136,6 +136,13 @@ def getUsersGender (gender):
 def getLastFeedback (userid, num):
 	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])
 
+def getQuota(fbid):
+	try:
+		quota = UserQuota.objects.get(userid=fbid).quota
+	except:
+		quota = 0
+	return quota
+
 def check_quota_over(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid)
