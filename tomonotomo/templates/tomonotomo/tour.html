@@ -1,0 +1,82 @@
+{% load staticfiles %}
+{% block tourcontent %}
+
+    <link rel=" stylesheet" type="text/css" href="{% static 'tomonotomo/css/jquery.joyride-2.1.css' %}">
+    <script src="{% static 'tomonotomo/js/jquery.joyride-2.1.js' %}"></script>
+    <style type="text/css">
+	.joyride-tip-guide {
+		color: #000!important;
+		background: #fff!important;
+		background: rgba(255,255,255,0.8)!important;
+		
+	}
+	.joyride-tip-guide h2 {
+		color: #000!important;
+	}
+	.joyride-tip-guide p {
+		margin-top: 5px!important;
+		color: #000!important;
+	}
+	.joyride-nub {
+		border-color:#fff!important;
+		border-color:rgba(255,255,255,0.8)!important;
+	}
+	.joyride-next-tip {
+		  border: solid 1px #3c2e52!important;
+		  background: rgb(0,99,255)!important;
+		  background: -moz-linear-gradient(top, #3c2e52, 0%, #3c2e52 100%)!important;
+		  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3c2e52), color-stop(100%,#3c2e52))!important;
+		  background: -webkit-linear-gradient(top, #3c2e52 0%,#3c2e52 100%)!important;
+		  background: -o-linear-gradient(top, #3c2e52 0%,#3c2e52 100%)!important;
+		  background: -ms-linear-gradient(top, #3c2e52 0%,#3c2e52 100%)!important;
+		  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3c2e52', endColorstr='#3c2e52',GradientType=0 )!important;
+		  background: linear-gradient(top, #3c2e52 0%,#3c2e52 100%)!important;
+	}
+	.joyride-expose-wrapper {
+		display: none
+	}
+	
+
+    </style>
+
+      <!-- Tour Content -->
+    <ol id="joyRideTipContent">
+      <li data-id="heading-tomonotomo" data-text="Give Quick Intro" class="custom" >
+        <h2>Welcome to Tomonotomo</h2>
+        <p>Tomo no tomo means "friends of friends" in Japanese. We present to you a list of friends of friends (FoFs) as potential dates. Its totally safe and secret <3</p>
+      </li>
+      <li data-id="feedback1" data-button="Next" class="custom">
+        <h2>Ask friend for Introduction</h2>
+        <p>Sends an email to a friend you choose requesting for an introduction to the FoF (Friend of Friend). <3</p>
+      </li>
+      <li data-id="feedback2" data-button="Next" class="custom">
+        <h2>Connect Directly</h2>
+        <p>Sends an email to the FoF directly expressing your interest. Its safe as only friend of friend can contact you. <3</p>
+      </li>
+      <li data-id="feedback3" data-button="Next" class="custom">
+        <h2>Admire Secretly</h2>
+        <p>You mark secretly that you admire the FoF. We will send an email connecting both of you only if both of you admire each other <3</p>
+      </li>
+      <li data-id="feedback4" data-button="Next" class="custom">
+        <h2>Skip Forever</h2>
+        <p>You mark secretly that you never want to see this profile again. </3</p>
+      </li>
+      <li data-id="feedback5" data-button="Close" class="custom">
+        <h2>Show next</h2>
+        <p>Just be super passive and we will show you the next out of the list of 100s of potential dates we have :). Best of Luck!</p>
+      </li>
+    </ol>
+
+    <script>
+$(window).load(function() {
+  $("#joyRideTipContent").joyride({
+	autoStart : true,
+	modal: true,
+	expose: true,
+	'tipAnimation':'fade',
+	'tipAnimationFadeSpeed': 300
+	});
+});
+</script>
+
+{% endblock %}

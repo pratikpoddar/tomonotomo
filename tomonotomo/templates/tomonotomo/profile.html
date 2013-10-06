@@ -253,4 +253,10 @@ $(window).load(function(){
 	
 </script>
 
+{% if notify_welcome %}
+	{% include "tomonotomo/tour.html" %}
+	{% block tourcontent %} {% endblock %}
+{% endif %}
+
 {% endblock %}
+
