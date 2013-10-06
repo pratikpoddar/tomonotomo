@@ -288,7 +288,7 @@ def profile(request, fbname, fbid):
     else:
         agelocation = profile.location
 
-    #if int(loggedid)==717323242:
+    #if int(loggedid)==100000234638922:
 	#	notify_invite_friends=1
 	#	notify_hover_on_button=1
 	#	notify_welcome=1
