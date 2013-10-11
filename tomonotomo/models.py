@@ -16,7 +16,7 @@ RELSTATUS_CHOICES = (
 class UserTomonotomo(models.Model):
 
     userid= models.BigIntegerField(null=False, unique=True, db_index=True)
-    email= models.CharField(max_length=100L, null=True)
+    email= models.CharField(max_length=100L, null=True, db_index=True)
     accesstoken= models.TextField( null=True)
     expiresin= models.IntegerField(null=True)
     first_name= models.CharField(max_length=100L,null=True)
@@ -53,7 +53,7 @@ class UserTomonotomo(models.Model):
 
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
-    friendid = models.BigIntegerField(null=False)
+    friendid = models.BigIntegerField(null=False, db_index=True)
 
 class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
@@ -66,11 +66,11 @@ class UserProcessing(models.Model):
     accesstoken = models.TextField(null=True)
 
 class UserLogin(models.Model):
-    userlogin = models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
+    userlogin = models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
 class UserEmail(models.Model):
-    userid = models.BigIntegerField(null=False)
+    userid = models.BigIntegerField(null=False, db_index=True)
     fofid = models.BigIntegerField(null=False)
     friendid = models.BigIntegerField(default=None, null=True)
     action = models.IntegerField(null=False)

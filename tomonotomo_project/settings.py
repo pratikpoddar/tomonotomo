@@ -160,7 +160,8 @@ INSTALLED_APPS = (
     'social_auth',
     'functools32',
     'django_cron',
-    #'profiler'
+    #'profiler',
+    'south'
 )
 
 LOG_DIR='/home/ubuntu/django_log'
