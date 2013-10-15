@@ -12,6 +12,8 @@ from functools32 import lru_cache
 
 from datetime import datetime
 
+unsubscribe_list = [600051700, 1161983158]
+
 def num_of_admires(fbid):
 	return UserFeedback.objects.filter(fbid=fbid, action=3).count()
 
@@ -76,6 +78,7 @@ def findPeople101_2():
 def sendEmail101():
 	
 	lpeople = findPeople101()
+	lpeople = filter(lambda x: x not in unsubscribe_list, lpeople)
 	for lperson in lpeople:
 		sendPromotionalEmailCuteFriends101(lperson)
 
@@ -83,6 +86,7 @@ def sendEmail101():
 
 def sendEmail101_2():
 	lpeople = findPeople101_2()
+	lpeople = filter(lambda x: x not in unsubscribe_list, lpeople)
 	for lperson in lpeople:
 		sendPromotionalEmailCuteFriends101(lperson)
 
