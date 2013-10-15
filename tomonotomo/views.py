@@ -493,6 +493,12 @@ def tntAction(request, fbid, action, fbfriend):
 
     #actionbefore = UserFeedback.objects.filter(userid=userinfo, fbid=fbid).exclude(action=5).count()
 
+    if UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=action, timestamp__gte=date.today()).exclude(action=1).count() > 0:
+	if (action == 1) or (action == 2) or (action == 3):
+		return redirect('/profile/'+str(fbname)+'/'+str(fbid))
+	if (action == 4) or (action ==5):
+		return redirect('/fof')
+
     feedback = UserFeedback(userid=userinfo, fbid=fbid, action=action)
     feedback.save()
 
