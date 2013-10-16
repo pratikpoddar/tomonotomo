@@ -83,7 +83,16 @@ def getRandFoF(fbid, reqgender):
 	fblist = getFriendsonTnT(fbid)
 	barredlist = getBarredList(fbid)
 	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-
+	if reqgender == 1:
+		minlimit=fbidage-2
+		maxlimit=fbidage+5
+	if reqgender == 2:
+		minlimit=fbidage-5
+		maxlimit=fbidage+2
+	if reqgender == 3:
+		minlimit=0
+		maxlimit=0
+	
 	frndattempts = 0
 	while frndattempts < 20:
 		frndattempts+=1
@@ -105,7 +114,7 @@ def getRandFoF(fbid, reqgender):
 				chosen_id = choice(listofFoFs)
 				chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
 				if chosen_user.get_age() != "[Age N.A.]":
-            				if math.fabs(int(chosen_user.get_age())-int(fbidage)) < 5:
+            				if minlimit <= int(chosen_user.get_age()) <= maxlimit:
 						if not chosen_user.relstatus==2:
 							if not reqgender==3:
 								if chosen_user.gender==reqgender:
