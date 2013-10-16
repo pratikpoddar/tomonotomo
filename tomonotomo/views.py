@@ -172,19 +172,22 @@ def personalprofile(request):
 def fofrandom(request):
     loggedid = dbutils.getLoggedInUser(request)
     quotaover = dbutils.check_quota_over(loggedid)
+
+    if quotaover:
+	return redirect('/quotaover')
+
     gender = UserTomonotomo.objects.get(userid=loggedid).gender
     reqgender = 3
     if gender==1:
         reqgender = 2
     if gender==2:
         reqgender = 1
+
     fbid = dbutils.getRandFoF(loggedid, reqgender)
+
     if fbid == 0:
 	logger.exception('dbutils.fofrandom - random friend of friend returned zero - ' + str(loggedid))
         return redirect('/nomatchforyou')
-
-    if quotaover:
-	return redirect('/quotaover')
 
     try:
     	fbname = slugify(dbutils.getFullName(fbid))

@@ -62,7 +62,6 @@ def getPotentialFoFs(fbid, reqgender):
 
 	return fofs
 
-@lru_cache(maxsize=32)
 def getBarredListCache(fbid):
 
         friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
@@ -74,7 +73,7 @@ def getBarredListCache(fbid):
 def getBarredList(fbid):
 
         barredlistcache = getBarredListCache(fbid)
-        recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid).order_by('-id').values('fbid')[0:50])
+        recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, timestamp__gte=date.today()).values('fbid'))
         barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
 
