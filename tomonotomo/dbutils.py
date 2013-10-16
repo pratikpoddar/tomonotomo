@@ -9,6 +9,7 @@ from django.db.models import Count
 from functools32 import lru_cache
 
 from datetime import datetime
+from datetime import date
 
 import logging
 
