@@ -83,3 +83,7 @@ class UserHappening(models.Model):
 class UserQuota(models.Model):
     userid = models.BigIntegerField(null=False, db_index=True)
     quota = models.IntegerField(null=False, default=30)
+
+class TomonotomoQuotes(models.Model):
+    quote = models.TextField(null=False)
+

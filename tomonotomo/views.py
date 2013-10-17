@@ -316,6 +316,7 @@ def profile(request, fbname, fbid):
 		'notify_welcome': notify_welcome,
 		'quota': dbutils.getQuota(loggedid),
 		'secretadmirers': dbutils.getSecretAdmirers(fbid),
+		'lovequote': dbutils.getRandomLoveQuote(),
         })
 
     return HttpResponse(template.render(context))
