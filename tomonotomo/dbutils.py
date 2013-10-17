@@ -65,9 +65,8 @@ def getPotentialFoFs(fbid, reqgender):
 
 def getBarredListCache(fbid):
 
-        friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
-        skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
-        #return skipadmiredlist
+	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+	skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
 	barredlist = list(set(friendlist + skipadmiredlist))
 	return barredlist
 
@@ -78,10 +77,23 @@ def getBarredList(fbid):
         barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
 
+@lru_cache(maxsize=32)
+def getPopularFoFs(fbid):
+	
+	admiredpeople=UserFeedback.objects.filter(action=3).values('fbid').annotate(Count('fbid')).order_by('-fbid__count')
+	admiredpeople=filter(lambda x: x['fbid__count'] > 3, admiredpeople)
+	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+	admiredfof=filter(lambda admiredperson: len(set(map(lambda y: y['userid'], UserFriends.objects.filter(friendid=admiredperson['fbid']).values('userid'))) & set(friendlist)), admiredpeople)
+	admiredfof = map (lambda x: x['fbid'], admiredfof)
+	
+	return admiredfof
+	
+
 def getRandFoF(fbid, reqgender):
 
 	fblist = getFriendsonTnT(fbid)
 	barredlist = getBarredList(fbid)
+	popularFoFs = getPopularFoFs(fbid)
 	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	if reqgender == 1:
 		minlimit=fbidage-2
@@ -98,13 +110,25 @@ def getRandFoF(fbid, reqgender):
 		frndattempts+=1
 		shuffle(fblist)
 		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
+		listofFoFs = list(set(listofFoFs + popularFoFs))
 		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
 		if len(listofFoFs)==0:
 			break
 
+		fofattempts = 0
 		if fbidage == "[Age N.A.]":
-			return choice(listofFoFs)
+			while fofattempts < 300:
+				fofattempts+=1
+				chosen_id = choice(listofFoFs)
+				chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+				if not chosen_user.relstatus==2:
+					if not reqgender==3:
+						if chosen_user.gender==reqgender:
+							return chosen_id
+					else:
+						return chosen_id
+
 
 		fofattempts = 0
 		if fbidage != "[Age N.A.]":
