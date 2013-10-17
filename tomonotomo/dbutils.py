@@ -152,6 +152,14 @@ def getQuota(fbid):
 		quota = 0
 	return quota
 
+def getSecretAdmirers(fbid):
+	try:
+		num = UserFeedback.objects.filter(fbid=fbid, action=3).count()
+	except:
+		num = 0
+
+	return num
+
 def check_quota_over(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid)

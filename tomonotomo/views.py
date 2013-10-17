@@ -315,6 +315,7 @@ def profile(request, fbname, fbid):
 		'notify_hover_on_button': notify_hover_on_button,
 		'notify_welcome': notify_welcome,
 		'quota': dbutils.getQuota(loggedid),
+		'secretadmirers': dbutils.getSecretAdmirers(fbid),
         })
 
     return HttpResponse(template.render(context))
