@@ -164,6 +164,7 @@ def personalprofile(request):
 		'nevershowlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=4).values('fbid')))),
 		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, 15),
 		'quota': dbutils.getQuota(loggedid),
+		'secretadmirers': dbutils.getSecretAdmirers(loggedid),
         })
 
     return HttpResponse(template.render(context))
