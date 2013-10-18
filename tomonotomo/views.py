@@ -196,6 +196,7 @@ def fofrandom(request):
 
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
+@login_required(login_url='index')
 def profile(request, fbname, fbid):
     logger.debug('view.profile - ' + fbname + ' - ' + str(fbid))
     #fbid = 717323242
