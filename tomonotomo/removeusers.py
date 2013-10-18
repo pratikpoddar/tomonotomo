@@ -34,4 +34,10 @@ def removeUser (fbid):
         UserEmail.objects.filter(friendid=fbid).delete()
         UserEmail.objects.filter(fofid=fbid).delete()
         return
+
+removeProfile(100001913079283)
+removeProfile(10151679883390671)
+removeProfile(1561929970)
+
+
 	
