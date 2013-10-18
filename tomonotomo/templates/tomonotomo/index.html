@@ -32,7 +32,7 @@
        	<div class="grid_4">
 			<h2>Connect with Friends of Friends</h2>
             <h3>We are revolutionising the way dating happens. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> men and women are here already</span></h3><br/>
-			{% if not user.id %}
+			{% if not request.user.id %}
                 <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="btn btn-large"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
                 <h3>We don't post anything on your wall!</h3>
             {% else %}

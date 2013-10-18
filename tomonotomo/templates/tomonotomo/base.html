@@ -73,8 +73,8 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 			<div class="grid_12">
 				<div id="heading-tomonotomo" style="font-size:60px;color:black;float:left;vertical-align:bottom;white-space:nowrap"><a href="/home">tomo no tomo<span style="font-size:20%;color:black"> (alpha) </span></a></div>
 				<div class="links">
-					{% if user.id %}
-						<a href="/profile" target="_blank">{{ user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
+					{% if request.user.id %}
+						<a href="/profile" target="_blank">{{ request.user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
 					{% else %}
 						Have an account? <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign in</a> or <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign up</a>
 					{% endif %}
@@ -146,7 +146,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
   ga('create', 'UA-43121582-1', 'tomonotomo.com');
   ga('send', 'pageview');
 
-  {% if user.id %}
+  {% if request.user.id %}
 	mixpanel.identify('{{ loggeduserid }}')
   {% endif %}
   mixpanel.track_links('a', 'click on link', {'referrer': document.referrer});
