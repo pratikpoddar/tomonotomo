@@ -67,7 +67,8 @@ def getBarredListCache(fbid):
 
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
 	skipadmiredlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, action__range=(3,4)).values('fbid'))
-	barredlist = list(set(friendlist + skipadmiredlist))
+	sadlist = getSadFoFs(fbid)
+	barredlist = list(set(friendlist + skipadmiredlist + sadlist))
 	return barredlist
 
 def getBarredList(fbid):
@@ -87,7 +88,17 @@ def getPopularFoFs(fbid):
 	admiredfof = map (lambda x: x['fbid'], admiredfof)
 	
 	return admiredfof
-	
+
+@lru_cache(maxsize=32)
+def getSadFoFs(fbid):
+
+        sadpeople=UserFeedback.objects.filter(action=4).values('fbid').annotate(Count('fbid')).order_by('-fbid__count')
+        sadpeople=filter(lambda x: x['fbid__count'] > 7, sadpeople)
+        friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
+        sadfof=filter(lambda sadperson: len(set(map(lambda y: y['userid'], UserFriends.objects.filter(friendid=sadperson['fbid']).values('userid'))) & set(friendlist)), sadpeople)
+        sadfof = map (lambda x: x['fbid'], sadfof)
+
+        return sadfof
 
 def getRandFoF(fbid, reqgender):
 
