@@ -76,7 +76,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 					{% if user.id %}
 						<a href="/profile" target="_blank">{{ user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
 					{% else %}
-						Have an account? <a href="{% url "socialauth_begin" "facebook" %}">Sign in</a> or <a href="{% url "socialauth_begin" "facebook" %}">Sign up</a>
+						Have an account? <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign in</a> or <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign up</a>
 					{% endif %}
 				</div>
 				<div class="clear"></div>
