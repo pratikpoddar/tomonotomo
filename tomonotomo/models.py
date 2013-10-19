@@ -71,7 +71,7 @@ class UserLogin(models.Model):
 
 class UserEmail(models.Model):
     userid = models.BigIntegerField(null=False, db_index=True)
-    fofid = models.BigIntegerField(null=False)
+    fofid = models.BigIntegerField(null=False, db_index=True)
     friendid = models.BigIntegerField(default=None, null=True)
     action = models.IntegerField(null=False)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
