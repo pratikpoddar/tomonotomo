@@ -105,6 +105,7 @@ def getRandFoF(fbid, reqgender):
 	fblist = getFriendsonTnT(fbid)
 	barredlist = getBarredList(fbid)
 	popularFoFs = getPopularFoFs(fbid)
+	secretadmirers = getSecretAdmirers(fbid)
 	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	if reqgender == 1:
 		minlimit=fbidage-2
@@ -121,7 +122,7 @@ def getRandFoF(fbid, reqgender):
 		frndattempts+=1
 		shuffle(fblist)
 		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
-		listofFoFs = list(set(listofFoFs + popularFoFs))
+		listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
 		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
 		if len(listofFoFs)==0:
@@ -187,7 +188,7 @@ def getQuota(fbid):
 		quota = 0
 	return quota
 
-def getSecretAdmirers(fbid):
+def getSecretAdmirersCount(fbid):
 	try:
 		num = UserFeedback.objects.filter(fbid=fbid, action=3).count()
 	except:
@@ -195,6 +196,15 @@ def getSecretAdmirers(fbid):
 
 	return num
 
+def getSecretAdmirers(fbid):
+
+	try:
+		return map(lambda x: x['userid'], UserFeedback.objects.filter(fbid=fbid, action=3).values('userid'))
+	except:
+		return []
+
+	return []
+	
 def check_quota_over(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid)

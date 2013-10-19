@@ -164,7 +164,7 @@ def personalprofile(request):
 		'nevershowlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=4).values('fbid')))),
 		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, 15),
 		'quota': dbutils.getQuota(loggedid),
-		'secretadmirers': dbutils.getSecretAdmirers(loggedid),
+		'secretadmirers': dbutils.getSecretAdmirersCount(loggedid),
         })
 
     return HttpResponse(template.render(context))
@@ -317,7 +317,7 @@ def profile(request, fbname, fbid):
 		'notify_hover_on_button': notify_hover_on_button,
 		'notify_welcome': notify_welcome,
 		'quota': dbutils.getQuota(loggedid),
-		'secretadmirers': dbutils.getSecretAdmirers(fbid),
+		'secretadmirers': dbutils.getSecretAdmirersCount(fbid),
 		'lovequote': dbutils.getRandomLoveQuote(),
         })
 
