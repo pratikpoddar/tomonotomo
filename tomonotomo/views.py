@@ -48,34 +48,6 @@ def index(request):
         })
     return HttpResponse(template.render(context))
 
-def sitemapgen(request, number):
-    template = loader.get_template('tomonotomo/sitemap.html')
-
-    if request.user.id:
-        loggedid = dbutils.getLoggedInUser(request)
-    else:
-        loggedid = 0
-
-    if number < 0:
-	listofusers  = []
-
-    else:
-    	try:
-    		listofusers = UserTomonotomo.objects.filter(id__range=(int(number)*500, int(number)*500+520)).values('userid')
-   	except:
-		listofusers = []
-    
-    context = RequestContext(request, {
-        'listofusers' : map(lambda x: {'name': dbutils.getFullName(x['userid']), 'id':x['userid']},  listofusers),
-	'sitemaplist' : range(1,1001),
-	'loggeduserid': loggedid,
-	'quota': dbutils.getQuota(loggedid),
-        })
-    return HttpResponse(template.render(context))
-
-def sitemap(request):
-    return sitemapgen(request,-1)
-
 @login_required(login_url='index')
 def nomatchforyou(request):
     template = loader.get_template('tomonotomo/nomatchforyou.html')
