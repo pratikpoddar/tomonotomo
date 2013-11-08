@@ -52,6 +52,8 @@ SESSION_COOKIE_DOMAIN = '.tomonotomo.com'
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['tomonotomo.com','www.tomonotomo.com']
 
+USE_X_FORWARDED_HOST = True
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
