@@ -102,7 +102,6 @@ def personalprofile(request):
         worklist = []
     else:
         worklist = profile.work.split('---')
-        worklist.reverse()
         worklist = filter(lambda x: len(x), worklist)
 
     if profile.education == "":
@@ -177,6 +176,7 @@ def profile(request, fbname, fbid):
     notify_hover_on_button = 0
     notify_invite_friends = 0
     notify_welcome = 0
+    notify_like_follow = 0
     loggedid=0
     if request.user.id:
         loggedid = dbutils.getLoggedInUser(request)
@@ -187,11 +187,6 @@ def profile(request, fbname, fbid):
         infoList = historyFeedback['info']
         if len(mutualfriends) == 0:
                 show_button=0
-        #try:
-        #        isa_friend = UserFriends.objects.get(userid=loggedid, friendid=fbid)
-        #        show_button=0
-        #except UserFriends.DoesNotExist:
-        #        show_button=show_button
 
 	if int(loggedid) == int(fbid):
 		show_button=0
@@ -207,6 +202,13 @@ def profile(request, fbname, fbid):
 		if len(lastfeedback)<2:
 			logger.info('view.profile - Showed Gritter Notification - for hover on button - ' + str(loggedid))
 			notify_hover_on_button=1
+
+	if (len(lastfeedback)>=13) and (len(lastfeedback)<=22):
+		if lastfeedback[0] not in [4,5]:
+			lastfeedback = filter(lambda x: x not in [4,5], lastfeedback)
+			if len(lastfeedback)==4:
+				logger.info('view.profile - Showed Gritter Notification - for like / follow - ' + str(loggedid))
+				notify_like_follow=1
 
 	if len(lastfeedback)==25:
 		logger.info('view.profile - Showed Gritter Notification - for invite friends - ' + str(loggedid))
@@ -247,7 +249,6 @@ def profile(request, fbname, fbid):
         worklist = []
     else:
         worklist = profile.work.split('---')
-        worklist.reverse()
         worklist = filter(lambda x: len(x), worklist)
 
     if profile.education == "":
@@ -265,10 +266,11 @@ def profile(request, fbname, fbid):
     else:
         agelocation = profile.location
 
-    #if int(loggedid)==100000234638922:
-	#	notify_invite_friends=1
-	#	notify_hover_on_button=1
-	#	notify_welcome=1
+    if int(loggedid)==717323242:
+		notify_invite_friends=1
+		notify_hover_on_button=1
+		notify_welcome=1
+		notify_like_follow=1
 	
     context = RequestContext(request, {
 		'loggeduserid': loggedid,
@@ -288,6 +290,7 @@ def profile(request, fbname, fbid):
 		'notify_invite_friends': notify_invite_friends,
 		'notify_hover_on_button': notify_hover_on_button,
 		'notify_welcome': notify_welcome,
+		'notify_like_follow': notify_like_follow,
 		'quota': dbutils.getQuota(loggedid),
 		'secretadmirers': dbutils.getSecretAdmirersCount(fbid),
 		'lovequote': dbutils.getRandomLoveQuote(),

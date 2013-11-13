@@ -250,6 +250,15 @@ $(window).load(function(){
                 time:20000
         });
         {% endif %}
+        {% if notify_like_follow %}
+        $.gritter.add({
+                title: '<br/>Looks like you are beginning to like us :)',
+                text: '<span style="font-size:120%">We are getting a good feeling that you are beginning to like us. Please accept our friend request :) and like us on <a href="https://www.facebook.com/tomonotomo" target="_blank">facebook (Tomonotomo)</a>, and follow us on <a href="https://twitter.com/tomonotomo_date" target="_blank"> twitter (tomonotomo_date)</a> </span>',
+                class_name: 'gritter-light',
+                time:20000
+        });
+        {% endif %}
+
 
 });
 

@@ -34,6 +34,18 @@
 		$('.full-width').horizontalNav({});
     });
 </script>
+
+<!-- Now showing gritter on mobile -->
+<style type="text/css">
+
+  @media all and (max-width: 480px) {
+	#gritter-notice-wrapper {
+		display:none
+	}
+   }
+
+</style>
+
 <!--[if lt IE 8]>
    <div style=' clear: both; text-align:center; position: relative;'>
      <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -71,8 +83,8 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 	<header>
 		<div class="container_12">
 			<div class="grid_12">
-				<div id="heading-tomonotomo" style="font-size:60px;color:black;float:left;vertical-align:bottom;white-space:nowrap"><a href="/home">tomo no tomo<span style="font-size:20%;color:black"> (alpha) </span></a></div>
-				<div class="links">
+				<div id="heading-tomonotomo" style="font-size:44px;color:black;vertical-align:bottom;white-space:nowrap"><a href="/home">tomo no tomo<span style="font-size:15%;color:black"> (alpha) </span></a></div>
+				<div class="links" style="padding-top:24px">
 					{% if request.user.id %}
 						<a href="/profile" target="_blank">{{ request.user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
 					{% else %}
@@ -119,22 +131,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 </div>
  
 <footer>
-	<div class="container_12">
-		<div class="grid_6">
-			Tomonotomo © 2013| <a href='{% url "index" %}'>Home</a> | <a href='{% url "about" %}'>About</a> | <a href='{% url "terms" %}'>Terms</a> | <a href='http://www.tomonotomo.wordpress.com'>Blog</a> 
-</div>
-<div class="grid_6" style="text-align:right">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1398031667088132";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-href="http://www.facebook.com/tomonotomo" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
-	</div>
-	</div>
+	<div class="container_12">Tomonotomo © 2013| <a href='{% url "index" %}'>Home</a> | <a href='{% url "about" %}'>About</a> | <a href='{% url "terms" %}'>Terms</a> | <a href='http://www.tomonotomo.wordpress.com'>Blog</a> </div>
 </footer>
 
 <script>
@@ -153,6 +150,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 
 </script>
 
+<!--
 <script id="_webengage_script_tag" type="text/javascript">
   var _weq = _weq || {};
   _weq['webengage.licenseCode'] = '58add093';
@@ -167,5 +165,5 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
     _sNode.parentNode.insertBefore(_we, _sNode);
   })(document);
 </script>
-
+-->
 </body></html>
