@@ -1,0 +1,4 @@
+# robots.txt for http://www.tomonotomo.com/
+
+User-agent: *
+Disallow: /profile/
