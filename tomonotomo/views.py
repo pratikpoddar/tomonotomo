@@ -127,7 +127,6 @@ def personalprofile(request):
                 'worklist': worklist,
                 'educationlist': educationlist,
                 'meta': meta,
-                'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
                 'connectfriendslist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=1).values('fbid')))),
 		'connectdirectlist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=2).values('fbid')))),
 		'admirelist': list(set(map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=loggedid,action=3).values('fbid')))),
@@ -241,7 +240,7 @@ def profile(request, fbname, fbid):
         description='Looking for interesting people in your network? We are revolutionising the way dating happens right now. Please give us a try, if you believe in safe, secure and friendly relationship based on trust and respect',
         keywords=['dating', 'tomonotomo', 'friend'],
         image='http://graph.facebook.com/'+str(fbid)+'/picture?type=square',
-        title= str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
+        title= 'tomonotomo - meet friends of friends',
     )
 
 
@@ -286,7 +285,6 @@ def profile(request, fbname, fbid):
 	        'doneList': doneList,
 	        'email_exists': email_exists,
 	        'show_button': show_button,
-		'title': str(profile.get_full_name()) + ' - tomonotomo - meet friends of friends',
 		'notify_invite_friends': notify_invite_friends,
 		'notify_hover_on_button': notify_hover_on_button,
 		'notify_welcome': notify_welcome,

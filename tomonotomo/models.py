@@ -33,9 +33,11 @@ class UserTomonotomo(models.Model):
 
     def get_full_name(self):
 	    try:
-	    	fullname = (self.first_name + " " + self.last_name).encode('ascii')
+	    	#fullname = (self.first_name + " " + self.last_name).encode('ascii')
+		fullname = (self.first_name + " " + self.last_name).encode('utf-8')
             	return fullname
 	    except:
+		logger.exception("Name Not Readable for " + str(self.userid))
 		return "Name not Readable"
     def get_short_name(self):
             return self.first_name
