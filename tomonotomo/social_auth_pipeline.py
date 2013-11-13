@@ -79,14 +79,6 @@ def create_custom_user(backend, details, user=None,
 
         # "----"
 
-        userloggedin = UserTomonotomo.objects.get(userid=res['id'])
-
-        userlogin = UserLogin()
-        userlogin.userlogin = userloggedin
-        userlogin.save()
-
-        # "----"
-
         try:
             userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
         except UserProcessing.DoesNotExist:

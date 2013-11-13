@@ -69,6 +69,7 @@ class UserProcessing(models.Model):
 
 class UserLogin(models.Model):
     userlogin = models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
+    friends = models.IntegerField(null=False, default=0)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
 class UserEmail(models.Model):

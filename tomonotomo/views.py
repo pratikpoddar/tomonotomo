@@ -386,7 +386,7 @@ def loggedin(request):
         loggedid = dbutils.getLoggedInUser(request)
     else:
         loggedid = 0
-
+ 
     fbid = dbutils.getLoggedInUser(request)
     template = loader.get_template('tomonotomo/loggedin.html')
 
@@ -401,6 +401,16 @@ def loggedin(request):
 
     try:
     	UserHappening.objects.filter(userid=fbid).delete()
+    except:
+	pass
+
+    try:
+	userloggedin = UserTomonotomo.objects.get(userid=fbid)
+        userlogin = UserLogin()
+        userlogin.userlogin = userloggedin
+	userlogin.friends = friendsonTnT
+        userlogin.save()
+
     except:
 	pass
 
