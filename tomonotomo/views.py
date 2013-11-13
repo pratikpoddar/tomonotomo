@@ -266,11 +266,11 @@ def profile(request, fbname, fbid):
     else:
         agelocation = profile.location
 
-    if int(loggedid)==717323242:
-		notify_invite_friends=1
-		notify_hover_on_button=1
-		notify_welcome=1
-		notify_like_follow=1
+    #if int(loggedid)==717323242:
+	#	notify_invite_friends=1
+	#	notify_hover_on_button=1
+	#	notify_welcome=1
+	#	notify_like_follow=1
 	
     context = RequestContext(request, {
 		'loggeduserid': loggedid,
