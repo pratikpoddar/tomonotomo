@@ -267,6 +267,8 @@ class startPostProcessing(CronJobBase):
                 	UserProcessing.objects.filter(userloggedin = userloggedin).delete()
                 	logger.debug("social_auth_pipeline.startPostProcessing - Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
         	except:
+			UserProcessing.objects.filter(userloggedin = userloggedin).delete()
+			logger.exception("social_auth_pipeline.startPostProcessing - CRITICAL - deletedfrom userprocessing userloggedin " + str(userloggedin) + " accesstoken " + str(accesstoken))
             		logger.exception("social_auth_pipeline.startPostProcessing - Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
 
 		logger.debug("social_auth_pipeline.startPostProcessing - Before this operation - length of list was " + str(len(pendingusers)))
