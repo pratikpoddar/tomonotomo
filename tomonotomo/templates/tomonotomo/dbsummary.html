@@ -19,7 +19,7 @@
 		{% endfor %}
 	    <br/>Users loggedin in last 24 hours: ({{ dbsummary_users_login_24 | length }})<br/>
 		{% for dbuser in dbsummary_users_login_24 %}
-			<a href="http://www.tomonotomo.com/profile/{{ dbuser.userlogin }}" target="_blank">{{ dbuser.userlogin }}</a> - {{ dbuser.timestamp }} CDT<br/>
+			<a href="http://www.tomonotomo.com/profile/{{ dbuser.userlogin }}" target="_blank">{{ dbuser.userlogin }}</a> - {{ dbuser.timestamp }} CDT - {{ dbuser.friends }} FriendsonTnT<br/>
 		{% endfor %}
 	    <br/>Users registered in last 24 hours: ({{ dbsummary_users_register_24 | length }})<br/>
                 {% for dbuser in dbsummary_users_register_24 %}
