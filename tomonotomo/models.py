@@ -66,6 +66,7 @@ class UserFeedback(models.Model):
 class UserProcessing(models.Model):
     userloggedin= models.ForeignKey('UserTomonotomo', to_field='userid', null=False)
     accesstoken = models.TextField(null=True)
+    entryaddtime = models.DateTimeField(auto_now_add=True, null=True, default=None)
 
 class UserLogin(models.Model):
     userlogin = models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)

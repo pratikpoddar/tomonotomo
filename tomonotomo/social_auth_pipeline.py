@@ -250,12 +250,19 @@ class startPostProcessing(CronJobBase):
 
     def do(self):
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts")
-        pendingusers = UserProcessing.objects.all().values('userloggedin','accesstoken')
+        pendingusers = UserProcessing.objects.filter(entryaddtime__lte=datetime.now()+timedelta(hours=-1)).values('userloggedin','accesstoken')
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts - length of list is " + str(len(pendingusers)))
         if len(pendingusers) > 0:
         	randnum = randint(0, len(pendingusers)-1)
 		userloggedin = pendingusers[randnum].get('userloggedin')
                 accesstoken = pendingusers[randnum].get('accesstoken')
+		
+		UserProcessing.objects.filter(userloggedin = userloggedin).delete()
+            	userprocessing = UserProcessing()
+	        userprocessing.userloggedin = userloggedin
+		userprocessing.accesstoken = accesstoken
+		userprocessing.save()
+
                 try:
 			logger.debug("social_auth_pipeline.startPostProcessing - Starting Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
                 	postProcessing(userloggedin, accesstoken)
@@ -263,8 +270,6 @@ class startPostProcessing(CronJobBase):
                 	UserProcessing.objects.filter(userloggedin = userloggedin).delete()
                 	logger.debug("social_auth_pipeline.startPostProcessing - Completed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
         	except:
-			UserProcessing.objects.filter(userloggedin = userloggedin).delete()
-			logger.exception("social_auth_pipeline.startPostProcessing - CRITICAL - deletedfrom userprocessing userloggedin " + str(userloggedin) + " accesstoken " + str(accesstoken))
             		logger.exception("social_auth_pipeline.startPostProcessing - Failed Post Processing for " + str(userloggedin) + " with accesstoken " + accesstoken)
 
 		logger.debug("social_auth_pipeline.startPostProcessing - Before this operation - length of list was " + str(len(pendingusers)))
