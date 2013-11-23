@@ -176,6 +176,7 @@ def profile(request, fbname, fbid):
     notify_invite_friends = 0
     notify_welcome = 0
     notify_like_follow = 0
+    notify_tip_arrowkey = 0
     loggedid=0
     if request.user.id:
         loggedid = dbutils.getLoggedInUser(request)
@@ -195,6 +196,10 @@ def profile(request, fbname, fbid):
 	if len(lastfeedback)==0:
 		logger.info('view.profile - Showed Gritter Notification - for welcome - ' + str(loggedid))
 		notify_welcome=1
+
+	if len(lastfeedback)==3:
+		logger.info('view.profile - Showed Gritter Notification - for arrowkeys - ' + str(loggedid))
+		notify_tip_arrowkey = 1
 
 	if len(lastfeedback)==10:
 		lastfeedback = filter(lambda x: x not in [4,5], lastfeedback)
@@ -266,10 +271,11 @@ def profile(request, fbname, fbid):
         agelocation = profile.location
 
     #if int(loggedid)==717323242:
-	#	notify_invite_friends=1
-	#	notify_hover_on_button=1
-	#	notify_welcome=1
-	#	notify_like_follow=1
+    #		notify_invite_friends=1
+    #		notify_hover_on_button=1
+    #		notify_welcome=1
+    #		notify_like_follow=1
+    #		notify_tip_arrowkey=1
 	
     context = RequestContext(request, {
 		'loggeduserid': loggedid,
@@ -289,6 +295,7 @@ def profile(request, fbname, fbid):
 		'notify_hover_on_button': notify_hover_on_button,
 		'notify_welcome': notify_welcome,
 		'notify_like_follow': notify_like_follow,
+		'notify_tip_arrowkey': notify_tip_arrowkey,
 		'quota': dbutils.getQuota(loggedid),
 		'secretadmirers': dbutils.getSecretAdmirersCount(fbid),
 		'lovequote': dbutils.getRandomLoveQuote(),

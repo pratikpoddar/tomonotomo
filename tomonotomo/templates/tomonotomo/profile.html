@@ -71,8 +71,8 @@
 	<div class="container_12">
 
 		<div class="grid_4">
-			<div class="page_block" style="margin:0px">
-				<img src="https://graph.facebook.com/{{ fbid }}/picture?width=300&height=300" alt="" style="width:99%;height:auto">
+			<div class="page_block" style="margin:0px;">
+				<img src="https://graph.facebook.com/{{ fbid }}/picture?width=300&height=300" alt="" style="width:99%;height:auto;min-height:64px;">
 				<div class="clear"></div>
 				<span style="text-align:center">
 					<a href="https://facebook.com/{{ fbid }}" target="_blank">{{ fullname }}'s Facebook Page</a>
@@ -89,15 +89,12 @@
 		</div>
 
 		<div class="grid_8">
-			<div class="container_12">
-			<div class="grid_12">
+			<div>
 			<h2>{{ fullname }}<br/>
 			<span style="font-size:60%">{{ agelocation }}</span></h2>
 			</div>
-			</div>
-
-			<div class="container_12">
-				<div class="grid_4" style="text-align:center">
+		</div>
+		<div class="grid_4" style="text-align:center">
                         {% if request.user.id %}
 				{% if show_button %}
 					<div>
@@ -150,6 +147,16 @@
                             {% endfor %}
 			   $(".friendbtn").live('click', function() { $(".friendbtn").attr('disabled','disabled')} );
 
+			   document.onkeydown = function() {
+    				switch (window.event.keyCode) {
+			        case 37:
+			            history.back();
+			            break;
+			        case 39:
+			            $(location).attr('href','http://www.tomonotomo.com/tntAction/{{ fbid }}/5/0');
+			            break;
+			    }
+};
                         })
                     </script>
                     <div>
@@ -159,8 +166,8 @@
 				<br/><br/>
                     </div>
 
-				</div>
-				<div class="grid_4">
+		    </div>
+		    <div class="grid_4">
 					<div>
 						{% if mutualfriends %}
 	                                                <div class="block" style="background:none">
@@ -187,7 +194,7 @@
 							</div>
                                 		{% endif %}
 					</div>
-				</div>
+		   </div>
 
     </div>
     </div>
@@ -207,10 +214,7 @@
                         {% endif %}
                 </div>
 			</div>
-
-	</div>
-</div>
-
+     </div>
 	<div class="container_12" style="text-align:center;max-width:70%">
 		<span style="text-wrap:normal;word-wrap:normal;">
 		{{ lovequote }} &nbsp;&nbsp; 
@@ -218,7 +222,6 @@
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</span>
 	</div>
-</div>
 
 <script type="text/javascript">
 $(window).load(function(){
@@ -254,6 +257,16 @@ $(window).load(function(){
                 time:20000
         });
         {% endif %}
+	{% if notify_tip_arrowkey %}
+        $.gritter.add({
+                title: '<br/>Tomonotomo Tip: Browse through profiles faster',
+                text: '<span style="font-size:120%">If you are in the "just look" mode, you can click on right arrow key to quickly "Show Next" and go through profiles faster :)</span>',
+                class_name: 'gritter-light',
+                time:20000
+        });
+        {% endif %}
+	
+	
 
 
 });
