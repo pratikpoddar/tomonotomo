@@ -4,6 +4,8 @@ from facepy import GraphAPI
 import time
 import pprint
 from random import randint
+from datetime import datetime
+from datetime import timedelta
 
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
 
