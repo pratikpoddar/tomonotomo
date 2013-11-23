@@ -74,8 +74,9 @@ def create_custom_user(backend, details, user=None,
         # "----"
 
         graph = GraphAPI(res.get('access_token'))
-        responsegraph = graph.get(str(res['id'])+'?fields=birthday')
+        responsegraph = graph.get(str(res['id'])+'?fields=birthday, interests')
         profile.birthday = str(responsegraph.get('birthday'))
+	profile.interests = str(responsegraph.get('interests'))
 
         profile.save()
 

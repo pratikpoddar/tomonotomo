@@ -28,6 +28,7 @@ class UserTomonotomo(models.Model):
     relstatus=models.IntegerField(choices=RELSTATUS_CHOICES, default=1)
     education= models.CharField(max_length=2000L)
     work= models.CharField(max_length=2000L)
+    interests = models.CharField(max_length=10000L)
     time= models.DateTimeField(auto_now_add=True, blank=True)
     username= models.CharField(max_length=200L,null=True)
 
