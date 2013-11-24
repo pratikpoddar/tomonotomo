@@ -79,7 +79,8 @@ def create_custom_user(backend, details, user=None,
         responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
         profile.birthday = str(responsegraph.get('birthday'))
 	if responsegraph.get('likes'):
-		profile.interests = str(extractAllSanitizedLikes(responsegraph.get('likes')))
+		if not profile.interests:
+			profile.interests = str(extractAllSanitizedLikes(responsegraph.get('likes')))
 
         profile.save()
 
