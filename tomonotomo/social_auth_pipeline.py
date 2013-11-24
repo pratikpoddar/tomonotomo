@@ -79,6 +79,7 @@ def create_custom_user(backend, details, user=None,
         responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
         profile.birthday = str(responsegraph.get('birthday'))
 	if responsegraph.get('likes'):
+		# TODO: Gets interests only if interests are not there. Need to change this.
 		if not profile.interests:
 			profile.interests = str(extractAllSanitizedLikes(responsegraph.get('likes')))
 
@@ -269,6 +270,7 @@ def postProcessing(userid, accessToken):
                     		pass
 
 		try:
+			# TODO: Gets interests only if interests are not there. Need to change this.
 			if not userfriend.interests:
 				query = 'SELECT page_id, name FROM page WHERE page_id IN (SELECT page_id FROM page_fan WHERE uid=' + str(frienddata.get('uid')) + ')'
 				userfriend.interests = graph.fql(query).get('data')
@@ -296,7 +298,7 @@ class startPostProcessing(CronJobBase):
 
     def do(self):
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts")
-        pendingusers = UserProcessing.objects.filter(entryaddtime__lte=datetime.now()+timedelta(hours=-1)).values('userloggedin','accesstoken')
+        pendingusers = UserProcessing.objects.filter(entryaddtime__lte=datetime.now()+timedelta(minutes=-15)).values('userloggedin','accesstoken')
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts - length of list is " + str(len(pendingusers)))
         if len(pendingusers) > 0:
         	randnum = randint(0, len(pendingusers)-1)

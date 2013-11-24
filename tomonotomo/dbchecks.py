@@ -28,7 +28,7 @@ def dbchecks2():
 	string+= "<br/>" + str(list2)
 	string+= "<br/>" + "The number list should be empty"
 	
-	list3=UserProcessing.objects.all()
+	list3=UserProcessing.objects.values('userloggedin')
 	string+= "<br/>" + "----- Checking that all accesstokens have been processed"
 	string+= "<br/>" + str(list3)
 	string+= "<br/>" + "The above list should be empty"
