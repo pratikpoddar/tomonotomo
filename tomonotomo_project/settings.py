@@ -235,7 +235,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday', 'user_relationships', 'friends_relationships', 'friends_birthday', 'friends_education_history', 'friends_work_history', 'friends_hometown', 'friends_location', 'user_interests', 'friends_interests']
+FACEBOOK_EXTENDED_PERMISSIONS= ['email', 'user_birthday', 'user_relationships', 'friends_relationships', 'friends_birthday', 'friends_education_history', 'friends_work_history', 'friends_hometown', 'friends_location', 'user_likes', 'friends_likes']
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',

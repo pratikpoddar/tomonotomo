@@ -6,6 +6,8 @@ import pprint
 from random import randint
 from datetime import datetime
 from datetime import timedelta
+import simplejson
+import urllib2
 
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
 
@@ -74,9 +76,10 @@ def create_custom_user(backend, details, user=None,
         # "----"
 
         graph = GraphAPI(res.get('access_token'))
-        responsegraph = graph.get(str(res['id'])+'?fields=birthday, interests')
+        responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
         profile.birthday = str(responsegraph.get('birthday'))
-	profile.interests = str(responsegraph.get('interests'))
+	if responsegraph.get('likes'):
+		profile.interests = str(extractAllSanitizedLikes(responsegraph.get('likes')))
 
         profile.save()
 
@@ -150,11 +153,42 @@ def getSanitizedWork (workProfile):
                         work = work + value['employer']['name']+'---'
         return work
 
+def extractAllSanitizedLikes (likeResFBGraph):
+	
+	likesResult = []
+	likesResult += getSanitizedLikes(likeResFBGraph['data'])
+	try:
+		likesResult += getAllLikes(likeResFBGraph['paging']['next'])
+	except:
+		pass
+	return likesResult
+
+def getAllLikes (likelink):
+	
+	likesdata = simplejson.load(urllib2.urlopen(likelink))
+	likesList = []
+	likesList += getSanitizedLikes(likesdata['data'])
+	try:
+		likesList += getAllLikes(likesdata['paging']['next'])
+	except:
+		pass
+	return likesList
+
+def getSanitizedLikes (likesList):
+        """ Helper function to get likes as a structured string """
+	likesResult = []
+	for likevalue in likesList:
+		try:
+			likesResult.append({'page_id': likevalue['id'], 'name': likevalue['name']})
+		except:
+			pass
+	return likesResult
+
 def postProcessing(userid, accessToken):
 
 	userloggedin = UserTomonotomo.objects.get(userid=userid)
         graph = GraphAPI(accessToken)
-        logger.debug("social_auth_pipeline.postProcessing - Processing " + accessToken + " - userid")
+        logger.debug("social_auth_pipeline.postProcessing - Processing " + accessToken + " - " + str(userid))
 	try:
 		## Checking if accesstoken is valid
         	friendnumber = graph.fql('SELECT friend_count FROM user where uid=me()')
@@ -233,6 +267,14 @@ def postProcessing(userid, accessToken):
                 	except:
                     		pass
 
+		try:
+			if not userfriend.interests:
+				query = 'SELECT page_id, name FROM page WHERE page_id IN (SELECT page_id FROM page_fan WHERE uid=' + str(frienddata.get('uid')) + ')'
+				userfriend.interests = graph.fql(query).get('data')
+		except Exception as e:
+			logger.exception("social_auth_pipeline.postProcessing - Error getting friends' likes - " + str(e) + " - " + str(e.args))
+			pass
+
 	    except Exception as e:
 		logger.exception("social_auth_pipeline.postProcessing - Error collecting information - " + str(e) + " - " + str(e.args))
 		raise
@@ -262,7 +304,7 @@ class startPostProcessing(CronJobBase):
 		
 		UserProcessing.objects.filter(userloggedin = userloggedin).delete()
             	userprocessing = UserProcessing()
-	        userprocessing.userloggedin = userloggedin
+	        userprocessing.userloggedin = UserTomonotomo.objects.get(userid=userloggedin)
 		userprocessing.accesstoken = accesstoken
 		userprocessing.save()
 
