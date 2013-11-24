@@ -33,6 +33,8 @@
                 {% for dbfeedback in dbsummary_userrelstatus %}
                         {{ dbfeedback.relstatus }} - {{dbfeedback.relstatus__count }}<br/>
                 {% endfor %}
+            <br/>UserInterests Stats<br/>
+                {{ dbsummary_userinterests }}<br/>
             <br/>Quota: ({{ dbsummary_quota | length }})<br/>
                 {% for dbuser in dbsummary_quota %}
                         <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
