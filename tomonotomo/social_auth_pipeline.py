@@ -181,7 +181,7 @@ def getSanitizedLikes (likesList):
 	likesResult = []
 	for likevalue in likesList:
 		try:
-			likesResult.append({'page_id': likevalue['id'], 'name': likevalue['name']})
+			likesResult.append({'page_id': int(likevalue['id']), 'name': likevalue['name']})
 		except:
 			pass
 	return likesResult

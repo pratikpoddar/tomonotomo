@@ -52,12 +52,12 @@ def getMutualFriends (fbid1, fbid2):
 def getCommonInterests (fbid1, fbid2):
 
 	try:	
-		intlist1 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid1).values('interests'))
-		intlist2 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid2).values('interests'))
+		intlist1 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid1).values('interests')[0].values()[0])
+		intlist2 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid2).values('interests')[0].values()[0])
 
-		commonint = set(map(lambda x: x['page_id'], intlist1)) & set(map(lambda x: x['page_id'], intlist2))
+		commonint = set(map(lambda x: int(x['page_id']), intlist1)) & set(map(lambda x: int(x['page_id']), intlist2))
 
-		return filter(lambda x: x['page_id'] in commonint, intlist1)
+		return filter(lambda x: int(x['page_id']) in commonint, intlist1)
 	except:
 		return []
 
