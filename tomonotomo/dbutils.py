@@ -93,11 +93,10 @@ def getBarredList(fbid):
         barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=128)
 def getSameLocationPeople(loc):
 	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location=loc).values('userid'))
 	
-
 @lru_cache(maxsize=32)
 def getPopularFoFs(fbid):
 	
@@ -139,7 +138,7 @@ def getRandFoF(fbid, reqgender):
 		maxlimit=0
 	
 	frndattempts = 0
-	while frndattempts < 20:
+	while frndattempts < 30:
 		frndattempts+=1
 		shuffle(fblist)
 		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
