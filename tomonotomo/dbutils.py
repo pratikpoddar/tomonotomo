@@ -119,6 +119,66 @@ def getSadFoFs(fbid):
 
         return sadfof
 
+def get100RandFoF(fbid, reqgender):
+
+        fblist = getFriendsonTnT(fbid)
+	print "fblist : " + str(len(fblist))
+	barredlist = getBarredList(fbid)
+	print "barredlist : " + str(len(barredlist))
+        allpeopleofsamelocation = getSameLocationPeople(UserTomonotomo.objects.get(userid=fbid).location)
+	print "allpeopleofsamelocation : " + str(len(allpeopleofsamelocation))
+        fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
+        if reqgender == 1:
+                minlimit=fbidage-2
+                maxlimit=fbidage+5
+        if reqgender == 2:
+                minlimit=fbidage-5
+                maxlimit=fbidage+2
+        if reqgender == 3:
+                minlimit=0
+                maxlimit=0
+
+        listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist).values('friendid'))))
+        listofFoFs = list(set(allpeopleofsamelocation) & set(listofFoFs))
+        listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
+	print "filtered list of fofs : " + str(len(listofFoFs))
+
+        if len(listofFoFs)==0:
+		return []
+
+        selectedFoFs = []
+	fofattempts = 0
+
+        if fbidage == "[Age N.A.]":
+        	while (len(selectedFoFs) < 100) and (fofattempts < 1000):
+			fofattempts+=1
+                        chosen_id = choice(listofFoFs)
+                        chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+                        if not chosen_user.relstatus==2:
+                        	if not reqgender==3:
+                                	if chosen_user.gender==reqgender:
+                                        	selectedFoFs.append(chosen_id)
+                                else:
+                                	selectedFoFs.append(chosen_id)
+
+
+	if fbidage != "[Age N.A.]":
+            	while (len(selectedFoFs) < 100) and (fofattempts < 1000):
+			fofattempts+=1
+                        chosen_id = choice(listofFoFs)
+                        chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+                        if chosen_user.get_age() != "[Age N.A.]":
+         	               if minlimit <= int(chosen_user.get_age()) <= maxlimit:
+                	               if not chosen_user.relstatus==2:
+                        	               if not reqgender==3:
+                                	               if chosen_user.gender==reqgender:
+                                        	               selectedFoFs.append(chosen_id)
+                                               else:
+                                                	selectedFoFs.append(chosen_id)
+
+	return selectedFoFs
+
+
 def getRandFoF(fbid, reqgender):
 
 	fblist = getFriendsonTnT(fbid)
@@ -138,13 +198,14 @@ def getRandFoF(fbid, reqgender):
 		maxlimit=0
 	
 	frndattempts = 0
-	while frndattempts < 30:
+	while frndattempts < 60:
 		frndattempts+=1
 		shuffle(fblist)
-		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
+		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist[:3]).values('friendid'))))
+		# This is just to increase the probability that you see popular chicks and your secret admirers more
 		listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
+		listofFoFs = list(set(allpeopleofsamelocation) & set(listofFoFs))
 		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-		listofFoFs = filter(lambda x: x in allpeopleofsamelocation, listofFoFs)
 
 		if len(listofFoFs)==0:
 			break
