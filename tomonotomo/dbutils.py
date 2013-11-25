@@ -8,6 +8,8 @@ import math
 from django.db.models import Count
 from functools32 import lru_cache
 
+
+from tomonotomo import unsubscribe
 import pickle
 
 from datetime import datetime
@@ -16,6 +18,7 @@ from datetime import date
 import logging
 
 logger = logging.getLogger(__name__)
+unsubscribe_list=unsubscribe.unsubscribe_list
 
 def print_for_me(fbid,string=""):
 	
@@ -414,6 +417,9 @@ def sendemailFoF (userid, fofid):
         return
 
 def sendemailnotification (userid, shortcontent, content):
+
+	if userid in unsubscribe_list:
+		return
 
         emaillogging = UserEmail(userid=userid, fofid=0, action=9999)
         emaillogging.save()

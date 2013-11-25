@@ -6,13 +6,14 @@ from random import choice,shuffle
 import sendgrid
 import heapq
 
+from tomonotomo import unsubscribe
 from tomonotomo import dbutils
 
 from functools32 import lru_cache
 
 from datetime import datetime
 
-unsubscribe_list = [600051700, 1161983158]
+unsubscribe_list = unsubscribe.unsubscribe_list
 
 def num_of_admires(fbid):
 	return UserFeedback.objects.filter(fbid=fbid, action=3).count()
