@@ -413,6 +413,36 @@ def sendemailFoF (userid, fofid):
 
         return
 
+def sendemailnotification (userid, shortcontent, content):
+
+        emaillogging = UserEmail(userid=userid, fofid=0, action=9999)
+        emaillogging.save()
+
+        s = sendgrid.Sendgrid('pratikpoddar', 'P1jaidadiki', secure=True)
+
+        userinfo = UserTomonotomo.objects.get(userid=userid)
+
+        contextdict = {}
+        subject = userinfo.first_name + ", " + shortcontent
+        contextdict['teaserline'] = subject
+        contextdict['mailheading'] = subject
+        contextdict['mailcontent'] = "Hey "+userinfo.first_name+", Hope you are doing well. " + content + " Regards, Tomonotomo"
+        plaintext_message = contextdict['mailcontent']
+        html_message = prepareEmailNotification(contextdict)
+        message = sendgrid.Message(("admin@tomonotomo.com","Tomonotomo"), subject, plaintext_message, html_message)
+
+        # add a recipient
+        message.add_to(userinfo.email, userinfo.get_full_name())
+
+        # use the SMTP API to send your message
+        s.smtp.send(message)
+
+        #message.add_to('pratik.phodu@gmail.com', 'Pratik Poddar')
+        #s.smtp.send(message)
+
+        return
+
+
 def historyFeedback (userid1, userid2):
 
         # return {'deactivate': [1, 2, 4], 'info': ["checking 1", "checking 2", "checking 3"]}
@@ -558,6 +588,14 @@ def prepareEmail(contextdict, userid, fofid, username, fofname):
 	contextdict['headerimage'] = "http://www.tomonotomo.com/static/tomonotomo/img/emailbanner.png"
 
 	output = render_to_string('tomonotomo/email.html', contextdict)
+	return output
+
+def prepareEmailNotification(contextdict):
+
+	contextdict['title'] = "tomonotomo - meet friends of friends"
+        contextdict['headerimage'] = "http://www.tomonotomo.com/static/tomonotomo/img/emailbanner.png"
+
+	output = render_to_string('tomonotomo/email-notification.html', contextdict)
 	return output
 
 def updateUserHappening(userid, action):

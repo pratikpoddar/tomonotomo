@@ -3,7 +3,7 @@ from social_auth.backends.facebook import FacebookBackend
 from facepy import GraphAPI
 import time
 import pprint
-from random import randint
+from random import randint, shuffle
 from datetime import datetime
 from datetime import timedelta
 import simplejson
@@ -11,6 +11,7 @@ import urllib2
 import pickle
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
 
+import dbutils
 from django.db import transaction
 
 from django_cron import CronJobBase, Schedule
@@ -132,8 +133,19 @@ def create_custom_user(backend, details, user=None,
                 profilefriends = UserFriends()
                 profilefriends.userid = userloggedin
                 profilefriends.friendid = friendontnt
-                profilefriends.save()
+		try:
+	                profilefriends.save()
+		except:
+			pass
 
+	shuffle(friendsontnt)
+	for friendontnt in friendsontnt[:10]:
+	    try:
+		dbutils.sendemailnotification(friendontnt, "One of your friends just joined tomonotomo", "One of your friends just joined tomonotomo to meet interesting friends of friends. We'll keep the name of your friend to ourselves out of respect for his privacy. A new friend is a good news for you as your friend of friend network just increased and you have a larger pool of potential dates. Congratulations and visit www.tomonotomo.com right away!")
+	    except Exception as e:
+		logger.exception("social_auth_pipeline.create_custom_user - error in sendemailnotification " + str(e))
+		pass
+	
         # "----"
 
         logger.debug("social_auth_pipeline.create_custom_user - completed for first time user " + str(userloggedin))
