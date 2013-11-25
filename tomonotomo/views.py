@@ -181,6 +181,7 @@ def profile(request, fbname, fbid):
     if request.user.id:
         loggedid = dbutils.getLoggedInUser(request)
         mutualfriends = map(lambda x: {'name': dbutils.getFullName(x), 'id': x}, dbutils.getMutualFriends(loggedid, fbid))
+	commoninterests = map(lambda x: x['name'], dbutils.getCommonInterests(loggedid, fbid))
         historyFeedback = dbutils.historyFeedback(loggedid, fbid)
         deactivateList = historyFeedback['deactivate']
         doneList = historyFeedback['donelist']
@@ -219,7 +220,8 @@ def profile(request, fbname, fbid):
 		notify_invite_friends=1
 
     else:
-        mutualfriends = []
+        commoninterests = []
+	mutualfriends = []
         deactivateList = [1, 2, 3, 4]
         infoList = []
         doneList = []
@@ -285,6 +287,7 @@ def profile(request, fbname, fbid):
                 'worklist': worklist,
                 'educationlist': educationlist,
                 'mutualfriends': mutualfriends,
+		'commoninterests': commoninterests,
                 'meta': meta,
 	        'deactivateList': deactivateList,
 	        'infoList': infoList,

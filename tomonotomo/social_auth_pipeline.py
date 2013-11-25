@@ -8,7 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 import simplejson
 import urllib2
-
+import pickle
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
 
 from django.db import transaction
@@ -81,7 +81,7 @@ def create_custom_user(backend, details, user=None,
 	if responsegraph.get('likes'):
 		# TODO: Gets interests only if interests are not there. Need to change this.
 		if not profile.interests:
-			profile.interests = str(extractAllSanitizedLikes(responsegraph.get('likes')))
+			profile.interests = pickle.dumps(extractAllSanitizedLikes(responsegraph.get('likes')))
 
         profile.save()
 
@@ -158,9 +158,9 @@ def getSanitizedWork (workProfile):
 def extractAllSanitizedLikes (likeResFBGraph):
 	
 	likesResult = []
-	likesResult += getSanitizedLikes(likeResFBGraph['data'])
+	likesResult.extend(getSanitizedLikes(likeResFBGraph['data']))
 	try:
-		likesResult += getAllLikes(likeResFBGraph['paging']['next'])
+		likesResult.extend(getAllLikes(likeResFBGraph['paging']['next']))
 	except:
 		pass
 	return likesResult
@@ -169,9 +169,9 @@ def getAllLikes (likelink):
 	
 	likesdata = simplejson.load(urllib2.urlopen(likelink))
 	likesList = []
-	likesList += getSanitizedLikes(likesdata['data'])
+	likesList.extend(getSanitizedLikes(likesdata['data']))
 	try:
-		likesList += getAllLikes(likesdata['paging']['next'])
+		likesList.extend(getAllLikes(likesdata['paging']['next']))
 	except:
 		pass
 	return likesList
@@ -211,6 +211,7 @@ def postProcessing(userid, accessToken):
         logger.debug("social_auth_pipeline.postProcessing - list of friends data "+str(len(friendgraph))+" - some are duplicate")
 
         count = 0
+	fqlerror = 0
         for frienddata in friendgraph:
 
             count = count + 1
@@ -271,10 +272,11 @@ def postProcessing(userid, accessToken):
 
 		try:
 			# TODO: Gets interests only if interests are not there. Need to change this.
-			if not userfriend.interests:
+			if (not userfriend.interests) and (not fqlerror):
 				query = 'SELECT page_id, name FROM page WHERE page_id IN (SELECT page_id FROM page_fan WHERE uid=' + str(frienddata.get('uid')) + ')'
-				userfriend.interests = graph.fql(query).get('data')
+				userfriend.interests = pickle.dumps(graph.fql(query).get('data'))
 		except Exception as e:
+			fqlerror = 1
 			logger.exception("social_auth_pipeline.postProcessing - Error getting friends' likes - " + str(e) + " - " + str(e.args))
 			pass
 

@@ -23,7 +23,7 @@ class UserTomonotomo(models.Model):
     last_name= models.CharField(max_length=100L,null=True)
     birthday= models.CharField(max_length=100L,null=True)
     hometown= models.CharField(max_length=100L)
-    location= models.CharField(max_length=100L)
+    location= models.CharField(max_length=100L, db_index=True)
     gender= models.IntegerField(choices=GENDER_CHOICES, default=3)
     relstatus=models.IntegerField(choices=RELSTATUS_CHOICES, default=1)
     education= models.CharField(max_length=2000L)

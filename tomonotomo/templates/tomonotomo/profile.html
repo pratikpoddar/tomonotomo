@@ -177,6 +177,14 @@
 								{% endfor %}
 							</div>
 						{% endif %}
+                                                {% if commoninterests %}
+                                                        <div class="block" style="background:none">
+                                                                <span> Common Interests </span>
+                                                                {% for commoninterest in commoninterests %}
+                                                                      	{{ commoninterest }}<br/>
+                                                                {% endfor %}
+                                                        </div>
+                                                {% endif %}
                                 		{% if worklist %}
 							<div class="block" style="background:none">
                                         			<span> Work </span>

@@ -8,6 +8,8 @@ import math
 from django.db.models import Count
 from functools32 import lru_cache
 
+import pickle
+
 from datetime import datetime
 from datetime import date
 
@@ -47,6 +49,18 @@ def getMutualFriends (fbid1, fbid2):
 
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
+def getCommonInterests (fbid1, fbid2):
+
+	try:	
+		intlist1 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid1).values('interests'))
+		intlist2 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid2).values('interests'))
+
+		commonint = set(map(lambda x: x['page_id'], intlist1)) & set(map(lambda x: x['page_id'], intlist2))
+
+		return filter(lambda x: x['page_id'] in commonint, intlist1)
+	except:
+		return []
+
 @lru_cache(maxsize=16)
 def getFriendsofFriends(fbid): 
         fblist = getFriendsonTnT(fbid)
@@ -71,12 +85,18 @@ def getBarredListCache(fbid):
 	barredlist = list(set(friendlist + skipadmiredlist + sadlist))
 	return barredlist
 
+
 def getBarredList(fbid):
 
         barredlistcache = getBarredListCache(fbid)
         recentlist = map(lambda x: x['fbid'], UserFeedback.objects.filter(userid=fbid, timestamp__gte=date.today()).values('fbid'))
         barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
+
+@lru_cache(maxsize=32)
+def getSameLocationPeople(loc):
+	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location=loc).values('userid'))
+	
 
 @lru_cache(maxsize=32)
 def getPopularFoFs(fbid):
@@ -106,6 +126,7 @@ def getRandFoF(fbid, reqgender):
 	barredlist = getBarredList(fbid)
 	popularFoFs = getPopularFoFs(fbid)
 	secretadmirers = getSecretAdmirers(fbid)
+	allpeopleofsamelocation = getSameLocationPeople(UserTomonotomo.objects.get(userid=fbid).location)
 	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	if reqgender == 1:
 		minlimit=fbidage-2
@@ -124,6 +145,7 @@ def getRandFoF(fbid, reqgender):
 		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid=fblist[0]).values('friendid'))))
 		listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
 		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
+		listofFoFs = filter(lambda x: x in allpeopleofsamelocation, listofFoFs)
 
 		if len(listofFoFs)==0:
 			break
