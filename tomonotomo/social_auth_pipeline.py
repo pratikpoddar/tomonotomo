@@ -82,7 +82,7 @@ def create_custom_user(backend, details, user=None,
 	if responsegraph.get('likes'):
 		# TODO: Gets interests only if interests are not there. Need to change this.
 		if not profile.interests:
-			profile.interests = pickle.dumps(extractAllSanitizedLikes(responsegraph.get('likes')))
+			profile.interests = pickle.dumps(extractAllSanitizedLikes(responsegraph.get('likes'))).decode('latin1')
 
         profile.save()
 
@@ -286,7 +286,7 @@ def postProcessing(userid, accessToken):
 			# TODO: Gets interests only if interests are not there. Need to change this.
 			if (not userfriend.interests) and (not fqlerror):
 				query = 'SELECT page_id, name FROM page WHERE page_id IN (SELECT page_id FROM page_fan WHERE uid=' + str(frienddata.get('uid')) + ')'
-				userfriend.interests = pickle.dumps(graph.fql(query).get('data'))
+				userfriend.interests = pickle.dumps(graph.fql(query).get('data')).decode('latin1')
 		except Exception as e:
 			fqlerror = 1
 			logger.exception("social_auth_pipeline.postProcessing - Error getting friends' likes - " + str(e) + " - " + str(e.args))

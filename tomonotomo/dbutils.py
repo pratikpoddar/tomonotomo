@@ -54,15 +54,24 @@ def getMutualFriends (fbid1, fbid2):
 
 def getCommonInterests (fbid1, fbid2):
 
-	try:	
-		intlist1 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid1).values('interests')[0].values()[0])
-		intlist2 = pickle.loads(UserTomonotomo.objects.filter(userid=fbid2).values('interests')[0].values()[0])
+	intlist1str = UserTomonotomo.objects.filter(userid=fbid1).values('interests')[0].values()[0]
+	intlist2str = UserTomonotomo.objects.filter(userid=fbid2).values('interests')[0].values()[0]
 
-		commonint = set(map(lambda x: int(x['page_id']), intlist1)) & set(map(lambda x: int(x['page_id']), intlist2))
+	if intlist1str and intlist2str:
 
-		return filter(lambda x: int(x['page_id']) in commonint, intlist1)
-	except:
+		try:	
+			intlist1 = pickle.loads(intlist1str.encode('latin1'))
+			intlist2 = pickle.loads(intlist2str.encode('latin1'))
+
+			commonint = set(map(lambda x: int(x['page_id']), intlist1)) & set(map(lambda x: int(x['page_id']), intlist2))
+
+			return filter(lambda x: int(x['page_id']) in commonint, intlist1)
+		except Exception as e:
+			logger.exception('dbutils.getCommonInterests - ' + str(fbid1) + ' ' + str(fbid2) + ' ' + str(e.args))
+			return []
+	else:
 		return []
+
 
 @lru_cache(maxsize=16)
 def getFriendsofFriends(fbid): 
