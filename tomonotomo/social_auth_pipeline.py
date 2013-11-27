@@ -138,12 +138,13 @@ def create_custom_user(backend, details, user=None,
 		except:
 			pass
 
-	shuffle(friendsontnt)
-	for friendontnt in friendsontnt[:10]:
+	friendsregisteredontnt = list(set(friendsontnt) & set(map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))))
+	shuffle(friendsregisteredontnt)
+	for friendontnt in friendsregisteredontnt[:10]:
 	    try:
 		dbutils.sendemailnotification(friendontnt, "One of your friends just joined tomonotomo", "One of your friends just joined tomonotomo to meet interesting friends of friends. We'll keep the name of your friend to ourselves out of respect for his privacy. A new friend is a good news for you as your friend of friend network just increased and you have a larger pool of potential dates. Congratulations and visit www.tomonotomo.com right away!")
 	    except Exception as e:
-		logger.exception("social_auth_pipeline.create_custom_user - error in sendemailnotification " + str(e))
+		logger.exception("social_auth_pipeline.create_custom_user - error in sendemailnotification " + str(e) + str(friendontnt))
 		pass
 	
         # "----"
