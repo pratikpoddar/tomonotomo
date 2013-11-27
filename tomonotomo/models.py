@@ -54,6 +54,12 @@ class UserTomonotomo(models.Model):
         else:
             return "[Age N.A.]"
 
+class UserLocation(models.Model):
+    locationid = models.BigIntegerField(null=False, unique=True, db_index=True)
+    userlocation = models.CharField(max_length=100L, db_index=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
     friendid = models.BigIntegerField(null=False, db_index=True)

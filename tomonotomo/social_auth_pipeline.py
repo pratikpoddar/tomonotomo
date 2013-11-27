@@ -9,7 +9,7 @@ from datetime import timedelta
 import simplejson
 import urllib2
 import pickle
-from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota
+from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota, UserLocation
 
 import dbutils
 from django.db import transaction
@@ -69,6 +69,7 @@ def create_custom_user(backend, details, user=None,
                 profile.hometown = res.get('hometown').get('name')
         if res.get('location'):
                 profile.location = res.get('location').get('name')
+		saveLocation(res.get('location').get('id'))
 	if res.get('relationship_status'):
 		profile.relstatus = relstatusdict[res.get('relationship_status') or "not specified"]
         profile.username = res.get('username')
@@ -199,6 +200,25 @@ def getSanitizedLikes (likesList):
 			pass
 	return likesResult
 
+def saveLocation (locationid):
+
+	try:
+		if UserLocation.objects.filter(locationid=locationid).count()==0:
+			logger.debug("saveLocation - saving Location info for " + str(locationid))
+			locationjson = simplejson.load(urllib2.urlopen('https://graph.facebook.com/'+str(locationid)))
+			loc = UserLocation()
+			loc.locationid = locationid
+			loc.userlocation = locationjson['name']
+			loc.latitude = locationjson['location']['latitude']
+			loc.longitude = locationjson['location']['longitude']
+			if loc.latitude and loc.longitude:
+				loc.save()
+	except Exception as e:
+		logger.exception('saveLocation - error - locationid - ' + str(locationid) + ' - ' + str(e))
+		pass
+
+	return
+
 def postProcessing(userid, accessToken):
 
 	userloggedin = UserTomonotomo.objects.get(userid=userid)
@@ -268,6 +288,7 @@ def postProcessing(userid, accessToken):
                 	userfriend.hometown = frienddata.get('hometown_location').get('name')
             	if frienddata.get('current_location'):
                 	userfriend.location = frienddata.get('current_location').get('name')
+			saveLocation(frienddata.get('current_location').get('id'))
 
 		try:
 			userfriend.relstatus = relstatusdict[frienddata.get('relationship_status') or "not specified"]

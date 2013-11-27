@@ -165,6 +165,9 @@ def fofrandom(request):
     except:
 	fbname = 'tomonotomo'
 
+    if str(fbname)=='':
+	fbname = 'tomonotomo'
+
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
 @login_required(login_url='index')
@@ -312,6 +315,9 @@ def profileredir(request, fbid):
         fbname = slugify(dbutils.getFullName(fbid))
     except:
         fbname = 'tomonotomo'
+
+    if str(fbname)=='':
+	fbname='tomonotomo'
 
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
