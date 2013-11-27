@@ -1,4 +1,4 @@
-from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening, UserQuota, TomonotomoQuotes
+from tomonotomo.models import UserTomonotomo, UserFriends, UserFeedback, UserEmail, UserHappening, UserQuota, TomonotomoQuotes, UserLocation
 from django.template import RequestContext, loader
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -109,6 +109,21 @@ def getBarredList(fbid):
 def getSameLocationPeople(loc):
 	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location=loc).values('userid'))
 	
+@lru_cache(maxsize=128)
+def getNearLocation(loc):
+	
+	try:
+		myloc = UserLocation.objects.get(userlocation=loc)
+		lat = myloc.latitude
+		lon = myloc.longitude
+		return map(lambda x: x['userlocation'], UserLocation.objects.filter(latitude__range=(lat-2,lat+2), longitude__range=(lon-2,lon+2)).values('userlocation'))
+	except:
+		return []
+
+@lru_cache(maxsize=128)
+def getNearLocationPeople(loc):
+	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location__in=getNearLocation(loc)).values('userid'))
+	
 @lru_cache(maxsize=32)
 def getPopularFoFs(fbid):
 	
@@ -197,7 +212,11 @@ def getRandFoF(fbid, reqgender):
 	barredlist = getBarredList(fbid)
 	popularFoFs = getPopularFoFs(fbid)
 	secretadmirers = getSecretAdmirers(fbid)
-	allpeopleofsamelocation = getSameLocationPeople(UserTomonotomo.objects.get(userid=fbid).location)
+	location = UserTomonotomo.objects.get(userid=fbid).location
+	allpeopleofsamelocation = getSameLocationPeople(location)
+	if len(allpeopleofsamelocation) - len(barredlist) < 600:
+		allpeopleofsamelocation = getNearLocationPeople(location)
+	
 	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
 	if reqgender == 1:
 		minlimit=fbidage-2
