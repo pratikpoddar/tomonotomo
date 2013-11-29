@@ -232,7 +232,7 @@ def getRandFoF(fbid, reqgender):
 	while frndattempts < 60:
 		frndattempts+=1
 		shuffle(fblist)
-		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist[:3]).values('friendid'))))
+		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist[:4]).values('friendid'))))
 		# This is just to increase the probability that you see popular chicks and your secret admirers more
 		listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
 		listofFoFs = list(set(allpeopleofsamelocation) & set(listofFoFs))
