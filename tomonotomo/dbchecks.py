@@ -46,10 +46,9 @@ def dbchecks2():
 	string+= "<br/>" + "The above list should be empty"
 
         list8=map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
-	list9=list(set(map(lambda x: x['userid'], UserFriends.objects.all().values('userid'))))
-	leftover = filter(lambda x: x not in list8, list9)
+	list9=list(set(map(lambda x: x['userid'], UserFriends.objects.exclude(userid__in=list8).values('userid'))))
 	string+= "<br/>" + "----- Checking that all friends info are only for people who have logged in"
-        string+= "<br/>" + str(leftover)
+        string+= "<br/>" + str(list(set(list9)))
         string+= "<br/>" + "The above list should be empty"
 	
 	return (string + "<br/>").replace('<br/>','\r\n')

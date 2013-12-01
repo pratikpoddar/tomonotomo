@@ -80,10 +80,13 @@ def create_custom_user(backend, details, user=None,
         graph = GraphAPI(res.get('access_token'))
         responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
         profile.birthday = str(responsegraph.get('birthday'))
-	if responsegraph.get('likes'):
-		# TODO: Gets interests only if interests are not there. Need to change this.
-		if not profile.interests:
-			profile.interests = pickle.dumps(extractAllSanitizedLikes(responsegraph.get('likes'))).decode('latin1')
+	try:
+		if responsegraph.get('likes'):
+			# TODO: Gets interests only if interests are not there. Need to change this.
+			if not profile.interests:
+				profile.interests = pickle.dumps(extractAllSanitizedLikes(responsegraph.get('likes'))).decode('latin1')
+	except Exception as e:
+		logger.exception("social_auth_pipeline.create_custom_user - Error getting likes for user " + str(res.get('id')))
 
         profile.save()
 
@@ -312,7 +315,7 @@ def postProcessing(userid, accessToken):
 				userfriend.interests = pickle.dumps(graph.fql(query).get('data')).decode('latin1')
 		except Exception as e:
 			fqlerror = 1
-			logger.exception("social_auth_pipeline.postProcessing - Error getting friends' likes - " + str(e) + " - " + str(e.args))
+			logger.exception("social_auth_pipeline.postProcessing - Error getting friends' likes - " + str(frienddata.get('uid')) + " - " + str(e.args))
 			pass
 
 	    except Exception as e:
