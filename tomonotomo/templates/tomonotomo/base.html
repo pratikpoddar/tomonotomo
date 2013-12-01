@@ -84,7 +84,7 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 		<div class="container_12">
 			<div class="grid_12">
 				<div id="heading-tomonotomo" style="font-size:44px;color:black;vertical-align:bottom;white-space:nowrap"><a href="/home">tomo no tomo<span style="font-size:15%;color:black"> (alpha) </span></a></div>
-				<div class="links" style="padding-top:24px">
+				<div class="links" style="padding-top:24px;text-align:left">
 					{% if request.user.id %}
 						<a href="/profile" target="_blank">{{ request.user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
 					{% else %}
