@@ -7,7 +7,6 @@
 	<div class="container_12">
 		<div style="margin-left:20%;margin-top:20px;font-size:120%">
 		<span id="todaydate"></span><br/>
-            Number of Users with accesstoken: {{ dbsummary_users_at }}<br/>
             Number of Users with email: {{ dbsummary_users_email }}<br/>
             Number of Users with data: {{ dbsummary_users_data }}<br/>
             Number of UserFriend Entries: {{ dbsummary_userfriends }}<br/>
@@ -25,14 +24,6 @@
                 {% for dbuser in dbsummary_users_register_24 %}
                         <a href="http://www.tomonotomo.com/profile/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
                 {% endfor %}
-	    <br/>UserGender Stats: { "male":1, "female":2, "not specified":3 }<br/>
-                {% for dbfeedback in dbsummary_usergender %}
-                        {{ dbfeedback.gender }} - {{dbfeedback.gender__count }}<br/>
-                {% endfor %}
-            <br/>UserRelationship Stats: { "Single":1, "Engaged/Married":2, "not specified":3 }<br/>
-                {% for dbfeedback in dbsummary_userrelstatus %}
-                        {{ dbfeedback.relstatus }} - {{dbfeedback.relstatus__count }}<br/>
-                {% endfor %}
             <br/>UserInterests Stats<br/>
                 {{ dbsummary_userinterests }}<br/>
             <br/>Quota: ({{ dbsummary_quota | length }})<br/>
@@ -45,11 +36,12 @@
                 {% endfor %}
 	    <br/>DB Checks:<br/>
 		{{ dbsummary_dbchecksstring | linebreaksbr }}
-	    <br/>Users: ({{ dbsummary_users | length }})<br/>
+	    {% comment %}
+		<br/>Users: ({{ dbsummary_users | length }})<br/>
                 {% for dbuser in dbsummary_users %}
                         {{ dbuser.first_name }} - {{dbuser.last_name}} - {{dbuser.userid}} - {{dbuser.email}}<br/>
                 {% endfor %}
-
+	    {% endcomment %}
 		</div>
 	</div>
 </div>
