@@ -51,5 +51,12 @@ def dbchecks2():
         string+= "<br/>" + str(list(set(list9)))
         string+= "<br/>" + "The above list should be empty"
 	
+	tntusers= map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
+	list10 = UserFriends.objects.exclude(friendid__in=tntusers).values('userid').annotate(Count('friendid'))
+	list11 = map(lambda x: x['userid'], filter(lambda x: x['friendid__count']<10, list10))
+	string+= "<br/>" + "----- Checking that all users have been properly expanded and all friend data extracted. Potentially issues with following"
+	string+= "<br/>" + str(list(set(list11)))
+	string+= "<br/>" + "The above list should be empty"	
+
 	return (string + "<br/>").replace('<br/>','\r\n')
 
