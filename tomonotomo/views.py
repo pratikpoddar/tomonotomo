@@ -450,7 +450,7 @@ def loggedin(request):
         	'meta': meta,
 		'loggeduserid': loggedid,
 		'quota': dbutils.getQuota(loggedid),
-		'gender': 2,
+		'gender': gender,
 		}
 
     context = RequestContext(request, dictin)
