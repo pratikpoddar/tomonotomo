@@ -19,15 +19,18 @@ def dbchecks1():
 	string+= "<br/>" + "Both the above should be null"
 	return (string + "<br/>").replace('<br/>','\r\n')
 
+def dbchecks11():
+	string =""
+	list1=UserFeedback.objects.exclude(action=1).exclude(action=5).values('userid','fbid','action').annotate(Count('id'))
+        list2 = filter(lambda x: x['id__count'] > 1, list1)
+        string+= "<br/>----- Checking that except 1 and 5, no action is taken twice for a userid, fbid pair in UserFeedback"
+        string+= "<br/>" + str(list2)
+        string+= "<br/>" + "The number list should be empty"
+	return (string + "<br/>").replace('<br/>','\r\n')
+	
 def dbchecks2():
 	string=""
 
-	list1=UserFeedback.objects.exclude(action=1).exclude(action=5).values('userid','fbid','action').annotate(Count('id'))
-	list2 = filter(lambda x: x['id__count'] > 1, list1)
-	string+= "<br/>----- Checking that except 1 and 5, no action is taken twice for a userid, fbid pair in UserFeedback"
-	string+= "<br/>" + str(list2)
-	string+= "<br/>" + "The number list should be empty"
-	
 	list3=UserProcessing.objects.values('userloggedin')
 	string+= "<br/>" + "----- Checking that all accesstokens have been processed"
 	string+= "<br/>" + str(list3)

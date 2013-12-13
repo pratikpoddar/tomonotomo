@@ -332,7 +332,7 @@ def check_quota_over(fbid):
 
 def increase_quota(fbid):
 	quota = UserQuota.objects.get(userid=fbid)
-	quota.quota = 30 
+	quota.quota = 20 
 	quota.save()
 	return
 

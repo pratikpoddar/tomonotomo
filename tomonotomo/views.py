@@ -564,7 +564,7 @@ def dbsummary(request):
 	 #'dbsummary_userrelstatus': UserTomonotomo.objects.values('relstatus').annotate(Count('relstatus')),
 	'dbsummary_userinterests': UserTomonotomo.objects.exclude(interests='').exclude(interests=None).count(),
 	'dbsummary_users': UserTomonotomo.objects.exclude(email=None).values('userid','first_name','last_name','email'),
-	'dbsummary_quota': UserQuota.objects.exclude(quota=30).values('userid','quota'),
+	'dbsummary_quota': UserQuota.objects.exclude(quota=20).values('userid','quota'),
 	'dbsummary_quota_verification': UserFeedback.objects.filter(timestamp__gte=date.today()).values('userid').annotate(Count('fbid', distinct=True)),
 	'dbsummary_dbchecksstring': dbchecks.dbchecks2(),
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),
