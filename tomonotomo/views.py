@@ -404,6 +404,7 @@ def loggedin(request):
         loggedid = 0
  
     fbid = dbutils.getLoggedInUser(request)
+    gender = UserTomonotomo.objects.get(userid=fbid).gender
     template = loader.get_template('tomonotomo/loggedin.html')
 
     friendsonTnT = dbutils.getFriendsonTnT(fbid)
@@ -449,6 +450,7 @@ def loggedin(request):
         	'meta': meta,
 		'loggeduserid': loggedid,
 		'quota': dbutils.getQuota(loggedid),
+		'gender': 2,
 		}
 
     context = RequestContext(request, dictin)
