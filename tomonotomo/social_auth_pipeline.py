@@ -116,7 +116,7 @@ def create_custom_user(backend, details, user=None,
 	except UserQuota.DoesNotExist:
 		userquota = UserQuota()
 		userquota.userid = res.get('id')
-		userquota.quota=30
+		userquota.quota=20
 		userquota.save()
 
 	# "----"
@@ -375,7 +375,7 @@ class updateQuota(CronJobBase):
 		for user in users:
 			try:
                 		userquota = UserQuota.objects.get(userid=user['userid'])
-				userquota.quota=30
+				userquota.quota=20
         		except UserQuota.DoesNotExist:
                 		userquota = UserQuota(userid=user['userid'], quota=30)
                 	userquota.save()
