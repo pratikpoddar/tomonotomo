@@ -15,7 +15,6 @@ urlpatterns = patterns('',
 	url(r'^loginerror$', views.loginerror, name='loginerror'),
 	url(r'^logout$', 'django.contrib.auth.views.logout',{'next_page': 'home'}),
 	url(r'^auth/', include('social_auth.urls')),
-	url(r'^betathanks$', views.betathanks, name='betathanks'),#temporary
 	url(r'^dbsummary$', views.dbsummary, name='dbsummary'),
 	url(r'^profile/([a-z0-9-]+)/(\d+)$', views.profile, name='profile'),
 	url(r'^profile$', views.personalprofile, name='personalprofile'),
