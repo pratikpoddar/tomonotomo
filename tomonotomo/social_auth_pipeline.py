@@ -252,7 +252,10 @@ def postProcessing(userid, accessToken):
         for frienddata in friendgraph:
 
             count = count + 1
-            logger.debug("social_auth_pipeline.postProcessing - Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count))
+	    try:
+	            logger.debug("social_auth_pipeline.postProcessing - Saving detailed information for friendid - " + str(frienddata.get('uid')) + " - count " + str(count))
+	    except:
+		    logger.exception("social_auth_pipeline.postProcessing - Saving detailed information for friendid without uid - " + str(frienddata) + " - count " + str(count))
 
             try:
 		profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=frienddata.get('uid'))
