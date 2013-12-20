@@ -12,6 +12,8 @@ import pickle
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota, UserLocation
 from profiling import profile
 
+import pytz
+
 import dbutils
 from django.db import transaction
 
@@ -343,7 +345,7 @@ class startPostProcessing(CronJobBase):
 
     def do(self):
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts")
-        pendingusers = UserProcessing.objects.filter(entryaddtime__lte=datetime.now()+timedelta(minutes=-10)).values('userloggedin','accesstoken')
+        pendingusers = UserProcessing.objects.filter(entryaddtime__lte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(minutes=-10)).values('userloggedin','accesstoken')
 	logger.debug("social_auth_pipeline.startPostProcessing - StartPostProcessing starts - length of list is " + str(len(pendingusers)))
         if len(pendingusers) > 0:
         	randnum = randint(0, len(pendingusers)-1)

@@ -18,11 +18,13 @@ import urllib
 from datetime import datetime
 from datetime import timedelta
 from datetime import date
-from profiling import profile
+from profiling import profile, Profiler
+import pytz
 
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 def index(request):
 
@@ -510,7 +512,11 @@ def tntAction(request, fbid, action, fbfriend):
 
     return redirect('/fof')
 
+
 def dbsummary(request):
+
+    profiler =  Profiler('tomonotomo.views.dbsummary')
+    profiler.start()
 
     if request.user.id:
         loggedid = dbutils.getLoggedInUser(request)
@@ -544,9 +550,11 @@ def dbsummary(request):
 	'dbsummary_quota_verification': UserFeedback.objects.filter(timestamp__gte=date.today()).values('userid').annotate(Count('fbid', distinct=True)),
 	'dbsummary_dbchecksstring': dbchecks.dbchecks2(),
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),
-	'dbsummary_users_login_24': UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).order_by('timestamp').values('userlogin','friends', 'timestamp'),
-	'dbsummary_users_register_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now()+timedelta(hours=-24)).values('userlogin')))-set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__lte=datetime.now()+timedelta(hours=-24)).values('userlogin')))),
+	'dbsummary_users_login_24': UserLogin.objects.filter(timestamp__gte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).order_by('timestamp').values('userlogin','friends', 'timestamp'),
+	'dbsummary_users_register_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).values('userlogin')))-set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__lte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).values('userlogin')))),
     }
+   
+    profiler.stop()
 
     context = RequestContext(request, contextdict)
 

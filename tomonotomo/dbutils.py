@@ -7,7 +7,7 @@ import sendgrid
 import math
 from django.db.models import Count
 from functools32 import lru_cache
-
+import pytz
 
 from tomonotomo import unsubscribe
 import pickle
@@ -24,7 +24,7 @@ unsubscribe_list=unsubscribe.unsubscribe_list
 
 def print_for_me(fbid,string=""):
 	
-	string = str(datetime.now()) + " " + string
+	string = str(datetime.now(pytz.timezone('America/Chicago'))) + " " + string
 	if fbid==717323242:
 		print str(string)
 	return
