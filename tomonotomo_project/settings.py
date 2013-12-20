@@ -135,7 +135,6 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.common.BrokenLinkEmailsMiddleware'
     'tomonotomo_project.middleware.error500Middleware',
-    #'profiler.middleware.ProfilerMiddleware'
    
 )
 
@@ -166,7 +165,6 @@ INSTALLED_APPS = (
     'social_auth',
     'functools32',
     'django_cron',
-    #'profiler',
     'south'
 )
 
