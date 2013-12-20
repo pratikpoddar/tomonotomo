@@ -10,6 +10,7 @@ import simplejson
 import urllib2
 import pickle
 from tomonotomo.models import UserTomonotomo, UserFriends, UserProcessing, UserLogin, UserQuota, UserLocation
+from profiling import profile
 
 import dbutils
 from django.db import transaction
@@ -22,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 genderdict = { "male":1, "female":2, "not specified":3 }
 relstatusdict = { "Single":1, "Engaged":2, "Married":2, "In a relationship":2, "It's complicated":3, "In an open relationship":3, "Widowed":3, "Separated":3, "Divorced":3, "In a civil union":3, "In a domestic partnership":3, "not specified":3 }
- 
+
+@profile 
 def create_custom_user(backend, details, user=None, 
                         user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 

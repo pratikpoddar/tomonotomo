@@ -140,7 +140,7 @@ def personalprofile(request):
 
     return HttpResponse(template.render(context))
 
-@profile(stats=True) 
+@profile 
 @login_required(login_url='index')
 def fofrandom(request):
     loggedid = dbutils.getLoggedInUser(request)
@@ -172,7 +172,7 @@ def fofrandom(request):
 
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
-@profile(stats=True)
+@profile
 @login_required(login_url='index')
 def profile(request, fbname, fbid):
     logger.debug('view.profile - ' + fbname + ' - ' + str(fbid))
@@ -397,7 +397,6 @@ def loginerror(request):
         })
     return HttpResponse(template.render(context))
 
-@profile(stats=True)
 @login_required(login_url='index')
 def loggedin(request):
 
@@ -459,7 +458,6 @@ def loggedin(request):
     context = RequestContext(request, dictin)
     return HttpResponse(template.render(context))
 
-@profile(stats=True)
 @login_required(login_url='index')
 def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
@@ -512,7 +510,6 @@ def tntAction(request, fbid, action, fbfriend):
 
     return redirect('/fof')
 
-@profile(stats=True)
 def dbsummary(request):
 
     if request.user.id:
