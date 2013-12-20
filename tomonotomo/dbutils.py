@@ -16,8 +16,10 @@ from datetime import datetime
 from datetime import date
 
 import logging
+from profiling import profile
 
 logger = logging.getLogger(__name__)
+
 unsubscribe_list=unsubscribe.unsubscribe_list
 
 def print_for_me(fbid,string=""):
@@ -36,15 +38,16 @@ def getLoggedInUser (request):
 	email = ""
 	if request.user.email:
 		email = request.user.email
-	
+
 	elif request.user.username:
 		email = request.user.username+"@facebook.com"
 
 	if email=="":
 		logger.exception('dbutils.getLoggedInUser - CRITICAL - no email and no username request')
-		
-	return UserTomonotomo.objects.get(email=email).userid
 	
+	return UserTomonotomo.objects.get(email=email).userid
+
+@profile(stats=True)	
 def getMutualFriends (fbid1, fbid2):
         
         fblist1 = UserFriends.objects.filter(userid=fbid1).values('friendid')
@@ -52,6 +55,7 @@ def getMutualFriends (fbid1, fbid2):
 
         return list(set(map(lambda x: x['friendid'], fblist1)) & set(map(lambda x: x['userid'], fblist2)))
 
+@profile(stats=True)
 def getCommonInterests (fbid1, fbid2):
 
 	intlist1str = UserTomonotomo.objects.filter(userid=fbid1).values('interests')[0].values()[0]
@@ -72,13 +76,14 @@ def getCommonInterests (fbid1, fbid2):
 	else:
 		return []
 
-
+@profile(stats=True)
 @lru_cache(maxsize=16)
 def getFriendsofFriends(fbid): 
         fblist = getFriendsonTnT(fbid)
 	fofs = map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist).values('friendid'))
         return list(set(fofs))
 
+@profile(stats=True)
 @lru_cache(maxsize=16)
 def getPotentialFoFs(fbid, reqgender):
 
@@ -89,6 +94,7 @@ def getPotentialFoFs(fbid, reqgender):
 
 	return fofs
 
+@profile(stats=True)
 def getBarredListCache(fbid):
 
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
@@ -97,7 +103,7 @@ def getBarredListCache(fbid):
 	barredlist = list(set(friendlist + skipadmiredlist + sadlist))
 	return barredlist
 
-
+@profile(stats=True)
 def getBarredList(fbid):
 
         barredlistcache = getBarredListCache(fbid)
@@ -105,10 +111,12 @@ def getBarredList(fbid):
         barredlist = list(set(barredlistcache + recentlist))
 	return barredlist
 
+@profile(stats=True)
 @lru_cache(maxsize=128)
 def getSameLocationPeople(loc):
 	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location=loc).values('userid'))
 	
+@profile(stats=True)
 @lru_cache(maxsize=128)
 def getNearLocation(loc):
 	
@@ -120,10 +128,12 @@ def getNearLocation(loc):
 	except:
 		return []
 
+@profile(stats=True)
 @lru_cache(maxsize=128)
 def getNearLocationPeople(loc):
 	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(location__in=getNearLocation(loc)).values('userid'))
 	
+@profile(stats=True)
 @lru_cache(maxsize=32)
 def getPopularFoFs(fbid):
 	
@@ -135,6 +145,7 @@ def getPopularFoFs(fbid):
 	
 	return admiredfof
 
+@profile(stats=True)
 @lru_cache(maxsize=32)
 def getSadFoFs(fbid):
 
@@ -146,6 +157,7 @@ def getSadFoFs(fbid):
 
         return sadfof
 
+@profile(stats=True)
 def get100RandFoF(fbid, reqgender):
 
         fblist = getFriendsonTnT(fbid)
@@ -206,6 +218,7 @@ def get100RandFoF(fbid, reqgender):
 	return selectedFoFs
 
 
+@profile(stats=True)
 def getRandFoF(fbid, reqgender):
 
 	fblist = getFriendsonTnT(fbid)
@@ -278,22 +291,27 @@ def getRandFoF(fbid, reqgender):
 	logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid)) 
 	return 0
 
+@profile(stats=True)
 def getFullName (fbid):
         return UserTomonotomo.objects.get(userid=fbid).get_full_name()
 
+@profile(stats=True)
 @lru_cache(maxsize=32)
 def getFriendsonTnT (fbid):
         fblist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
         fblist2 = map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
         return list(set(fblist) & set(fblist2))
 
+@profile(stats=True)
 @lru_cache(maxsize=4)
 def getUsersGender (gender):
 	return map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=gender).values('userid'))
 
+@profile(stats=True)
 def getLastFeedback (userid, num):
 	return map(lambda x: x['action'], UserFeedback.objects.filter(userid=userid).order_by('-id').values('action')[0:num])
 
+@profile(stats=True)
 def getQuota(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid).quota
@@ -301,6 +319,7 @@ def getQuota(fbid):
 		quota = 0
 	return quota
 
+@profile(stats=True)
 def getSecretAdmirersCount(fbid):
 	try:
 		num = UserFeedback.objects.filter(fbid=fbid, action=3).count()
@@ -309,6 +328,7 @@ def getSecretAdmirersCount(fbid):
 
 	return num
 
+@profile(stats=True)
 def getSecretAdmirers(fbid):
 
 	try:
@@ -318,6 +338,7 @@ def getSecretAdmirers(fbid):
 
 	return []
 	
+@profile(stats=True)
 def check_quota_over(fbid):
 	try:
 		quota = UserQuota.objects.get(userid=fbid)
@@ -342,6 +363,7 @@ def decrease_quota(fbid):
 	quota.save()
 	return
 
+@profile(stats=True)
 def getMostAdmiredFriends(fbid, num):
 	people=UserFeedback.objects.filter(action=3).values('fbid').annotate(Count('fbid')).order_by('-fbid__count')
 	friendlist = map(lambda x: x['friendid'], UserFriends.objects.filter(userid=fbid).values('friendid'))
@@ -476,7 +498,7 @@ def sendemailnotification (userid, shortcontent, content):
 
         return
 
-
+@profile(stats=True)
 def historyFeedback (userid1, userid2):
 
         # return {'deactivate': [1, 2, 4], 'info': ["checking 1", "checking 2", "checking 3"]}
@@ -632,12 +654,14 @@ def prepareEmailNotification(contextdict):
 	output = render_to_string('tomonotomo/email-notification.html', contextdict)
 	return output
 
+@profile(stats=True)
 def updateUserHappening(userid, action):
 
 	userhappening = UserHappening(userid=userid, action=action)
 	userhappening.save()
 	return
 
+@profile(stats=True)
 def getRandomLoveQuote():
 	try:
 		return TomonotomoQuotes.objects.order_by('?')[0].quote.strip()

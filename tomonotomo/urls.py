@@ -21,7 +21,7 @@ urlpatterns = patterns('',
 	url(r'^profile$', views.personalprofile, name='personalprofile'),
 	url(r'^quotaover$', views.quotaover, name='quotaover'),
 	url(r'^quotaincrease$', views.quotaincrease, name='quotaincrease'),
-	url(r'^nomatchforyou$', views.nomatchforyou, name='nomatch')
+	url(r'^nomatchforyou$', views.nomatchforyou, name='nomatch'),
 
 )
 

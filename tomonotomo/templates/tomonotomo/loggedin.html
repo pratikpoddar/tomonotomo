@@ -18,11 +18,6 @@
                 You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends of friends.<br/><br/>
                 <a href="{% url "fofrandom" %}" class="btn btn-large"><h3 style="color:white">Start</h3></a>
 		<br/><br/>You will have access to far larger and enriched network if you have more friends on board.<br/><br/>
-		{% if gender == 1 %}
-		<img src="{%static 'tomonotomo/img/tomonotomo-barney.png' %}" style="width:90%"/><br/>
-		{% elif gender == 2 %}
-		<img src="{%static 'tomonotomo/img/tomonotomo-girlinvite.png' %}" style="width:90%"/><br/>
-		{% endif %}
 		<a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=http://www.tomonotomo.com" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
             {%  else %}
                 You need to have at least <span style="font-size: 150%">"4"</span> friends on tomonotono so that we can build a dense social graph.
