@@ -276,7 +276,12 @@ def postProcessing(userid, accessToken):
 		logger.exception("social_auth_pipeline.postProcessing - Exception saving userfriends data - multiple entries in userfriends race error" + str(frienddata.get('uid')))
             	pass
 	    except Exception as e:
-	    	logger.exception("social_auth_pipeline.postProcessing - Exception saving UserFriends - " + str(e) + " - " + str(e.args))
+		try:
+			logger.exception("social_auth_pipeline.postProcessing - Exception saving UserFriends - " + str(frienddata) + " " + str(e.args))
+		except:
+			pass
+
+		logger.exception("social_auth_pipeline.postProcessing - Exception saving UserFriends - " + str(e) + " - " + str(e.args))
 		raise
 
 	    try:
