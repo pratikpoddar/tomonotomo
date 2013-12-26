@@ -63,6 +63,8 @@ class UserLocation(models.Model):
 class UserFriends(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
     friendid = models.BigIntegerField(null=False, db_index=True)
+    class Meta:
+        unique_together = (("userid", "friendid"),)
 
 class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
