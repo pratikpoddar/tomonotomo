@@ -9,8 +9,6 @@
 		<span id="todaydate"></span><br/>
             Number of Users with email: {{ dbsummary_users_email }}<br/>
             Number of Users with data: {{ dbsummary_users_data }}<br/>
-            Number of UserFriend Entries: {{ dbsummary_userfriends }}<br/>
-            Number of Feedback received: {{ dbsummary_userfeedback }}<br/>
 	    
 	    <br/>Feedback Stats: <br/>
 		{% for dbfeedback in dbsummary_feedback %}
@@ -24,8 +22,10 @@
                 {% for dbuser in dbsummary_users_register_24 %}
                         <a href="http://www.tomonotomo.com/profile/{{ dbuser }}" target="_blank">{{ dbuser }}</a><br/>
                 {% endfor %}
+	    {% comment %}
             <br/>UserInterests Stats<br/>
                 {{ dbsummary_userinterests }}<br/>
+	    {% endcomment %}
             <br/>Quota: ({{ dbsummary_quota | length }})<br/>
                 {% for dbuser in dbsummary_quota %}
                         <a href="http://www.tomonotomo.com/profile/{{ dbuser.userid }}" target="_blank">{{ dbuser.userid }}</a> - {{ dbuser.quota }}<br/>
