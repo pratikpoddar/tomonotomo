@@ -31,7 +31,7 @@
 
        	<div class="grid_4">
 			<h2>Connect with Friends of Friends</h2>
-            <h3>We are revolutionising the way dating happens. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> men and women are here already</span></h3><br/>
+            <h3>We are revolutionising the way you meet new people online. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> men and women are here already</span></h3><br/>
 			{% if not request.user.id %}
                 <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="btn btn-large"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
                 <h3>We don't post anything on your wall!</h3>
@@ -48,19 +48,19 @@
 		<div class="grid_4">
 			<div class="pad1" style="text-align:center">
 				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo1.png' %}" alt="">
-				<h2>ask mutual <br/>friend to connect</h2>Like someone with a close mutual friend? Request your friend to connect you with him/her & meet people who are vouched for by mutual friends<br>
+				<h2>ask mutual <br/>friend to connect</h2>Want to meet someone with a close mutual friend? Request your friend to connect you with him/her & meet people who are vouched for by mutual friends<br>
 			</div>
 		</div>
 		<div class="grid_4" style="text-align:center">
 			<div class="pad1">
 				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo2.png' %}" alt="">
-				<h2>connect & <br/>message directly</h2>Like someone and want to connect directly? Its safe and honourable as only friends of friends can connect with you<br>
+				<h2>connect & <br/>message directly</h2>Want to connect to someone directly? Its safe and honourable as only friends of friends can connect with you<br>
 			</div>
 		</div>
 		<div class="grid_4" style="text-align:center">
 			<div class="pad1">
 				<img src="{% static 'tomonotomo/img/svgimages/tomonotomo3.png' %}" alt="">
-				<h2>admire <br/>secretly</h2>Like someone but don't want to say it loud? Just indicate that you admire him/her and we will connect you two only if they admire you too<br>
+				<h2>admire <br/>secretly</h2>Want to talk to someone but don't want to say it loud? Just indicate that you admire him/her and we will connect you two only if they admire you too<br>
 			</div>
 		</div>
 		<div class="clear"></div>

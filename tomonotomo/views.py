@@ -515,6 +515,7 @@ def tntAction(request, fbid, action, fbfriend):
 
 def dbsummary(request):
 
+    logger.debug('dbsummary starts')
     profiler =  Profiler('tomonotomo.views.dbsummary')
     profiler.start()
 
@@ -532,7 +533,7 @@ def dbsummary(request):
     if 'createerror' in request.GET and request.GET['createerror']:
 	createerrorlist = []
     createerrorelem = createerrorlist[0]
-	
+
     template = loader.get_template('tomonotomo/dbsummary.html')
     contextdict = {
 	'loggeduserid': loggedid,

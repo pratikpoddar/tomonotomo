@@ -4,6 +4,10 @@ from django.db.models import Count
 import re
 from string import expandtabs
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 def dbchecks1():
 	string=""
 	set11=set([])
@@ -30,11 +34,15 @@ def dbchecks11():
 	
 def dbchecks2():
 	string=""
+	
+	logger.debug('dbchecks.dbchecks2 - Stage 1')
 
 	list3=UserProcessing.objects.values('userloggedin')
 	string+= "<br/>" + "----- Checking that all accesstokens have been processed"
 	string+= "<br/>" + str(list3)
 	string+= "<br/>" + "The above list should be empty"
+	
+	logger.debug('dbchecks.dbchecks2 - Stage 2')
 
 	list4=UserEmail.objects.filter(action__lt=100).exclude(action=1).values('userid','fofid','friendid','action').annotate(Count('id'))
 	list5=filter(lambda x: x['id__count']>1,list4)
@@ -42,17 +50,23 @@ def dbchecks2():
 	string+= "<br/>" + str(list5)
 	string+= "<br/>" + "The above list should be empty"
 
+	logger.debug('dbchecks.dbchecks2 - Stage 3')
+
 	list6=map(lambda x: x['email'], UserTomonotomo.objects.exclude(email=None).values('email'))
 	list7=filter(lambda x: not re.match(r'[\w\.\+-]+@[\w\.-]+', x), list6)
 	string+= "<br/>" + "----- Checking that all email addresses in database are sane"
 	string+= "<br/>" + str(list7)
 	string+= "<br/>" + "The above list should be empty"
 
+	logger.debug('dbchecks.dbchecks2 - Stage 4')
+
         list8=map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
 	list9=list(set(map(lambda x: x['userid'], UserFriends.objects.exclude(userid__in=list8).values('userid'))))
 	string+= "<br/>" + "----- Checking that all friends info are only for people who have logged in"
         string+= "<br/>" + str(list(set(list9)))
         string+= "<br/>" + "The above list should be empty"
+
+	logger.debug('dbchecks.dbchecks2 - Stage 5')
 	
 	tntusers= map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))
 	list10 = UserFriends.objects.exclude(friendid__in=tntusers).values('userid').annotate(Count('friendid'))
@@ -60,6 +74,8 @@ def dbchecks2():
 	string+= "<br/>" + "----- Checking that all users have been properly expanded and all friend data extracted. Potentially issues with following"
 	string+= "<br/>" + str(list(set(list11)))
 	string+= "<br/>" + "The above list should be empty"	
+	
+	logger.debug('dbchecks.dbchecks2 - Stage 6')
 
 	return (string + "<br/>").replace('<br/>','\r\n')
 
