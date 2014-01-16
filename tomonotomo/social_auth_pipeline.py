@@ -245,9 +245,14 @@ def postProcessing(userid, accessToken):
         friendgraph= []
         for i in range(0,10):
             query = 'SELECT uid,first_name,last_name,username,name,birthday,education,work,sex,hometown_location,current_location,relationship_status FROM user WHERE uid in (SELECT uid2 FROM friend where uid1=me() limit '+str(max(0,(i*500)-100))+',500)'
-            friendgraphdata.append(graph.fql(query))
-            friendgraph.extend(friendgraphdata[i].get('data'))
-            logger.debug("social_auth_pipeline.postProcessing - received data for " + str(len(friendgraph)) + " friends - some are duplicate")
+	    friendgraphoutput = graph.fql(query)
+	    if friendgraphoutput:
+	            friendgraphdata.append(friendgraphoutput)
+		    try:
+		            friendgraph.extend(friendgraphoutput.get('data'))
+			    logger.debug("social_auth_pipeline.postProcessing - received data for " + str(len(friendgraph)) + " friends - some are duplicate")
+		    except:
+			    pass
 
         logger.debug("social_auth_pipeline.postProcessing - list of friends data "+str(len(friendgraph))+" - some are duplicate")
 
