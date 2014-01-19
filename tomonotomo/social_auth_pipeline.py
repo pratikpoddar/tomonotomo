@@ -125,10 +125,6 @@ def create_custom_user(backend, details, user=None,
 
 	# "----"
 
-	if kwargs['is_new']==False:
-		logger.debug("social_auth_pipeline.create_custom_user - completed for returning user " + str(res.get('id')))
-		return
-
         friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
         peopleontnt = UserTomonotomo.objects.values('userid')
 
@@ -143,8 +139,14 @@ def create_custom_user(backend, details, user=None,
                 profilefriends.friendid = friendontnt
 		try:
 	                profilefriends.save()
-		except:
+		except Exception as e:
+			logger.exception('social_auth_pipeline.create_custom_user - error - seeing which friends are on tnt ' + str(e))
 			pass
+
+        if kwargs['is_new']==False:
+                logger.debug("social_auth_pipeline.create_custom_user - completed for returning user " + str(res.get('id')))
+                return
+
 
 	friendsregisteredontnt = list(set(friendsontnt) & set(map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))))
 	shuffle(friendsregisteredontnt)
