@@ -173,7 +173,7 @@
 	                                                <div class="block" style="background:none">
 								<span> Mutual Friends </span>
 								{% for mutualfriend in mutualfriends %}
-									<a href="/profile/{{mutualfriend.name|slugify}}/{{mutualfriend.id}}" target="_blank" style="font-size:inherit;font-family:inherit">{{ mutualfriend.name }}<a/><br/>
+									<a href="/profile/{{mutualfriend.name|slugify}}/{{mutualfriend.id}}" target="_blank" style="font-size:inherit;font-family:inherit">{{ mutualfriend.name }}</a><br/>
 								{% endfor %}
 							</div>
 						{% endif %}
