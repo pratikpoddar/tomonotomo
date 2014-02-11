@@ -626,7 +626,7 @@ def historyFeedback (userid1, userid2):
         return {'deactivate': list(set(deactivate) - set(donelist)), 'info': list(set(info)), 'donelist': list(set(donelist))}
 
 
-def prepareEmail(contextdict, userid, fofid, username, fofname):
+def prepareEmail(contextdict, userid, fofid, username, fofname, spam=False):
 
 	if userid=="":
 		contextdict['leftimage'] = ""
@@ -657,7 +657,11 @@ def prepareEmail(contextdict, userid, fofid, username, fofname):
 	contextdict['title'] = "tomonotomo - meet friends of friends"
 	contextdict['headerimage'] = "http://www.tomonotomo.com/static/tomonotomo/img/emailbanner.png"
 
-	output = render_to_string('tomonotomo/email.html', contextdict)
+	if not spam:
+		output = render_to_string('tomonotomo/email.html', contextdict)
+	else:
+		output = render_to_string('tomonotomo/email-spam.html', contextdict)
+
 	return output
 
 def prepareEmailNotification(contextdict):

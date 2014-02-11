@@ -39,7 +39,7 @@ Tomonotomo is short for 'tomodachi no tomodachi' which is japanese for 'Friends 
 
 Its free only till Feb 14th. Hop on the bangwagon while its free. Do it now! Login at http://www.tomonotomo.com"""
 
-html_message = dbutils.prepareEmail(contextdict, '', '', '', '')
+html_message = dbutils.prepareEmail(contextdict, '', '', '', '', spam=True)
 
 def send_ses(fromaddr,
              subject,
