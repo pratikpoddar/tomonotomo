@@ -63,7 +63,7 @@
                                 	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
                                     	<tbody><tr>
                                         	<td valign="top" width="280" class="leftColumnContent" style="border-collapse: collapse;background-color: #FFFFFF;">
-                                            
+						{% if lefttitle %}                                            
                                                 <!-- // Begin Module: Top Image with Content \ -->
                                                 <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                     <tbody><tr mc:repeatable="">
@@ -75,11 +75,12 @@
                                                         </td>
                                                     </tr>
                                                 </tbody></table>
+						{% endif %}
                                                 <!-- // End Module: Top Image with Content \ -->
                                             
                                             </td>
                                         	<td valign="top" width="280" class="rightColumnContent" style="border-collapse: collapse;background-color: #FFFFFF;">
-                                            
+                                            	{% if righttitle %}
                                                 <!-- // Begin Module: Top Image with Content \ -->
                                                 <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                     <tbody><tr mc:repeatable="">
@@ -93,7 +94,7 @@
                                                     </tr>
                                                 </tbody></table>
                                                 <!-- // End Module: Top Image with Content \ -->
-                                            
+                                            	{% endif %}
                                             </td>
                                         </tr>
                                     	<tr>

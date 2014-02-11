@@ -628,14 +628,28 @@ def historyFeedback (userid1, userid2):
 
 def prepareEmail(contextdict, userid, fofid, username, fofname):
 
-	contextdict['leftimage'] = "https://graph.facebook.com/"+str(userid)+"/picture?width=200&height=200"
-	contextdict['rightimage'] = "https://graph.facebook.com/"+str(fofid)+"/picture?width=200&height=200"
+	if userid=="":
+		contextdict['leftimage'] = ""
+	else:
+		contextdict['leftimage'] = "https://graph.facebook.com/"+str(userid)+"/picture?width=200&height=200"
+
+	if fofid=="":
+		contextdict['rightimage'] = ""
+	else:
+		contextdict['rightimage'] = "https://graph.facebook.com/"+str(fofid)+"/picture?width=200&height=200"
 	
 	contextdict['leftcontent'] = ""
 	contextdict['rightcontent'] = ""
 
-	contextdict['lefttitle']  = username
-	contextdict['righttitle'] = fofname
+	if username:
+		contextdict['lefttitle']  = username
+	else:
+		contextdict['lefttitle'] = None
+
+	if fofname:
+		contextdict['righttitle'] = fofname
+	else:
+		contextdict['righttitle'] = None
 
 	contextdict['leftid'] = userid
 	contextdict['rightid'] = fofid
