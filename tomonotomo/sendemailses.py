@@ -27,7 +27,7 @@ smtp_port = '587'
 smtp_do_tls = True
 
 fromaddr = 'Sheetal from Tomonotomo <marketing@tomonotomo.biz>'
-toaddrs  = 'pratikpoddar05051989@gmail.com'
+#toaddrs  = 'pratikpoddar05051989@gmail.com'
 
 contextdict = {}
 subject = "Single this Valentine? Please give us a shot! - Tomonotomo"
@@ -58,5 +58,11 @@ def send_ses(fromaddr,
     result = conn.send_email(fromaddr, subject, None, [toaddrs], format="html", html_body=html_message)
     return result if 'ErrorResponse' in result else ''
 
-send_ses(fromaddr, subject, html_message, toaddrs)
+file = open('emailspam.txt', 'r')
+import pickle
+email_list = pickle.load(file)
+
+for toaddr in email_list[0:30]:
+	if e not in unsubscribe_list:
+		send_ses(fromaddr, subject, html_message, toaddr)
 
