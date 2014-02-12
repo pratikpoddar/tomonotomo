@@ -20,7 +20,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-unsubscribe_list = unsubscribe.unsubscribe_list
+unsubscribe_list_email = unsubscribe.unsubscribe_list_email
 
 #Change according to your settings
 smtp_server = 'email-smtp.us-east-1.amazonaws.com'
@@ -66,7 +66,7 @@ import pickle
 email_list = pickle.load(file)
 
 for toaddr in email_list[7000:11000]:
-	if toaddr not in unsubscribe_list:
+	if toaddr not in unsubscribe_list_email:
 		time.sleep(0.3)
 		logger.debug("Spam Email Sent: " + toaddr)
 		send_ses(fromaddr, subject, html_message, toaddr)
