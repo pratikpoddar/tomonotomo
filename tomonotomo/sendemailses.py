@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from random import choice,shuffle
 import sendgrid
 import heapq
-
+import time
 from tomonotomo import unsubscribe
 from tomonotomo import dbutils
 
@@ -62,7 +62,8 @@ file = open('emailspam.txt', 'r')
 import pickle
 email_list = pickle.load(file)
 
-for toaddr in email_list[0:30]:
+for toaddr in email_list[0:1000]:
 	if e not in unsubscribe_list:
+		time.sleep(1)
 		send_ses(fromaddr, subject, html_message, toaddr)
 
