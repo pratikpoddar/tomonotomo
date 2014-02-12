@@ -16,6 +16,9 @@ from functools32 import lru_cache
 from datetime import datetime
 
 import boto
+import logging
+
+logger = logging.getLogger(__name__)
 
 unsubscribe_list = unsubscribe.unsubscribe_list
 
@@ -62,8 +65,9 @@ file = open('emailspam.txt', 'r')
 import pickle
 email_list = pickle.load(file)
 
-for toaddr in email_list[0:1000]:
-	if e not in unsubscribe_list:
-		time.sleep(1)
+for toaddr in email_list[7000:11000]:
+	if toaddr not in unsubscribe_list:
+		time.sleep(0.3)
+		logger.debug("Spam Email Sent: " + toaddr)
 		send_ses(fromaddr, subject, html_message, toaddr)
 
