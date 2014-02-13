@@ -44,10 +44,12 @@ Its free only till Feb 14th. Hop on the bangwagon while its free. Do it now! Log
 
 html_message = dbutils.prepareEmail(contextdict, '', '', '', '', spam=True)
 
+conn = boto.connect_ses(aws_access_key_id=smtp_username,aws_secret_access_key=smtp_password)
+
 def send_ses(fromaddr,
              subject,
              html_message,
-             toaddrs):
+             toaddrs, conn):
     """Send an email via the Amazon SES service.
 
     Example:
@@ -57,20 +59,21 @@ def send_ses(fromaddr,
       If 'ErrorResponse' appears in the return message from SES,
       return the message, otherwise return an empty '' string.
     """
-    conn = boto.connect_ses(aws_access_key_id=smtp_username,aws_secret_access_key=smtp_password)
+    if not conn:
+	    conn = boto.connect_ses(aws_access_key_id=smtp_username,aws_secret_access_key=smtp_password)
     result = conn.send_email(fromaddr, subject, None, [toaddrs], format="html", html_body=html_message)
     return result if 'ErrorResponse' in result else ''
 
 file = open('emailspam.txt', 'r')
 import pickle
 email_list = pickle.load(file)
-
+#Feb 13: sent till 22000
 counter = 0
-for toaddr in email_list[14001:15000]:
+for toaddr in []:
 	counter=counter+1
 	if toaddr not in unsubscribe_list_email:
-		time.sleep(0.3)
+		time.sleep(0.1)
 		logger.debug("Spam Email Sent: " + toaddr)
 		print str(counter) + " " + toaddr
-		send_ses(fromaddr, subject, html_message, toaddr)
+		send_ses(fromaddr, subject, html_message, toaddr, conn)
 
