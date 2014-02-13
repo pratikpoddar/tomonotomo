@@ -65,10 +65,12 @@ file = open('emailspam.txt', 'r')
 import pickle
 email_list = pickle.load(file)
 
-for toaddr in email_list[11001:14000]:
+counter = 0
+for toaddr in email_list[14001:15000]:
+	counter=counter+1
 	if toaddr not in unsubscribe_list_email:
 		time.sleep(0.3)
 		logger.debug("Spam Email Sent: " + toaddr)
-		print toaddr
+		print str(counter) + " " + toaddr
 		send_ses(fromaddr, subject, html_message, toaddr)
 
