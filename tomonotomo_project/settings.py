@@ -47,7 +47,7 @@ DATABASES = {
 }
 
 SESSION_COOKIE_DOMAIN = '.tomonotomo.com'
-
+CSRF_COOKIE_DOMAIN = None
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['tomonotomo.com','www.tomonotomo.com']
@@ -262,5 +262,5 @@ LOGIN_REDIRECT_URL = '/loggedin'
 LOGIN_ERROR_URL = '/loginerror'
 
 
-META_SITE_PROTOCOL = 'http'
+META_SITE_PROTOCOL = 'https'
 

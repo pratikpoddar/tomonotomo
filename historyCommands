@@ -1,0 +1,240 @@
+#######
+Installation
+#######
+sudo apt-get install python
+sudo apt-get install python-setuptools 
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+sudo apt-get build-dep python-mysqldb    
+sudo easy_install virtualenv
+virtualenv tomonotomo-virtualenv
+source tomonotomo-virtualenv/bin/activate
+pip install django
+pip install django-social-auth
+pip install facepy
+pip install django-meta
+pip install sendgrid
+pip install functools32
+pip install mysql-python
+pip install django_cron
+pip install django-live-profiler
+pip install simplejson
+
+#######
+Setting server and db
+#######
+
+Instead of postgres, do steps for mysql
+Install postgres, ngix, gunicorn, supervisor
+http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
+
+mysql -u root -p
+
+CREATE USER 'tomonotomo_user'@'localhost' IDENTIFIED BY '12345678';
+CREATE DATABASE tomonotomo_db CHARACTER SET utf8;
+GRANT ALL PREVILIGES ON tomonotomo_db.* TO tomonotomo_user@localhost;
+
+#######
+Supervisor Config File
+#######
+
+[program:tomonotomo]
+command = /home/ubuntu/gunicorn_tomonotomo_start 		      ; Command to start app
+user = ubuntu                                                         ; User to run as
+stdout_logfile = /home/ubuntu/gunicorn_tomonotomo_supervisor.log      ; Where to write log messages
+redirect_stderr = true                                                ; Save stderr in the same log
+
+#######
+Mount MySQL
+#######
+
+Moving Mysql to the new mount:
+http://aws.amazon.com/articles/1663
+
+#######
+File /etc/nginx/sites-available/tomonotomo
+#######
+
+upstream tomonotomo {
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response (in case the Unicorn master nukes a
+    # single worker for timing out).
+ 
+    server localhost:8000;
+}
+
+server {
+
+    access_log /home/ubuntu/tomonotomo-access.log;
+    error_log /home/ubuntu/tomonotomo-error.log debug;
+
+    server_name tomonotomo;
+    listen 443;
+    ssl on;
+
+    ssl_certificate /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+
+    #rewrite ^(.*) http://$host$1 permanent;
+
+    if ($host !~* ^(tomonotomo.com|www.tomonotomo.com)$ ) {
+        return 444;
+    }
+
+    location @proxy_to_tomonotomo_app {
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-Port $http_x_forwarded_port;
+        proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://tomonotomo;
+    }
+
+    location /robots.txt {
+        alias /home/ubuntu/tomonotomo/tomonotomo/robots.txt;
+    }
+
+    location / {
+        try_files $uri @proxy_to_tomonotomo_app;
+    }
+
+    location /static {
+        alias /home/ubuntu/tomonotomo/tomonotomo/static;
+    }
+
+    # No basic auth security on the heartbeat url, so that ELB can use it
+    location /heartbeat {
+        try_files $uri @proxy_to_tomonotomo_app;
+    }
+
+
+}
+
+server {
+    listen 80 default;
+  
+    if ($host !~* ^(tomonotomo.com|www.tomonotomo.com)$ ) {
+        return 444;
+    }
+
+    access_log /home/ubuntu/tomonotomo-access.log;
+    error_log /home/ubuntu/tomonotomo-error.log;
+
+    # Make site accessible from http://localhost/
+    server_name tomonotomo;
+
+    location @proxy_to_tomonotomo_app {
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-Port $http_x_forwarded_port;
+        proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://tomonotomo;
+    }
+
+    location /robots.txt {
+        alias /home/ubuntu/tomonotomo/tomonotomo/robots.txt;
+    }
+
+    location / {
+        try_files $uri @proxy_to_tomonotomo_app;
+    }
+
+    # No basic auth security on the heartbeat url, so that ELB can use it
+    location /heartbeat {
+        try_files $uri @proxy_to_tomonotomo_app;
+    }
+
+    location /static {
+        alias /home/ubuntu/tomonotomo/tomonotomo/static;
+    }
+
+}
+
+
+
+#######
+Change gunicorn_tomonotomo_start as follows:
+#######
+
+#!/bin/bash
+
+NAME="tomonotomo"                                  # Name of the application
+DJANGODIR=/home/ubuntu/tomonotomo/             # Django project directory
+USER=ubuntu                                       # the user to run as
+GROUP=ubuntu                                      # the group to run as
+NUM_WORKERS=3                                     # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE=tomonotomo_project.settings             # which settings file should Django use
+ACCESSFILE=/home/ubuntu/gunicorn-access.log
+ERRORFILE=/home/ubuntu/gunicorn-error.log
+LOGFILE=/home/ubuntu/gunicorn-log.log
+REDIRLOGFILE=/home/ubuntu/gunicorn-redir-log.log
+REDIRERRORFILE=/home/ubuntu/gunicorn-redir-error.log
+
+echo "Starting $NAME"
+ 
+# Activate the virtual environment
+cd $DJANGODIR
+source /home/ubuntu/tomonotomo-virtualenv/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+ 
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+gunicorn_django \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=debug \
+  --timeout=300 \
+  --access-logfile $ACCESSFILE \
+  --error-logfile $ERRORFILE \
+  --log-file $LOGFILE >> $REDIRLOGFILE 2> $REDIRERRORFILE
+
+#######
+Add a file named cronemail.sh
+#######
+
+rm -f /tmp/dbsummary/*
+wget -P /tmp/dbsummary http://www.tomonotomo.com/dbsummary?secret >/dev/null 2>&1
+html2text /tmp/dbsummary/dbsummary\?secret > /tmp/dbsummary/dbsummary_text
+cat /tmp/dbsummary/dbsummary_text | mail -s "Tomonotomo - Summary" pratik.phodu@gmail.com
+rm -f /tmp/dbsummary/*
+
+#######
+Add a file named cronjobs.sh
+#######
+
+#!/bin/bash
+
+source /home/ubuntu/tomonotomo-virtualenv/bin/activate
+now=$(date +"%D %T")
+echo "Current time: $now"
+python /home/ubuntu/tomonotomo/manage.py runcrons
+
+#######
+The file structure should be like
+#######
+
+(tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ ls 
+cronemail.sh  dead.letter          gunicorn-error.log        gunicorn-redir-log.log              historyCommands        tomonotomo-error.log
+cronjobs.sh   django_log           gunicorn-log.log          gunicorn_tomonotomo_start           tomonotomo             tomonotomo-virtualenv
+cron.log      gunicorn-access.log  gunicorn-redir-error.log  gunicorn_tomonotomo_supervisor.log  tomonotomo-access.log
+(tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ ls
+cronemail.sh  dead.letter          gunicorn-error.log        gunicorn-redir-log.log              historyCommands        tomonotomo-error.log
+cronjobs.sh   django_log           gunicorn-log.log          gunicorn_tomonotomo_start           tomonotomo             tomonotomo-virtualenv
+cron.log      gunicorn-access.log  gunicorn-redir-error.log  gunicorn_tomonotomo_supervisor.log  tomonotomo-access.log
+(tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ ls django_log/
+debug.log                debug.log.2013-09-27_14  debug.log.2013-09-28_02  debug.log.2013-09-28_12  debug.log.2013-09-29_00
+debug.log.2013-09-27_04  debug.log.2013-09-27_18  debug.log.2013-09-28_03  debug.log.2013-09-28_13  debug.log.2013-09-29_01
+debug.log.2013-09-27_05  debug.log.2013-09-27_19  debug.log.2013-09-28_04  debug.log.2013-09-28_17  debug.log.2013-09-29_02
+debug.log.2013-09-27_06  debug.log.2013-09-27_20  debug.log.2013-09-28_05  debug.log.2013-09-28_18  error.log
+debug.log.2013-09-27_08  debug.log.2013-09-27_21  debug.log.2013-09-28_06  debug.log.2013-09-28_19  error.log.2013-09-27_02
+debug.log.2013-09-27_09  debug.log.2013-09-27_22  debug.log.2013-09-28_07  debug.log.2013-09-28_20  error.log.2013-09-27_03
+debug.log.2013-09-27_10  debug.log.2013-09-27_23  debug.log.2013-09-28_08  debug.log.2013-09-28_21  error.log.2013-09-27_04
+debug.log.2013-09-27_11  debug.log.2013-09-28_00  debug.log.2013-09-28_10  debug.log.2013-09-28_22  error.log.2013-09-27_17
+debug.log.2013-09-27_13  debug.log.2013-09-28_01  debug.log.2013-09-28_11  debug.log.2013-09-28_23  error.log.2013-09-28_09
+(tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ ls tomonotomo
+LICENSE  manage.py  README.md  tomonotomo  tomonotomo_project
+(tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ 
+

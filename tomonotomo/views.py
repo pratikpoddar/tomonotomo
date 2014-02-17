@@ -20,12 +20,13 @@ from datetime import timedelta
 from datetime import date
 from profiling import profile, Profiler
 import pytz
+from django.views.decorators.csrf import csrf_exempt
 
 import logging
 
 logger = logging.getLogger(__name__)
 
-
+@csrf_exempt
 def index(request):
 
     if request.user.id:
@@ -51,6 +52,7 @@ def index(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def nomatchforyou(request):
     template = loader.get_template('tomonotomo/nomatchforyou.html')
@@ -62,6 +64,7 @@ def nomatchforyou(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def quotaover(request):
     template = loader.get_template('tomonotomo/quotaover.html')
@@ -74,6 +77,7 @@ def quotaover(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def quotaincrease(request):
 
@@ -82,6 +86,7 @@ def quotaincrease(request):
 
      return redirect('/fof')
 
+@csrf_exempt
 @login_required(login_url='index')
 def personalprofile(request):
 
@@ -142,6 +147,7 @@ def personalprofile(request):
 
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @profile 
 @login_required(login_url='index')
 def fofrandom(request):
@@ -174,6 +180,7 @@ def fofrandom(request):
 
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
+@csrf_exempt
 @profile
 @login_required(login_url='index')
 def profile(request, fbname, fbid):
@@ -314,7 +321,7 @@ def profile(request, fbname, fbid):
 
     return HttpResponse(template.render(context))
 
-
+@csrf_exempt
 def profileredir(request, fbid):    
     try:
         fbname = slugify(dbutils.getFullName(fbid))
@@ -326,6 +333,7 @@ def profileredir(request, fbid):
 
     return redirect('/profile/'+str(fbname)+'/'+str(fbid))
 
+@csrf_exempt
 def about(request):
 
     if request.user.id:
@@ -350,6 +358,7 @@ def about(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 def terms(request):
 
     if request.user.id:
@@ -374,6 +383,7 @@ def terms(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def loginerror(request):
 
@@ -399,6 +409,7 @@ def loginerror(request):
         })
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def loggedin(request):
 
@@ -460,6 +471,7 @@ def loggedin(request):
     context = RequestContext(request, dictin)
     return HttpResponse(template.render(context))
 
+@csrf_exempt
 @login_required(login_url='index')
 def tntAction(request, fbid, action, fbfriend):
     ##fbid = 717323242
@@ -512,7 +524,7 @@ def tntAction(request, fbid, action, fbfriend):
 
     return redirect('/fof')
 
-
+@csrf_exempt
 def dbsummary(request):
 
     logger.debug('dbsummary starts')
