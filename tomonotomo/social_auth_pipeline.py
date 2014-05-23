@@ -152,7 +152,7 @@ def create_custom_user(backend, details, user=None,
 
 	friendsregisteredontnt = list(set(friendsontnt) & set(map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))))
 	shuffle(list(set(friendsregisteredontnt)))
-	for friendontnt in friendsregisteredontnt[:10]:
+	for friendontnt in []:
 	    try:
 		dbutils.sendemailnotification(friendontnt, "One of your friends just joined tomonotomo", "One of your friends just joined tomonotomo to meet interesting friends of friends. We'll keep the name of your friend to ourselves out of respect for his privacy. A new friend is a good news for you as your friend of friend network just increased by "+ str(400 + randint(0,200)) + ", and you have a larger pool of potential dates. Congratulations and visit www.tomonotomo.com right away!")
 	    except Exception as e:

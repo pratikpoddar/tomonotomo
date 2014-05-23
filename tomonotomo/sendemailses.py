@@ -29,18 +29,14 @@ smtp_password = '1OUHQghbRW9KX0pWWsisOyo0hG6/c4mnr4Wogvzy'
 smtp_port = '587'
 smtp_do_tls = True
 
-fromaddr = 'Sheetal from Tomonotomo <marketing@tomonotomo.biz>'
-#toaddrs  = 'pratikpoddar05051989@gmail.com'
+fromaddr = 'Arya from Tomonotomo <marketing@tomonotomo.biz>'
+toaddrs  = 'pratik.poddar@facebook.com'
 
 contextdict = {}
-subject = "Single this Valentine? Please give us a shot! - Tomonotomo"
+subject = "A friend of your friend thinks you are cute!"
 contextdict['teaserline'] = subject
 contextdict['mailheading'] = subject
-contextdict['mailcontent'] = """Hey, This is Sheetal from New Delhi. We just launched a friend of friend dating website and it is getting huge traction in France, Spain and India. Requesting you to please give it a shot. Please visit http://www.tomonotomo.com (Tomonotomo) and let us know your thoughts. We blog at http://tomonotomo.wordpress.com . We believe that we are revolutionising the way dating happens. 
-
-Tomonotomo is short for 'tomodachi no tomodachi' which is japanese for 'Friends of Friends'. You see only profiles of friends of friends and only friends of friends see your profile. Its a gender balanced dating network (40-60 distribution). You contact the people you like in three ways: Ask friend to introduce, Contact friend of friend directly, and Just mention that you secretly admire a friend of friend. If he/she also feels the same way, we will connect you two after taking permission from you. Since, explicity or implicitly, there is always a common friend involved, the system ensures more safety, trust and friendliness. 
-
-Its free only till Feb 14th. Hop on the bangwagon while its free. Do it now! Login at http://www.tomonotomo.com"""
+contextdict['mailcontent'] = """Hey, A friend of your friend thinks you are cute. We have kept the identity confidential. We are a friend of friend dating website and it is getting huge traction in France, Spain and India. To figure out who thinks you are cute, register on Tomonotomo - http://www.tomonotomo.com."""
 
 html_message = dbutils.prepareEmail(contextdict, '', '', '', '', spam=True)
 
@@ -64,16 +60,24 @@ def send_ses(fromaddr,
     result = conn.send_email(fromaddr, subject, None, [toaddrs], format="html", html_body=html_message)
     return result if 'ErrorResponse' in result else ''
 
-file = open('emailspam.txt', 'r')
-import pickle
-email_list = pickle.load(file)
+#file = open('emailspam.txt', 'r')
+#import pickle
+#email_list = pickle.load(file)
 #Feb 13: sent till 22000
-counter = 0
-for toaddr in []:
+users = UserTomonotomo.objects.all()
+counter = 29363
+for user in users[29363:30000]:
+	try:
+		toaddr = user.username+'@facebook.com'
+	except:
+		toaddr = None
 	counter=counter+1
-	if toaddr not in unsubscribe_list_email:
-		time.sleep(0.1)
-		logger.debug("Spam Email Sent: " + toaddr)
-		print str(counter) + " " + toaddr
-		send_ses(fromaddr, subject, html_message, toaddr, conn)
+	if toaddr:
+		if toaddr not in unsubscribe_list_email:
+			if user.username.find('@')==-1:
+				if len(user.username)>2:
+					time.sleep(0.1)
+					logger.debug("Spam Email Sent: " + toaddr)
+					print str(counter) + " " + toaddr
+					send_ses(fromaddr, subject, html_message, toaddr, conn)
 
