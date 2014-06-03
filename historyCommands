@@ -238,3 +238,5 @@ debug.log.2013-09-27_13  debug.log.2013-09-28_01  debug.log.2013-09-28_11  debug
 LICENSE  manage.py  README.md  tomonotomo  tomonotomo_project
 (tomonotomo-virtualenv)ubuntu@ip-10-142-199-153:~$ 
 
+pip install django_compressor
+

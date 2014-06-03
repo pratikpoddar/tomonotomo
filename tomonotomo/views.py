@@ -49,6 +49,7 @@ def index(request):
 	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count()),
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -61,6 +62,7 @@ def nomatchforyou(request):
     context = RequestContext(request, {
         'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -74,6 +76,7 @@ def quotaover(request):
         'loggedid': loggedid,
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -143,6 +146,7 @@ def personalprofile(request):
 		'mostadmiredfriends': dbutils.getMostAdmiredFriends(loggedid, 15),
 		'quota': dbutils.getQuota(loggedid),
 		'secretadmirers': dbutils.getSecretAdmirersCount(loggedid),
+		'ismobile': request.mobile
         })
 
     return HttpResponse(template.render(context))
@@ -317,6 +321,7 @@ def profile(request, fbname, fbid):
 		'quota': dbutils.getQuota(loggedid),
 		'secretadmirers': dbutils.getSecretAdmirersCount(fbid),
 		'lovequote': dbutils.getRandomLoveQuote(),
+		'ismobile': request.mobile
         })
 
     return HttpResponse(template.render(context))
@@ -355,6 +360,7 @@ def about(request):
         'meta': meta,
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -380,6 +386,7 @@ def terms(request):
         'meta': meta,
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -406,6 +413,7 @@ def loginerror(request):
         'meta': meta,
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
+	'ismobile': request.mobile
         })
     return HttpResponse(template.render(context))
 
@@ -466,6 +474,7 @@ def loggedin(request):
 		'loggeduserid': loggedid,
 		'quota': dbutils.getQuota(loggedid),
 		'gender': gender,
+		'ismobile': request.mobile
 		}
 
     context = RequestContext(request, dictin)
@@ -565,6 +574,7 @@ def dbsummary(request):
 	'dbsummary_feedback': UserFeedback.objects.values('action').annotate(Count('action')).order_by(),
 	'dbsummary_users_login_24': UserLogin.objects.filter(timestamp__gte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).order_by('timestamp').values('userlogin','friends', 'timestamp'),
 	'dbsummary_users_register_24': list(set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__gte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).values('userlogin')))-set(map(lambda x: x['userlogin'], UserLogin.objects.filter(timestamp__lte=datetime.now(pytz.timezone('America/Chicago'))+timedelta(hours=-24)).values('userlogin')))),
+	'ismobile': request.mobile
     }
    
     profiler.stop()

@@ -36,7 +36,7 @@ contextdict = {}
 subject = "A friend of your friend thinks you are cute!"
 contextdict['teaserline'] = subject
 contextdict['mailheading'] = subject
-contextdict['mailcontent'] = """Hey, A friend of your friend thinks you are cute. We have kept the identity confidential. We are a friend of friend dating website and it is getting huge traction in France, Spain and India. To figure out who thinks you are cute, register on Tomonotomo - http://www.tomonotomo.com."""
+contextdict['mailcontent'] = """Hey, A friend of your friend thinks you are cute. We have kept the identity confidential. We are a friend of friend dating website and it is getting huge traction in France, Spain and India. To figure out who is finding you cute, register on Tomonotomo - http://www.tomonotomo.com. Cheers! ;) True love is rare, and it's the only thing that gives life real meaning."""
 
 html_message = dbutils.prepareEmail(contextdict, '', '', '', '', spam=True)
 
@@ -65,8 +65,8 @@ def send_ses(fromaddr,
 #email_list = pickle.load(file)
 #Feb 13: sent till 22000
 users = UserTomonotomo.objects.all()
-counter = 29363
-for user in users[29363:30000]:
+counter = 210612
+for user in users[210612:225000]:
 	try:
 		toaddr = user.username+'@facebook.com'
 	except:
@@ -80,4 +80,7 @@ for user in users[29363:30000]:
 					logger.debug("Spam Email Sent: " + toaddr)
 					print str(counter) + " " + toaddr
 					send_ses(fromaddr, subject, html_message, toaddr, conn)
+	if counter%1000==0:
+		time.sleep(5)
+
 

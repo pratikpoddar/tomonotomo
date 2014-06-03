@@ -109,6 +109,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder'
 )
 
 # Make this unique, and don't share it with anybody.
@@ -135,7 +136,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.common.BrokenLinkEmailsMiddleware'
     'tomonotomo_project.middleware.error500Middleware',
-   
+    'tomonotomo_project.minidetector.Middleware'
 )
 
 ROOT_URLCONF = 'tomonotomo_project.urls'
@@ -165,10 +166,12 @@ INSTALLED_APPS = (
     'social_auth',
     'functools32',
     'django_cron',
-    'south'
+    'south',
+    'compressor'
 )
 
 LOG_DIR='/home/ubuntu/django_log'
+COMPRESS_ROOT = '/home/ubuntu/tomonotomo/tomonotomo/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

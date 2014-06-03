@@ -1,0 +1,36 @@
+header {
+	padding: 20px 0px 0px;
+}
+
+.page1_block {
+	text-align:center;
+}
+
+.page1_block h2 {
+	margin-bottom: 10px;
+	font-size: 26px;
+	padding-top: 0px;
+	line-height: 25px;
+}
+
+.page1 h2 {
+	font-size: 26px;
+	line-height: 25px;
+}
+
+.page1_block .block {
+	margin-bottom: 2px;
+}
+
+#heading-tomonotomo {
+	font-size: 36px!important;
+}
+
+#login-tomonotomo {
+	padding-top: 12px!important;
+	padding-bottom: 15px!important;
+}
+
+#srcpage-tomonotomo {
+	display:none;
+}
