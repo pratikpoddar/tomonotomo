@@ -65,8 +65,8 @@ def send_ses(fromaddr,
 #email_list = pickle.load(file)
 #Feb 13: sent till 22000
 users = UserTomonotomo.objects.all()
-counter = 210612
-for user in users[210612:225000]:
+counter = 296848
+for user in users[296848:315000]:
 	try:
 		toaddr = user.username+'@facebook.com'
 	except:
