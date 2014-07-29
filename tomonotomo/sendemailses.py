@@ -65,22 +65,23 @@ def send_ses(fromaddr,
 #email_list = pickle.load(file)
 #Feb 13: sent till 22000
 users = UserTomonotomo.objects.all()
-counter = 296848
-for user in users[296848:315000]:
-	try:
-		toaddr = user.username+'@facebook.com'
-	except:
-		toaddr = None
-	counter=counter+1
-	if toaddr:
-		if toaddr not in unsubscribe_list_email:
-			if user.username.find('@')==-1:
-				if len(user.username)>2:
-					time.sleep(0.1)
-					logger.debug("Spam Email Sent: " + toaddr)
-					print str(counter) + " " + toaddr
-					send_ses(fromaddr, subject, html_message, toaddr, conn)
-	if counter%1000==0:
-		time.sleep(5)
-
+counter =454963
+#toaddr = 'ins-ptb023nk@isnotspam.com'
+#send_ses(fromaddr, subject, html_message, toaddr, conn)
+for user in users[454963:500000]:
+        try:
+                toaddr = user.username+'@facebook.com'
+        except:
+                toaddr = None
+        counter=counter+1
+        if toaddr:
+                if toaddr not in unsubscribe_list_email:
+                        if user.username.find('@')==-1:
+                                if len(user.username)>2:
+                                        time.sleep(0.1)
+                                        logger.debug("Spam Email Sent: " + toaddr)
+                                        print str(counter) + " " + toaddr
+                                        send_ses(fromaddr, subject, html_message, toaddr, conn)
+        if counter%1000==0:
+                time.sleep(5)
 
