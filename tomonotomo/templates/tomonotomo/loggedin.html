@@ -16,7 +16,8 @@
             <span style="font-size: 150%">"{{ degree1 }}"</span> friends in your network are on tomonotomo<br/><br/>
             {% if degree1|add:"0" > 3 %}
                 You have access to <span style="font-size: 150%">"{{ degree2 }}"</span> friends of friends.<br/><br/>
-                <a href="{% url "fofrandom" %}" class="btn btn-large" target="_blank"><h3 style="color:white">Start</h3></a>
+		<a href="#" class="btn btn-large" id="preparePotentialText1"><h3 style="color:white">Crunching potential matches... Few more seconds please...</h3></a>
+                <a href="{% url "fofrandom" %}" class="btn btn-large" target="_blank" id="preparePotentialText2" style="display:none"><h3 style="color:white">Start!</h3></a>		
 		<br/><br/>You will have access to far larger and enriched network if you have more friends on board.<br/><br/>
 		<a href="https://www.facebook.com/dialog/apprequests?app_id=1398031667088132&message=Connect%20to%20Friends%20of%20Friends%20-%20A%20new%20approach%20to%20online%20dating&redirect_uri=https://www.tomonotomo.com" class="btn btn-large"><h3 style="color:white">Invite Friends</h3></a>
             {%  else %}
@@ -58,6 +59,8 @@
 	  url: "{% url 'preparePotentialList' %}",
 	}).done(function() {
 	  console.log('Tomonotomo - Prepared Potenital List');
+	  $("#preparePotentialText1").hide();
+          $("#preparePotentialText2").show();	  
 	});
 
 </script>
