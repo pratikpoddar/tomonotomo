@@ -52,4 +52,13 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+
+	$.ajax({
+	  url: "{% url 'preparePotentialList' %}",
+	}).done(function() {
+	  console.log('Prepared Potenital List');
+	});
+
+</script>
 {% endblock %}

@@ -84,15 +84,9 @@ def getFriendsofFriends(fbid):
         return list(set(fofs))
 
 @profile
-@lru_cache(maxsize=16)
-def getPotentialFoFs(fbid, reqgender):
-
-	fofs = getFriendsofFriends(fbid)
-
-	if not reqgender==3:
-		fofs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(gender=reqgender).values('userid'))) & set(fofs))
-
-	return fofs
+def getFriendsofFriends_count(fbid):
+        fblist = getFriendsonTnT(fbid)
+        return UserFriends.objects.filter(userid__in=fblist).values('friendid').distinct().count()
 
 @profile
 def getBarredListCache(fbid):
@@ -180,18 +174,10 @@ def getPotentialList(fbid, reqgender):
 @profile
 def getRandFoF(fbid, reqgender):
 
-	print datetime.now()
- 
 	listofFoFs = getPotentialList(fbid, reqgender)
 	barredlist = getBarredList(fbid)
 
-	print datetime.now()
-
 	listofFoFs = list(set(listofFoFs)-set(barredlist))
-
- 	#listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-
-	print datetime.now()
 
 	if len(listofFoFs)==0:
  		logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid))
@@ -207,8 +193,6 @@ def getRandFoF(fbid, reqgender):
         if reqgender == 3:
                 minlimit=0
                 maxlimit=0
-
-	print datetime.now()
 
 	fofattempts = 0
 	if fbidage == "[Age N.A.]":
@@ -242,8 +226,6 @@ def getRandFoF(fbid, reqgender):
 		except Exception as e:
 			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
 			pass
-
-	print datetime.now()
 
 	logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid)) 
 	return 0

@@ -419,6 +419,28 @@ def loginerror(request):
 
 @csrf_exempt
 @login_required(login_url='index')
+def preparePotentialList(request):
+
+    if request.user.id:
+        loggedid = dbutils.getLoggedInUser(request)
+    else:
+        loggedid = 0
+
+    fbid = dbutils.getLoggedInUser(request)
+
+    gender = UserTomonotomo.objects.get(userid=loggedid).gender
+    reqgender = 3
+    if gender==1:
+        reqgender = 2
+    if gender==2:
+        reqgender = 1
+
+    dbutils.getPotentialList(loggedid, reqgender)
+
+    return HttpResponse('Prepared Potential List for ' + str(loggedid))
+
+@csrf_exempt
+@login_required(login_url='index')
 def loggedin(request):
 
     if request.user.id:
@@ -430,8 +452,8 @@ def loggedin(request):
     gender = UserTomonotomo.objects.get(userid=fbid).gender
     template = loader.get_template('tomonotomo/loggedin.html')
 
-    friendsonTnT = dbutils.getFriendsonTnT(fbid)
-    friendsoffriends = dbutils.getFriendsofFriends(fbid)
+    friendsonTnT_count = len(dbutils.getFriendsonTnT(fbid))
+    friendsoffriends_count = dbutils.getFriendsofFriends_count(fbid)
     number_new_introductions = UserHappening.objects.filter(userid=fbid, action=1).count()
     number_new_connect_directly = UserHappening.objects.filter(userid=fbid, action=2).count()
     number_new_admire = UserHappening.objects.filter(userid=fbid, action=3).count()
@@ -448,7 +470,7 @@ def loggedin(request):
 	userloggedin = UserTomonotomo.objects.get(userid=fbid)
         userlogin = UserLogin()
         userlogin.userlogin = userloggedin
-	userlogin.friends = len(friendsonTnT)
+	userlogin.friends = friendsonTnT_count
         userlogin.save()
     except Exception as e:
 	logger.exception('views.loggedin - error while saving login information in table UserLogin - error - '+str(e)+' - '+str(e.args))
@@ -464,8 +486,8 @@ def loggedin(request):
         title='tomonotomo - meet friends of friends'
     )
     dictin = {
-		'degree1': "{:,}".format(len(friendsonTnT)),
-		'degree2': "{:,}".format(len(friendsoffriends)),
+		'degree1': "{:,}".format(friendsonTnT_count),
+		'degree2': "{:,}".format(friendsoffriends_count),
 		'number_new_introductions': number_new_introductions,
 		'number_new_connect_directly': number_new_connect_directly,
 		'number_new_admire': number_new_admire,
