@@ -158,92 +158,75 @@ def getSadFoFs(fbid):
         return sadfof
 
 @profile
-@lru_cache(maxsize=128)
-def getPotentialList(fbid, reqgender):
-
-        fblist = getFriendsonTnT(fbid)
-        barredlist = getBarredList(fbid)
-        popularFoFs = getPopularFoFs(fbid)
-        secretadmirers = getSecretAdmirers(fbid)
-        loc = UserTomonotomo.objects.get(userid=fbid).location
-
-	listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__in=fblist).values('friendid'))))
-        listofFoFs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(userid__in=listofFoFs).filter(location__in=getNearLocation(loc)).values('userid'))))
-        # This is just to increase the probability that you see popular chicks and your secret admirers more
-        listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
-
-	listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-
-	return listofFoFs
-
-
-@profile
 def getRandFoF(fbid, reqgender):
 
-	print datetime.now()
- 
-	listofFoFs = getPotentialList(fbid, reqgender)
+	fblist = getFriendsonTnT(fbid)
 	barredlist = getBarredList(fbid)
+	popularFoFs = getPopularFoFs(fbid)
+	secretadmirers = getSecretAdmirers(fbid)
+	loc = UserTomonotomo.objects.get(userid=fbid).location
+	#allpeopleofsamelocation = getSameLocationPeople(location)
+	#if len(allpeopleofsamelocation) - len(barredlist) < 600:
+	#	allpeopleofsamelocation = getNearLocationPeople(location)
+	
+	fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
+	if reqgender == 1:
+		minlimit=fbidage-2
+		maxlimit=fbidage+5
+	if reqgender == 2:
+		minlimit=fbidage-5
+		maxlimit=fbidage+2
+	if reqgender == 3:
+		minlimit=0
+		maxlimit=0
+	
+	frndattempts = 0
+	while frndattempts < 60:
+		frndattempts+=1
+		shuffle(fblist)
+		listofFoFs = list(set(map(lambda x: x['friendid'], UserFriends.objects.filter(userid__userid__in=fblist[:4]).values('friendid'))))
+		listofFoFs = list(set(map(lambda x: x['userid'], UserTomonotomo.objects.filter(location__in=getNearLocation(loc)).filter(userid__in=listofFoFs).values('userid'))))
+		# This is just to increase the probability that you see popular chicks and your secret admirers more
+		listofFoFs = list(set(listofFoFs + popularFoFs + secretadmirers))
+		#listofFoFs = list(set(allpeopleofsamelocation) & set(listofFoFs))
+		listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
 
-	print datetime.now()
+		if len(listofFoFs)==0:
+			break
 
-	listofFoFs = list(set(listofFoFs)-set(barredlist))
-
- 	#listofFoFs = filter(lambda x: x not in barredlist, listofFoFs)
-
-	print datetime.now()
-
-	if len(listofFoFs)==0:
- 		logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid))
- 		return 0
-
-        fbidage = UserTomonotomo.objects.get(userid=fbid).get_age()
-        if reqgender == 1:
-                minlimit=fbidage-2
-                maxlimit=fbidage+5
-        if reqgender == 2:
-                minlimit=fbidage-5
-                maxlimit=fbidage+2
-        if reqgender == 3:
-                minlimit=0
-                maxlimit=0
-
-	print datetime.now()
-
-	fofattempts = 0
-	if fbidage == "[Age N.A.]":
-		while fofattempts < 500:
-			fofattempts+=1
-			chosen_id = choice(listofFoFs)
-			chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
-			if not chosen_user.relstatus==2:
-				if not reqgender==3:
-					if chosen_user.gender==reqgender:
-						return chosen_id
-				else:
-					return chosen_id
-
-
-	fofattempts = 0
-	if fbidage != "[Age N.A.]":
-	    while fofattempts < 500:
-		fofattempts+=1
-		try:
-			chosen_id = choice(listofFoFs)
-			chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
-			if chosen_user.get_age() != "[Age N.A.]":
-       				if minlimit <= int(chosen_user.get_age()) <= maxlimit:
-					if not chosen_user.relstatus==2:
-						if not reqgender==3:
-							if chosen_user.gender==reqgender:
-								return chosen_id
-						else:
+		fofattempts = 0
+		if fbidage == "[Age N.A.]":
+			while fofattempts < 300:
+				fofattempts+=1
+				chosen_id = choice(listofFoFs)
+				chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+				if not chosen_user.relstatus==2:
+					if not reqgender==3:
+						if chosen_user.gender==reqgender:
 							return chosen_id
-		except Exception as e:
-			logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
-			pass
+					else:
+						return chosen_id
 
-	print datetime.now()
+
+		fofattempts = 0
+		if fbidage != "[Age N.A.]":
+		    while fofattempts < 300:
+			fofattempts+=1
+			try:
+				chosen_id = choice(listofFoFs)
+				chosen_user = UserTomonotomo.objects.get(userid=chosen_id)
+				if chosen_user.get_age() != "[Age N.A.]":
+            				if minlimit <= int(chosen_user.get_age()) <= maxlimit:
+						if not chosen_user.relstatus==2:
+							if not reqgender==3:
+								if chosen_user.gender==reqgender:
+									return chosen_id
+							else:
+								return chosen_id
+			except Exception as e:
+				logger.exception("dbutils.getRandFoF - Exception while choosing random FoF - " + str(e) + " - " + str(e.args)) 
+				pass
+
 
 	logger.exception("dbutils.getRandFoF - Did not get a rand FoF for the user - " + str(fbid)) 
 	return 0
