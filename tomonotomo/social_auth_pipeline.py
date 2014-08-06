@@ -223,7 +223,8 @@ def saveLocation (locationid):
 				loc.latitude = locationjson['location']['latitude']
 				loc.longitude = locationjson['location']['longitude']
 				if loc.latitude and loc.longitude:
-					loc.save()
+					if UserLocation.objects.filter(locationid=locationid).count()==0:
+						loc.save()
 	except Exception as e:
 		logger.exception('saveLocation - error - locationid - ' + str(locationid) + ' - ' + str(e))
 		pass
@@ -343,7 +344,8 @@ def postProcessing(userid, accessToken):
 		raise
 
 	    try:
-            	userfriend.save()
+		if UserTomonotomo.objects.filter(userid=frienddata.get('uid')).count() == 0:
+	            	userfriend.save()
 	    except Exception as e:
 		logger.exception("social_auth_pipeline.postProcessing - Error saving userdata - " + str(e) + " - " + str(e.args))
 		raise
