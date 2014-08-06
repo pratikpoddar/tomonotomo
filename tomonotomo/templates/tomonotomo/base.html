@@ -105,24 +105,6 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 				<div class="clear"></div>
 			</div>
 		</div>
-    <!--
-		<div class="container_12">
-			<div class="grid_12">
-				<div class="menu_block">
-					<nav class="horizontal-nav full-width horizontalNav-processed" style="zoom: 1;">
-						<ul class="sf-menu sf-js-enabled" style="display: table; float: none; width: 100%;">
-							<li style="display: table-cell; float: none;"><a href="home">Home</a></li>
-							<li style="display: table-cell; float: none;"><a href="about">About</a></li>
-							<li style="display: table-cell; float: none;"><a href="join">Join</a></li>
-							<li style="display: table-cell; float: none;"><a href="blog">Blog</a></li>
-						</ul>
-						<div class="clearHorizontalNav" style="display: block; overflow: hidden; visibility: hidden; width: 0px; height: 0px; clear: both;"></div>
-					</nav>
-					<div class="clear"></div>
-				</div>
-			</div>
-		</div>
-	-->
 		<div class="container_12">
 			<div class="grid_12">
 			 
@@ -145,7 +127,17 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
 	<div class="container_12">Tomonotomo © 2013| <a href='{% url "index" %}'>Home</a> | <a href='{% url "about" %}'>About</a> | <a href='{% url "terms" %}'>Terms</a> | <a href='http://www.tomonotomo.wordpress.com'>Blog</a> </div>
 </footer>
 
-<script>
+<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");
+
+  {% if request.user.id %}
+        mixpanel.identify('{{ loggeduserid }}')
+  {% endif %}
+  mixpanel.track_links('a', 'click on link', {'referrer': document.referrer});
+
+
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -154,27 +146,6 @@ mixpanel.init("00870579855cee982a5cc4d3f13ca9b4");</script>
   ga('create', 'UA-43121582-1', 'tomonotomo.com');
   ga('send', 'pageview');
 
-  {% if request.user.id %}
-	mixpanel.identify('{{ loggeduserid }}')
-  {% endif %}
-  mixpanel.track_links('a', 'click on link', {'referrer': document.referrer});
-
 </script>
 
-<!--
-<script id="_webengage_script_tag" type="text/javascript">
-  var _weq = _weq || {};
-  _weq['webengage.licenseCode'] = '58add093';
-  _weq['webengage.widgetVersion'] = "4.0";
-  
-  (function(d){
-    var _we = d.createElement('script');
-    _we.type = 'text/javascript';
-    _we.async = true;
-    _we.src = (d.location.protocol == 'https:' ? "https://ssl.widgets.webengage.com" : "http://cdn.widgets.webengage.com") + "/js/widget/webengage-min-v-4.0.js";
-    var _sNode = d.getElementById('_webengage_script_tag');
-    _sNode.parentNode.insertBefore(_we, _sNode);
-  })(document);
-</script>
--->
 </body></html>
