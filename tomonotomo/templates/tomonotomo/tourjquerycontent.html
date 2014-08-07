@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+{% block tourjquerycontent %}
+
+    <script src="{% static 'tomonotomo/js/jquery.joyride-2.1.js' %}"></script>
+
+    <script>
+$(window).load(function() {
+  $("#joyRideTipContent").joyride({
+        autoStart : true,
+        modal: true,
+        expose: true,
+        'tipAnimation':'fade',
+        'tipAnimationFadeSpeed': 300
+        });
+});
+    </script>
+{% endblock %}

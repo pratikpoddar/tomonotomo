@@ -53,12 +53,16 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block jquerycontent %}
+
 <script type="text/javascript">
 
 	$.ajax({
 	  url: "{% url 'preparePotentialList' %}",
 	}).done(function() {
-	  console.log('Tomonotomo - Prepared Potenital List');
+	  console.log('Tomonotomo - Prepared Potential List');
 	  $("#preparePotentialText1").hide();
           $("#preparePotentialText2").show();	  
 	});

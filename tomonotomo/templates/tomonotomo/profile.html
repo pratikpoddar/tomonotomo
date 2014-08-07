@@ -3,7 +3,6 @@
 
 {% block bodycontent %}
 
-
 <style type="text/css">
 
       .friendbtn {
@@ -129,36 +128,6 @@
 			{% endif %}
 		{% endif %}
 
-                    <script type="text/javascript">
-
-                        $(window).load(function() {
-                           $('a[rel*=leanModal]').leanModal({ top : 80, closeButton: ".modal_close" });
-                            {% for deactivate in deactivateList %}
-                                $("#feedback".concat(({{ deactivate }}).toString())).addClass("inactivebtn");
-				$("#feedback".concat(({{ deactivate }}).toString())).unbind("click");
-                                $("#feedback".concat(({{ deactivate }}).toString())).removeAttr("href");
-				$("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').addClass('grid_4');
-				$("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').removeClass('grid_2');
-                            {% endfor %}
-		  	    {% for doneelement in doneList %}
-                                $("#feedback".concat(({{ doneelement }}).toString())).addClass("donebtn");
-                                $("#feedback".concat(({{ doneelement }}).toString())).unbind("click");
-                                $("#feedback".concat(({{ doneelement }}).toString())).removeAttr("href");
-                            {% endfor %}
-			   $(".friendbtn").live('click', function() { $(".friendbtn").attr('disabled','disabled')} );
-
-			   document.onkeydown = function() {
-    				switch (window.event.keyCode) {
-			        case 37:
-			            history.back();
-			            break;
-			        case 39:
-			            $(location).attr('href','http://www.tomonotomo.com/tntAction/{{ fbid }}/5/0');
-			            break;
-			    }
-};
-                        })
-                    </script>
                     <div>
                             {% for info in infoList %}
                                 <span>{{ info }}</span><br/>
@@ -227,10 +196,55 @@
 	<div class="container_12" style="text-align:center;max-width:70%">
 		<span style="text-wrap:normal;word-wrap:normal;">
 		{{ lovequote }} &nbsp;&nbsp; 
-		<!-- <a href="https://twitter.com/share" data-text="{{ lovequote }}" class="twitter-share-button" data-lang="en" data-count="none" data-dnt="true" data-url="none" data-related="tomonotomo_date" data-via="tomonotomo_date">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
 		</span>
 	</div>
+
+
+{% if notify_welcome %}
+        {% include "tomonotomo/tourhtmlcontent.html" %}
+	{% block tourhtmlcontent %} {% endblock %}
+{% endif %}
+
+{% endblock %}
+
+{% block jquerycontent %}
+
+	{% if notify_welcome %}
+             {% include "tomonotomo/tourjquerycontent.html" %}
+	     {% block tourjquerycontent %} {% endblock %}
+	{% endif %}
+
+                    <script type="text/javascript">
+
+                        $(window).load(function() {
+                           $('a[rel*=leanModal]').leanModal({ top : 80, closeButton: ".modal_close" });
+                            {% for deactivate in deactivateList %}
+                                $("#feedback".concat(({{ deactivate }}).toString())).addClass("inactivebtn");
+                                $("#feedback".concat(({{ deactivate }}).toString())).unbind("click");
+                                $("#feedback".concat(({{ deactivate }}).toString())).removeAttr("href");
+                                $("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').addClass('grid_4');
+                                $("#feedback".concat(({{ deactivate }}).toString())).parent().siblings('.grid_2').removeClass('grid_2');
+                            {% endfor %}
+                            {% for doneelement in doneList %}
+                                $("#feedback".concat(({{ doneelement }}).toString())).addClass("donebtn");
+                                $("#feedback".concat(({{ doneelement }}).toString())).unbind("click");
+                                $("#feedback".concat(({{ doneelement }}).toString())).removeAttr("href");
+                            {% endfor %}
+                           $(".friendbtn").live('click', function() { $(".friendbtn").attr('disabled','disabled')} );
+
+                           document.onkeydown = function() {
+                                switch (window.event.keyCode) {
+                                case 37:
+                                    history.back();
+                                    break;
+                                case 39:
+                                    $(location).attr('href','http://www.tomonotomo.com/tntAction/{{ fbid }}/5/0');
+                                    break;
+                            }
+};
+                        })
+                    </script>
+
 
 <script type="text/javascript">
 $(window).load(function(){
@@ -293,11 +307,6 @@ $(window).load(function(){
 	mixpanel.track_links('.gritter_light', 'click on gritter notification');
 	
 </script>
-
-{% if notify_welcome %}
-	{% include "tomonotomo/tour.html" %}
-	{% block tourcontent %} {% endblock %}
-{% endif %}
 
 {% endblock %}
 

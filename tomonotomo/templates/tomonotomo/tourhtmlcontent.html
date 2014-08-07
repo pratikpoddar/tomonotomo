@@ -1,8 +1,7 @@
 {% load staticfiles %}
-{% block tourcontent %}
 
+{% block tourhtmlcontent %}
     <link rel=" stylesheet" type="text/css" href="{% static 'tomonotomo/css/jquery.joyride-2.1.css' %}">
-    <script src="{% static 'tomonotomo/js/jquery.joyride-2.1.js' %}"></script>
     <style type="text/css">
 	.joyride-tip-guide {
 		color: #000!important;
@@ -94,17 +93,5 @@
         <p>Just be super passive and we will show you the next out of the list of 100s of potential dates we have :). Best of Luck!</p>
       </li>
     </ol>
-
-    <script>
-$(window).load(function() {
-  $("#joyRideTipContent").joyride({
-	autoStart : true,
-	modal: true,
-	expose: true,
-	'tipAnimation':'fade',
-	'tipAnimationFadeSpeed': 300
-	});
-});
-</script>
-
 {% endblock %}
+
