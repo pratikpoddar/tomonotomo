@@ -24,6 +24,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 import logging
 
+from random import randint
+
 logger = logging.getLogger(__name__)
 
 @csrf_exempt
@@ -522,7 +524,7 @@ def tntAction(request, fbid, action, fbfriend):
 
     if UserFeedback.objects.filter(userid=userinfo, fbid=fbid, action=action, timestamp__gte=date.today()).exclude(action=1).count() > 0:
 	if (action == 1) or (action == 2) or (action == 3):
-		return redirect('/profile/'+str(fbname)+'/'+str(fbid))
+		return redirect('/profile/'+str(fbname)+'/'+str(fbid)+'?rand='+str(randint(0,100)))
 	if (action == 4) or (action ==5):
 		return redirect('/fof')
 
@@ -540,7 +542,7 @@ def tntAction(request, fbid, action, fbfriend):
         #mutualfriendlist = dbutils.getMutualFriends(userid, fbid)
         dbutils.sendemailFoF(userid, fbid)
 	dbutils.updateUserHappening(fbid,action)
-	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
+	return redirect('/profile/'+str(fbname)+'/'+str(fbid)+'?rand='+str(randint(0,100)))
 
     if action == 3:
 	dbutils.updateUserHappening(fbid, action)
@@ -551,7 +553,7 @@ def tntAction(request, fbid, action, fbfriend):
 	except Exception as e:
 		logger.exception('views.tntAction - checking if there is a reverse feedback for cure - error - '+str(e)+' - '+str(e.args)) 
 		pass
-	return redirect('/profile/'+str(fbname)+'/'+str(fbid))
+	return redirect('/profile/'+str(fbname)+'/'+str(fbid)+'?rand='+str(randint(0,100)))
 
     return redirect('/fof')
 
