@@ -297,6 +297,7 @@ def postProcessing(userid, accessToken):
                 userfriend = UserTomonotomo.objects.get(userid=frienddata.get('uid'))
             except UserTomonotomo.DoesNotExist:
                 userfriend = UserTomonotomo()
+                userfriend.userid = frienddata.get('uid')
 
 	    try:	     
             	if frienddata.get('work'):
@@ -321,7 +322,6 @@ def postProcessing(userid, accessToken):
 			userfriend.relstatus = relstatusdict["not specified"]
 
             	userfriend.username = frienddata.get('username')
-            	userfriend.userid = frienddata.get('uid')
             
 	    	if frienddata.get('birthday'):
                 	try:
@@ -348,7 +348,7 @@ def postProcessing(userid, accessToken):
 	            	userfriend.save()
 	    except Exception as e:
 		logger.exception("social_auth_pipeline.postProcessing - Error saving userdata - " + str(e) + " - " + str(e.args))
-		raise
+		pass
 
         return
 
