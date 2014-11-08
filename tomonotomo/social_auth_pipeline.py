@@ -277,7 +277,8 @@ def postProcessing(userid, accessToken):
                 profilefriends.userid = userloggedin
                 profilefriends.friendid = frienddata.get('uid')
 		try:
-                	profilefriends.save()
+			if UserFriends.objects.filter(userid=userloggedin, friendid=frienddata.get('uid')).count()==0:
+				profilefriends.save()
 		except Exception as e:
 			logger.exception("social_auth_pipeline.postProcessing - Exception saving userfriends data - error - " + str(frienddata.get('uid')) + " - " + str(e.args))
 			pass
