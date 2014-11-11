@@ -17,7 +17,7 @@ class UserTomonotomo(models.Model):
 
     userid= models.BigIntegerField(null=False, unique=True, db_index=True)
     email= models.CharField(max_length=100L, null=True, db_index=True)
-    accesstoken= models.TextField( null=True)
+    accesstoken= models.TextField(null=True)
     expiresin= models.IntegerField(null=True)
     first_name= models.CharField(max_length=100L,null=True)
     last_name= models.CharField(max_length=100L,null=True)
@@ -65,6 +65,7 @@ class UserFriends(models.Model):
     friendid = models.BigIntegerField(null=False, db_index=True)
     class Meta:
         unique_together = (("userid", "friendid"),)
+	index_together = [["userid", "friendid"],]
 
 class UserFeedback(models.Model):
     userid= models.ForeignKey('UserTomonotomo', to_field='userid', null=False, db_index=True)
