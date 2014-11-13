@@ -27,63 +27,62 @@ genderdict = { "male":1, "female":2, "not specified":3 }
 relstatusdict = { "Single":1, "Engaged":2, "Married":2, "In a relationship":2, "It's complicated":3, "In an open relationship":3, "Widowed":3, "Separated":3, "Divorced":3, "In a civil union":3, "In a domestic partnership":3, "not specified":3 }
 
 @profile 
-def create_custom_user(backend, details, user=None, 
-                        user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
+def create_custom_user(backend, details, user=None, user_exists=UserSocialAuth.simple_user_exists, *args, **kwargs):
 
-        logger.debug("social_auth_pipeline.create_custom_user - Creating Custom User")
+	logger.debug("social_auth_pipeline.create_custom_user - Creating Custom User")
 
-        ## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
-        if kwargs['is_new'] == False:
+	## TODO: Make not updating condition stricter. stop only if (not new) and (updated in last 10 days)
+	if kwargs['is_new'] == False:
         	logger.debug("social_auth_pipeline.create_custom_user - Returning user " + str(user))
 	else:
-        	logger.debug("social_auth_pipeline.create_custom_user - Getting data for first time user " + str(user))
+		logger.debug("social_auth_pipeline.create_custom_user - Getting data for first time user " + str(user))
 
         if user is None:
-                logger.exception("social_auth_pipeline.create_custom_user - User came as None in the function create_custom_user")
-                return
-        if backend.__class__ != FacebookBackend:
-                return
+		logger.exception("social_auth_pipeline.create_custom_user - User came as None in the function create_custom_user")
+		return
+	if backend.__class__ != FacebookBackend:
+		return
 
-        res = kwargs['response']
+	res = kwargs['response']
 
 	logger.debug("social_auth_pipeline.create_custom_user - Getting/Updating data for userid " + res.get('id'))
 	logger.debug("social_auth_pipeline.create_custom_user - " + str(res))
 
-        try:
-            profile = UserTomonotomo.objects.get(userid=res.get('id'))
+	try:
+		profile = UserTomonotomo.objects.get(userid=res.get('id'))
         except UserTomonotomo.DoesNotExist:
-            profile = UserTomonotomo()
+		profile = UserTomonotomo()
 
-        profile.accesstoken = res.get('access_token')
-        profile.expiresin = res.get('expires')
-        if res.get('work'):
-                profile.work= getSanitizedWork(res['work'])
-        if res.get('education'):
-                profile.education= getSanitizedEducation(res['education'])
+	profile.accesstoken = res.get('access_token')
+	profile.expiresin = res.get('expires')
+	if res.get('work'):
+		profile.work= getSanitizedWork(res['work'])
+	if res.get('education'):
+		profile.education= getSanitizedEducation(res['education'])
         profile.email = res.get('email')
 	if not res.get('email'):
 		profile.email = str(res.get('username'))+"@facebook.com"
 		logger.info("social_auth_pipeline.create_custom_user - Email not found for user " + str(res.get('id')) + ". Using " + profile.email)
 		if not res.get('username'):
 			logger.exception("social_auth_pipeline.create_custom_user - Critical - Could neither get email nor username@facebook.com for user " + str(res.get('id')))
-        profile.first_name = res.get('first_name')
-        profile.last_name = res.get('last_name')
-        profile.gender = genderdict[res.get('gender') or "not specified"]
-        if res.get('hometown'):
-                profile.hometown = res.get('hometown').get('name')
-        if res.get('location'):
-                profile.location = res.get('location').get('name')
+	profile.first_name = res.get('first_name')
+	profile.last_name = res.get('last_name')
+	profile.gender = genderdict[res.get('gender') or "not specified"]
+	if res.get('hometown'):
+		profile.hometown = res.get('hometown').get('name')
+	if res.get('location'):
+		profile.location = res.get('location').get('name')
 		saveLocation(res.get('location').get('id'))
 	if res.get('relationship_status'):
 		profile.relstatus = relstatusdict[res.get('relationship_status') or "not specified"]
-        profile.username = res.get('username')
-        profile.userid = res.get('id')
+	profile.username = res.get('username')
+	profile.userid = res.get('id')
 
-        # "----"
+	# "----"
 
-        graph = GraphAPI(res.get('access_token'))
-        responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
-        profile.birthday = str(responsegraph.get('birthday'))
+	graph = GraphAPI(res.get('access_token'))
+	responsegraph = graph.get(str(res['id'])+'?fields=birthday,likes')
+	profile.birthday = str(responsegraph.get('birthday'))
 	try:
 		if responsegraph.get('likes'):
 			# TODO: Gets interests only if interests are not there. Need to change this.
@@ -92,26 +91,26 @@ def create_custom_user(backend, details, user=None,
 	except Exception as e:
 		logger.exception("social_auth_pipeline.create_custom_user - Error getting likes for user " + str(res.get('id')))
 
-        profile.save()
-
-        # "----"
-
-        userloggedin = UserTomonotomo.objects.get(userid=res['id'])
+	profile.save()
 
 	# "----"
 
-        try:
-            userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
-        except UserProcessing.DoesNotExist:
-            userprocessing = UserProcessing()
-            userprocessing.userloggedin = userloggedin
-        except UserProcessing.MultipleObjectsReturned:
-            userprocessing = userProcessing()
-            userprocessing.userloggedin = userloggedin
+	userloggedin = UserTomonotomo.objects.get(userid=res['id'])
 
-        userprocessing.accesstoken = res.get('access_token')
+	# "----"
 
-        userprocessing.save()
+	try:
+		userprocessing = UserProcessing.objects.get(userloggedin=userloggedin)
+	except UserProcessing.DoesNotExist:
+		userprocessing = UserProcessing()
+		userprocessing.userloggedin = userloggedin
+	except UserProcessing.MultipleObjectsReturned:
+		userprocessing = userProcessing()
+		userprocessing.userloggedin = userloggedin
+
+	userprocessing.accesstoken = res.get('access_token')
+
+	userprocessing.save()
 
 	# "----"
 
@@ -125,43 +124,43 @@ def create_custom_user(backend, details, user=None,
 
 	# "----"
 
-        friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
-        peopleontnt = UserTomonotomo.objects.values('userid')
+	friendlist = graph.fql('SELECT uid2 FROM friend where uid1=me()')
+	peopleontnt = UserTomonotomo.objects.values('userid')
 
-        friendsontnt = list(set(map(lambda x: int(x['uid2']), friendlist.get('data'))) & set(map(lambda x: x['userid'], peopleontnt)))
+	friendsontnt = list(set(map(lambda x: int(x['uid2']), friendlist.get('data'))) & set(map(lambda x: x['userid'], peopleontnt)))
 	
-        for friendontnt in friendsontnt:
-            try:
-                profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=friendontnt)
-            except UserFriends.DoesNotExist:
-                profilefriends = UserFriends()
-                profilefriends.userid = userloggedin
-                profilefriends.friendid = friendontnt
+	for friendontnt in friendsontnt:
 		try:
-	                profilefriends.save()
-		except Exception as e:
-			logger.exception('social_auth_pipeline.create_custom_user - error - seeing which friends are on tnt ' + str(e))
-			pass
+			profilefriends = UserFriends.objects.get(userid=userloggedin, friendid=friendontnt)
+		except UserFriends.DoesNotExist:
+			profilefriends = UserFriends()
+			profilefriends.userid = userloggedin
+			profilefriends.friendid = friendontnt
+			try:
+				profilefriends.save()
+			except Exception as e:
+				logger.exception('social_auth_pipeline.create_custom_user - error - seeing which friends are on tnt ' + str(e))
+				pass
 
-        if kwargs['is_new']==False:
-                logger.debug("social_auth_pipeline.create_custom_user - completed for returning user " + str(res.get('id')))
+	if kwargs['is_new']==False:
+		logger.debug("social_auth_pipeline.create_custom_user - completed for returning user " + str(res.get('id')))
 		return
-        else:
+	else:
 		logger.debug("social_auth_pipeline.create_custom_user - completed for first time user " + str(userloggedin))
 
 
 	friendsregisteredontnt = list(set(friendsontnt) & set(map(lambda x: x['userid'], UserTomonotomo.objects.exclude(email=None).values('userid'))))
 	shuffle(list(set(friendsregisteredontnt)))
 	for friendontnt in []:
-	    try:
-		dbutils.sendemailnotification(friendontnt, "One of your friends just joined tomonotomo", "One of your friends just joined tomonotomo to meet interesting friends of friends. We'll keep the name of your friend to ourselves out of respect for his privacy. A new friend is a good news for you as your friend of friend network just increased by "+ str(400 + randint(0,200)) + ", and you have a larger pool of potential dates. Congratulations and visit www.tomonotomo.com right away!")
-	    except Exception as e:
-		logger.exception("social_auth_pipeline.create_custom_user - error in sendemailnotification " + str(e) + str(friendontnt))
-		pass
+		try:
+			dbutils.sendemailnotification(friendontnt, "One of your friends just joined tomonotomo", "One of your friends just joined tomonotomo to meet interesting friends of friends. We'll keep the name of your friend to ourselves out of respect for his privacy. A new friend is a good news for you as your friend of friend network just increased by "+ str(400 + randint(0,200)) + ", and you have a larger pool of potential dates. Congratulations and visit www.tomonotomo.com right away!")
+		except Exception as e:
+			logger.exception("social_auth_pipeline.create_custom_user - error in sendemailnotification " + str(e) + str(friendontnt))
+			pass
 	
-        # "----"
+	# "----"
 
-        return
+	return
 
 def getSanitizedEducation (educationProfile):
         """ Helper function to get education profile as a structured string """
@@ -346,7 +345,7 @@ def postProcessing(userid, accessToken):
 
 	    try:
 		if UserTomonotomo.objects.filter(userid=frienddata.get('uid')).count() == 0:
-	            	userfriend.save()
+			userfriend.save()
 	    except Exception as e:
 		logger.exception("social_auth_pipeline.postProcessing - Error saving userdata - " + str(e) + " - " + str(e.args))
 		pass
