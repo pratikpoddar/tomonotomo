@@ -33,12 +33,16 @@
 			<br/>
 			<h2>Connect with Friends of Friends</h2>
             <h3>We are revolutionising the way you meet new people online. Be a part of it.<br/><span style="font-size:140%;color:#302b32">{{ usersdatalen }}</span> men and women are here already</span></h3><br/>
+		{% comment %}
 			{% if not request.user.id %}
                 <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="btn btn-large" target="_blank"><h3 style="color:white">Connect via Facebook</h3></a><br/><br/>
                 <h3>We don't post anything on your wall!</h3>
             {% else %}
                 <a href="{% url 'loggedin' %}" class="btn btn-large"><h3 style="color:white">Start Exploring</h3></a><br/><br/>
             {% endif %}
+		{% endcomment %}
+                <a href="#" class="btn btn-large"><h3 style="color:white">Tomonotomo shut down on 14 Feb 2015</h3></a><br/><br/>
+
 		</div>
 	</div>
 </div>

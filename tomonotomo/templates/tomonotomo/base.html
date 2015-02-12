@@ -68,11 +68,14 @@
 			<div class="grid_12">
 				<div id="heading-tomonotomo" style="font-size:44px;color:black;vertical-align:bottom;white-space:nowrap"><a href="/home">tomo-no-tomo</a></div>
 				<div id="login-tomonotomo" class="links" style="padding-top:24px;text-align:left">
+					We are sad to shut down tomonotomo
+					{% comment %}
 					{% if request.user.id %}
 						<a href="/profile" target="_blank">{{ request.user.first_name }}</a> - <a href="/logout">Logout</a> - {{ quota }} Quota Points <img style="width:20px;height:20px" src="{% static 'tomonotomo/img/credits.gif' %}"/> 
 					{% else %}
 						Have an account? <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" target="_blank">Sign in</a> or <a href="{% url "socialauth_begin" "facebook" %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" target="_blank">Sign up</a>
 					{% endif %}
+					{% endcomment %}
 				</div>
 				<div class="clear"></div>
 			</div>
