@@ -48,7 +48,7 @@ def index(request):
     template = loader.get_template('tomonotomo/index.html')
     context = RequestContext(request, {
         'meta': meta,
-	'usersdatalen': "{:,}".format(UserTomonotomo.objects.count()),
+	'usersdatalen': "{:,}".format(654568),
 	'loggeduserid': loggedid,
 	'quota': dbutils.getQuota(loggedid),
 	'ismobile': request.mobile
